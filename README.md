@@ -2,7 +2,7 @@ Design interactif — ECV Bordeaux — 2016 / 2017
 ===============================================
 
 ## Projet Mollat
-Le projet est de présenter une installation interactive pour la vitrine « Beaux Arts » de la librairie Mollat.
+Le projet est de présenter une installation interactive pour la vitrine « Beaux Arts » de la librairie Mollat (rue Porte Dijeaux)
 Cette exposition sera centrée autour du thème du **portrait** en proposant aux spectateurs un miroir dynamique dans lequel leur apparence
 sera transformée ou augmentée en temps réel. La scénographie de cette vitrine sera composée à priori de trois éléments principaux : 
 * **un écran** diffusant les créations en boucle en invitant le spectateur à approcher.
