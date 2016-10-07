@@ -39,6 +39,7 @@ Ce type de machines a été utilisée par les artistes utilisant la programmatio
 * Julien Gachadoat — [Delaunay man](https://www.flickr.com/photos/v3ga/15820575937/in/dateposted-public/)
 
 ### Intervenants
+* Julien Gachadoat de [2Roqs](http://www.2roqs.fr)
 * Benjamin Ribeau de [Kubik](http://kubik.fr/) : scénographie vitrine + station Ausone.
 * [Mark Webster](http://mwebster.flavors.me/) : impressions avec le traceur SAM.
 
