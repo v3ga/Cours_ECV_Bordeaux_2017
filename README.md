@@ -36,7 +36,11 @@ Ce type de machines a été utilisée par les artistes utilisant la programmatio
 * Zachary Lieberman — https://www.instagram.com/p/BDlMXqlpNuW/
 * Kyle McDonald — [Face substitution](https://vimeo.com/29348533)
 * Mario Kinglemann — [Google experiments](https://www.fastcodesign.com/3062016/this-neural-network-makes-human-faces-from-scratch-and-theyre-terrifying) + [ici](http://prostheticknowledge.tumblr.com/post/147652093136/neural-network-portraits-examples-of-images-from)
+
+* Daniel Shiffman — [Face it syllabus @ ITP](https://github.com/shiffman/Face-It)
+* Golan Levin — [workshop @ Carnegie](Mellon http://golancourses.net/2013/category/project-1/face-osc/)
 * Julien Gachadoat — [Delaunay man](https://www.flickr.com/photos/v3ga/15820575937/in/dateposted-public/)
+* Julien Gachadoat — [Visages](http://www.v3ga.net/blog2/2014/03/visages/)
 
 ### Intervenants
 * Julien Gachadoat de [2Roqs](http://www.2roqs.fr)
@@ -58,10 +62,16 @@ Ce type de machines a été utilisée par les artistes utilisant la programmatio
 Par rapport à l'année dernière, les séances auront lieu sur des temps d'ateliers d'une journée plutôt que des cours pour se focaliser sur 
 le processus d'expérimentations. Ces séances auront lieu **de début octobre jusqu'à fin novembre**.
 
-Un temps de résidence sera organisé **au mois de janvier** avant l'accrochage en vitrine. La date reste à déterminer. 
+Un temps de résidence sera organisé **au mois de janvier** avant l'accrochage en vitrine, la semaine du 3 Janvier. 
 
 <a name="cours01" />
 ## Cours #01 — redémarrer ou setupagain() — Vendredi 7 octobre
 * Prise en main de Processing, différence avec p5.js
 * Révisions des notions : gestionnaires setup() / draw(), variables, boucles, conditions
 * Utilisation de la caméra dans Processing
+
+## Atelier #01 - détection de visage - Jeudi 20 octobre
+* gestion de la caméra avec Processing.
+* traitement d'images avec Processing: 
+ * réduction dynamique
+
