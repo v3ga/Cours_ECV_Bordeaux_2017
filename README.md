@@ -45,6 +45,7 @@ Ce type de machines a été utilisée par les artistes utilisant la programmatio
 * Golan Levin — [Segmentation and symptom](http://www.flong.com/projects/zoo/)
 
 #### Ateliers / Conférences
+* Kyle MacDonald — [Appropriating new technologies week 2](https://github.com/kylemcdonald/AppropriatingNewTechnologies/wiki/Week-2)
 * Daniel Shiffman — [Face it syllabus @ ITP](https://github.com/shiffman/Face-It)
 * Golan Levin — [workshop @ Carnegie](Mellon http://golancourses.net/2013/category/project-1/face-osc/)
 * Julien Gachadoat — [Visages](http://www.v3ga.net/blog2/2014/03/visages/)
