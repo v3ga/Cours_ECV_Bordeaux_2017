@@ -36,7 +36,10 @@ Ce type de machines a été utilisée par les artistes utilisant la programmatio
 * Zachary Lieberman — https://www.instagram.com/p/BDlMXqlpNuW/
 * Kyle McDonald — [Face substitution](https://vimeo.com/29348533)
 * Mario Kinglemann — [Google experiments](https://www.fastcodesign.com/3062016/this-neural-network-makes-human-faces-from-scratch-and-theyre-terrifying) + [ici](http://prostheticknowledge.tumblr.com/post/147652093136/neural-network-portraits-examples-of-images-from)
+<<<<<<< HEAD
 
+=======
+>>>>>>> d5f18c88cc3e7a006a4efaff0dda7e68708cf715
 * Daniel Shiffman — [Face it syllabus @ ITP](https://github.com/shiffman/Face-It)
 * Golan Levin — [workshop @ Carnegie](Mellon http://golancourses.net/2013/category/project-1/face-osc/)
 * Julien Gachadoat — [Delaunay man](https://www.flickr.com/photos/v3ga/15820575937/in/dateposted-public/)
@@ -71,7 +74,10 @@ Un temps de résidence sera organisé **au mois de janvier** avant l'accrochage 
 * Utilisation de la caméra dans Processing
 
 ## Atelier #01 - détection de visage - Jeudi 20 octobre
-* gestion de la caméra avec Processing.
+* gestion de la caméra avec Processing
+  * installation de la librairie vidéo, type de données Capture.
 * traitement d'images avec Processing: 
- * réduction dynamique
-
+  * redimensionnement
+  * traitement de l'image pixel <-> motif géométrique dynamique
+* utilisation de [FaceOSC](https://github.com/kylemcdonald/ofxFaceTracker/releases)   
+  * [templates / exemples](https://github.com/CreativeInquiry/FaceOSC-Templates/tree/master/processing)  
