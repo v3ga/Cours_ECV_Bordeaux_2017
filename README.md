@@ -36,7 +36,6 @@ Ce type de machines a été utilisée par les artistes utilisant la programmatio
 * Zachary Lieberman — https://www.instagram.com/p/BDlMXqlpNuW/
 * Kyle McDonald — [Face substitution](https://vimeo.com/29348533)
 * Mario Kinglemann — [Google experiments](https://www.fastcodesign.com/3062016/this-neural-network-makes-human-faces-from-scratch-and-theyre-terrifying) + [ici](http://prostheticknowledge.tumblr.com/post/147652093136/neural-network-portraits-examples-of-images-from)
-
 * Daniel Shiffman — [Face it syllabus @ ITP](https://github.com/shiffman/Face-It)
 * Golan Levin — [workshop @ Carnegie](Mellon http://golancourses.net/2013/category/project-1/face-osc/)
 * Julien Gachadoat — [Delaunay man](https://www.flickr.com/photos/v3ga/15820575937/in/dateposted-public/)
