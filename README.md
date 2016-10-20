@@ -70,7 +70,10 @@ Un temps de résidence sera organisé **au mois de janvier** avant l'accrochage 
 * Utilisation de la caméra dans Processing
 
 ## Atelier #01 - détection de visage - Jeudi 20 octobre
-* gestion de la caméra avec Processing.
+* gestion de la caméra avec Processing
+  * installation de la librairie vidéo, type de données Capture.
 * traitement d'images avec Processing: 
- * réduction dynamique
-
+  * redimensionnement
+  * traitement de l'image pixel <-> motif géométrique dynamique
+* utilisation de [FaceOSC](https://github.com/kylemcdonald/ofxFaceTracker/releases)   
+  * [templates / exemples](https://github.com/CreativeInquiry/FaceOSC-Templates/tree/master/processing)  
