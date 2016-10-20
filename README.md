@@ -29,6 +29,8 @@ Ce type de machines a été utilisée par les artistes utilisant la programmatio
 * Github dédié au projet : https://github.com/FreeArtBureau/SAM/tree/master/PROJET_MOLLAT
 
 ### Références
+#### Projets
+* YesYesNo — Mas que la cara project / [Instagram](https://www.instagram.com/explore/tags/masquelacara/) + http://weingartenartgroup.com/portfolio/mas-que-la-cara-more-than-the-face/
 * Raven Kwok — [Sans titre](https://www.facebook.com/ravenkwok.art/videos/606638642830167/)
 * Generative gestaltung — [P_4_3_2_01](http://www.generative-gestaltung.de/P_4_3_2_01)
 * Generative gestaltung — [P_4_3_1_01](http://www.generative-gestaltung.de/P_4_3_1_01)
@@ -36,14 +38,20 @@ Ce type de machines a été utilisée par les artistes utilisant la programmatio
 * Zachary Lieberman — https://www.instagram.com/p/BDlMXqlpNuW/
 * Kyle McDonald — [Face substitution](https://vimeo.com/29348533)
 * Mario Kinglemann — [Google experiments](https://www.fastcodesign.com/3062016/this-neural-network-makes-human-faces-from-scratch-and-theyre-terrifying) + [ici](http://prostheticknowledge.tumblr.com/post/147652093136/neural-network-portraits-examples-of-images-from)
-<<<<<<< HEAD
+* Julien Gachadoat — [Delaunay man](https://www.flickr.com/photos/v3ga/15820575937/in/dateposted-public/)
 
-=======
->>>>>>> d5f18c88cc3e7a006a4efaff0dda7e68708cf715
+#### Images
+* Golan Levin — [Flocular portraits](http://www.flong.com/projects/floccugraph/)
+* Golan Levin — [Segmentation and symptom](http://www.flong.com/projects/zoo/)
+
+#### Ateliers / Conférences
 * Daniel Shiffman — [Face it syllabus @ ITP](https://github.com/shiffman/Face-It)
 * Golan Levin — [workshop @ Carnegie](Mellon http://golancourses.net/2013/category/project-1/face-osc/)
-* Julien Gachadoat — [Delaunay man](https://www.flickr.com/photos/v3ga/15820575937/in/dateposted-public/)
 * Julien Gachadoat — [Visages](http://www.v3ga.net/blog2/2014/03/visages/)
+
+#### Autres
+* Onformative — [Google faces](http://onformative.com/work/google-faces)
+* Nithi Prasanpanich — [Miami horror](https://nithi-p.github.io/finalproject/)
 
 ### Intervenants
 * Julien Gachadoat de [2Roqs](http://www.2roqs.fr)
