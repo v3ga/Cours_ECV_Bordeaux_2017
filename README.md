@@ -30,6 +30,7 @@ Ce type de machines a été utilisée par les artistes utilisant la programmatio
 
 ### Références
 #### Projets
+* [Faces in media art](https://github.com/kylemcdonald/AppropriatingNewTechnologies/wiki/Faces-in-Media-Art)
 * YesYesNo — Mas que la cara project / [Instagram](https://www.instagram.com/explore/tags/masquelacara/) + http://weingartenartgroup.com/portfolio/mas-que-la-cara-more-than-the-face/
 * Raven Kwok — [Sans titre](https://www.facebook.com/ravenkwok.art/videos/606638642830167/)
 * Generative gestaltung — [P_4_3_2_01](http://www.generative-gestaltung.de/P_4_3_2_01)
