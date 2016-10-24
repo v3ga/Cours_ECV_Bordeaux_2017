@@ -44,6 +44,7 @@ Ce type de machines a été utilisée par les artistes utilisant la programmatio
 #### Images
 * Golan Levin — [Flocular portraits](http://www.flong.com/projects/floccugraph/)
 * Golan Levin — [Segmentation and symptom](http://www.flong.com/projects/zoo/)
+* Sergio Albiac — http://www.sergioalbiac.com/index.html
 
 #### Ateliers / Conférences
 * Kyle MacDonald — [Appropriating new technologies week 2](https://github.com/kylemcdonald/AppropriatingNewTechnologies/wiki/Week-2)
