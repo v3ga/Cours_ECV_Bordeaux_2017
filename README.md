@@ -92,3 +92,8 @@ Un temps de résidence sera organisé **au mois de janvier** avant l'accrochage 
   * traitement de l'image pixel <-> motif géométrique dynamique
 * utilisation de [FaceOSC](https://github.com/kylemcdonald/ofxFaceTracker/releases)   
   * [templates / exemples](https://github.com/CreativeInquiry/FaceOSC-Templates/tree/master/processing)  
+  
+## Atelier #02 - Jeudi 27 octobre
+* idées autour de la représentation du visage
+* échanges autour de la scénographie
+* démarrage de l'implémentation des séquences avec le sketch **sketch_08_mollat_template**  
