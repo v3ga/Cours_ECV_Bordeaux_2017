@@ -95,5 +95,10 @@ Un temps de résidence sera organisé **au mois de janvier** avant l'accrochage 
   
 ## Atelier #02 - Jeudi 27 octobre
 * idées autour de la représentation du visage
-* échanges autour de la scénographie
+* échanges autour de la scénographie de la vitrine et de la station Ausone.
 * démarrage de l'implémentation des séquences avec le sketch **sketch_08_mollat_template**  
+
+À faire pour le Lundi 14 novembre : 
+* maquette graphique pour la scénographie en vitrine
+* trois images / rendus pour pour le traitement d'un visage
+
