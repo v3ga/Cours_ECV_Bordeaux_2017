@@ -36,7 +36,7 @@ void setup()
   faceOSC = new FaceOSC(this, oscP5);
   
   // Scenes
-  sceneManager.add( new SceneEmily() );
+  //sceneManager.add( new SceneEmily() );
 }
 
 // --------------------------------------------
@@ -66,46 +66,15 @@ public void draw()
         scene.update();
         scene.draw();
       }
-/*      
-      PImage imageVisageCompute = faceOSC.getImageVisageCompute();
-      if (imageVisageCompute != null)
-      {
-        imageVisageCompute.loadPixels();
-
-        float b = 0.0;
-        float angle = 0.0;
-        float xx = 0.0;
-        float yy = 0.0;
-
-        float stepx = width / imageVisageCompute.width;
-        float stepy = height / imageVisageCompute.height;
-
-        float longueur = 30;
-
-        stroke(255);
-        for (int y = 0; y < imageVisageCompute.height; y++) 
-        {
-          for (int x = 0; x < imageVisageCompute.width; x++) 
-          {
-            b = 1.0-brightness( imageVisageCompute.get(x, y) ) / 255.0;
-
-            xx = x*stepx;
-            yy = y*stepy;
-
-            angle = map(b, 0.0, 1.0, 0, TWO_PI);
-            // Motif à dessiner
-            line( xx+stepx/2, yy+stepy/2, xx+stepx/2+longueur*cos(angle), yy+stepy/2+longueur*sin(angle) );
-          }
-        }
-      }
-*/
   }
     else
     {
-      tint(255, 255);
+/*      tint(255, 255);
       if (imageVisage != null)
         image(imageVisage, 0, 0, width, height);
-    
+*/
+      faceOSC.drawFrameSyphon();
+      faceOSC.drawFaceBounding();
     }
     
     

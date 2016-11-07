@@ -5,9 +5,14 @@ class FaceOSC
 
   // Face data retrieved from OSC
   Face face;
-
+  
+  // Position + Dimension of syphon image on window / screen space
   PVector posFaceScreen = new PVector();
   PVector dimFaceScreen = new PVector();
+
+  // Position of bounding box portrait on screen
+  PVector posBoundingPortraitScreen = new PVector();
+  PVector dimBoundingPortraitScreen = new PVector();
 
   // Syphon
   SyphonClient client;
@@ -24,6 +29,11 @@ class FaceOSC
   // Image of face relative to the bounding box
   PImage imageVisage;
   PImage imageVisageCompute;
+
+  // Zoom
+  float zoom = 1.0f;
+  float zoomTarget = 1.0f;
+  float zoomMax = 1.0f;
 
   // --------------------------------------------
   FaceOSC(PApplet applet, OscP5 osc)
@@ -81,7 +91,31 @@ class FaceOSC
   // --------------------------------------------------------------
   void update()
   {
+    // Update boundings in syphon frame space
     face.updateBounding();
+
+    // Compute boundings portrait in window space
+    float scaleScreen = dimFaceScreen.x/dimFrameSyphon.x;
+    posBoundingPortraitScreen.set(
+      posFaceScreen.x + scaleScreen * face.boundingPortrait.position.x, 
+      posFaceScreen.y + scaleScreen * face.boundingPortrait.position.y      
+    );
+    dimBoundingPortraitScreen.set(
+      scaleScreen * face.boundingPortrait.dimension.x,
+      scaleScreen * face.boundingPortrait.dimension.y
+    );
+    
+    // Zoom
+    zoomTarget = 1.0f;
+    if (face.found > 0)
+    {
+      float wScreen = dimFaceScreen.x/dimFrameSyphon.x * face.boundingPortrait.dimension.x;
+      zoomTarget = float(width) / wScreen;
+      zoomMax = zoomTarget;
+    }
+    zoom += (zoomTarget-zoom)*0.1;
+
+
     if (imageVisage == null) return;
     int xSrc = (int) face.boundingPortrait.position.x;
     int ySrc = (int) face.boundingPortrait.position.y;
@@ -101,17 +135,27 @@ class FaceOSC
   {
     if (frameSyphon !=null)
     {
-      image(frameSyphon, posFaceScreen.x, posFaceScreen.y, dimFaceScreen.x, dimFaceScreen.y);
-    }
+      //if (face.found>0)
+      { 
+        float f = map(zoom,1,zoomMax,0,1);
+        float x = zoom*posFaceScreen.x - f*zoom*posBoundingPortraitScreen.x;
+        float y = zoom*posFaceScreen.y - f*zoom*posBoundingPortraitScreen.y;
+        
+       image(frameSyphon, x, y, zoom*dimFaceScreen.x, zoom*dimFaceScreen.y);
+    }}
   }
 
   // --------------------------------------------------------------
   void drawFaceBounding()
   {
+    pushStyle();
     pushMatrix();
-    scale(dimFaceScreen.x/dimFrameSyphon.x, dimFaceScreen.y/dimFrameSyphon.y);
-    face.boundingPortrait.draw();
+    translate(posBoundingPortraitScreen.x, posBoundingPortraitScreen.y);
+    noFill();
+    stroke(0,200,0);
+    rect(0,0,dimBoundingPortraitScreen.x,dimBoundingPortraitScreen.y);
     popMatrix();
+    popStyle();
   }
 
   // --------------------------------------------------------------

@@ -29,8 +29,10 @@ class Face
 
   // --------------------------------------------
   // Bounding 
-  // relative to frameSyphon (640,480)
+  // relative to syphon frame (640,480)
+  // Bounding of mesh points
   BoundingBox bounding = new BoundingBox();
+  // bounding bigger than bounding
   BoundingBox boundingPortrait = new BoundingBox(); 
 
   // --------------------------------------------
