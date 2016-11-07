@@ -98,7 +98,7 @@ Un temps de résidence sera organisé **au mois de janvier** avant l'accrochage 
 * échanges autour de la scénographie de la vitrine et de la station Ausone.
 * démarrage de l'implémentation des séquences avec le sketch **sketch_08_mollat_template**  
 
-À faire pour le Lundi 14 novembre : 
+À faire pour **le Lundi 14 novembre avant midi** : 
 * maquette graphique pour la scénographie en vitrine
-* trois images / rendus pour pour le traitement d'un visage
+* trois images / rendus pour pour le traitement d'un visage + moodboard recherches graphiques
 
