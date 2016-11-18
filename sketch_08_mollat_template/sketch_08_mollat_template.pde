@@ -1,11 +1,13 @@
 // --------------------------------------------
 import codeanticode.syphon.*;
+import controlP5.*;
 import oscP5.*;
 import netP5.*;
 
+
 // --------------------------------------------
-// Options
-boolean bDrawMotifs = false;
+// Variables
+PApplet applet;
 
 // --------------------------------------------
 // link with FaceOSC software
@@ -20,72 +22,68 @@ OscP5 oscP5;
 SceneManager sceneManager = new SceneManager();
 
 // --------------------------------------------
+// Debug
+boolean __DEBUG__ = false;
+
+
+// --------------------------------------------
 void settings () 
 {
-  size(600, 800, P3D);
+  size(900, 1200, P3D);
   PJOGL.profile = 1;
 }
 
 // --------------------------------------------
 void setup() 
 {
+  // applet
+  applet = this;
+  
   // osc
   oscP5 = new OscP5(this, 8338);
 
   // Face osc
   faceOSC = new FaceOSC(this, oscP5);
-  
+
   // Scenes
-  //sceneManager.add( new SceneEmily() );
+  sceneManager.add( new SceneEmily() );
+  sceneManager.add( new SceneGrid("Grid") );
+  sceneManager.add( new SceneMycelium() );
+  sceneManager.add( new SceneTypo() );
+
+  sceneManager.setup();
+  sceneManager.select("Typo");
 }
 
 // --------------------------------------------
 public void draw() 
 {    
-  // Data update
+  // Face update
   faceOSC.updateFrameSyphon();
   faceOSC.update();
 
-  // Drawing
-  if (faceOSC.isFaceFound())
+  if (__DEBUG__)
   {
     background(0);
-    
-    PImage imageVisage = faceOSC.getImageVisage();
-    
-    Scene scene = sceneManager.get("SceneEmily");
-    
-    if (bDrawMotifs)
-    {
-      tint(255, 100);
-      if (imageVisage != null)
-        image(imageVisage, 0, 0, width, height);
 
-      if (scene !=null)
-      {
-        scene.update();
-        scene.draw();
-      }
-  }
-    else
-    {
-/*      tint(255, 255);
-      if (imageVisage != null)
-        image(imageVisage, 0, 0, width, height);
-*/
-      faceOSC.drawFrameSyphon();
-      faceOSC.drawFaceBounding();
-    }
-    
-    
+    faceOSC.drawFrameSyphonZoom();    
+    faceOSC.drawImageGrid();    
+
+    //      faceOSC.drawFaceBounding();
+    faceOSC.drawFaceImages();
   } else
   {
-    faceOSC.drawFrameSyphon();
-    /*    faceOSC.drawFaceFeatures();
-     faceOSC.drawFaceBounding();
-     faceOSC.draw();
-     */
+    // Scene
+    Scene sceneCurrent = sceneManager.getCurrent();
+    if (sceneCurrent != null)
+    {
+      sceneCurrent.update();
+      sceneCurrent.draw();
+    }
   }
+
+  fill(255);
+  text(faceOSC.getStateAsString() + ", zoom="+faceOSC.zoom, 10, 20);
 }
 
 // --------------------------------------------
@@ -95,10 +93,23 @@ void oscEvent(OscMessage m)
     faceOSC.parseOSC(m);
 }
 
+// --------------------------------------------
+void mouseMoved()
+{
+  Scene sceneCurrent = sceneManager.getCurrent();
+  if (sceneCurrent !=null)
+    sceneCurrent.mouseMoved();
+}
+
+// --------------------------------------------
+void mousePressed()
+{
+  Scene sceneCurrent = sceneManager.getCurrent();
+  if (sceneCurrent !=null)
+    sceneCurrent.mousePressed();
+}
 
 // --------------------------------------------
 void keyPressed()
 {
-  if (key == 'm')
-    bDrawMotifs = !bDrawMotifs;
 }

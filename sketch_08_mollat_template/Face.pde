@@ -7,6 +7,7 @@ class Face
 
   // --------------------------------------------
   // pose
+  // relative to syphon frame (640,480)
   float poseScale;
   PVector posePosition = new PVector();
   PVector poseOrientation = new PVector();
@@ -32,8 +33,13 @@ class Face
   // relative to syphon frame (640,480)
   // Bounding of mesh points
   BoundingBox bounding = new BoundingBox();
-  // bounding bigger than bounding
+  // bounding with extra borders
   BoundingBox boundingPortrait = new BoundingBox(); 
+  BoundingBox boundingPortraitTight = new BoundingBox();  // with no borders
+  
+  BoundingBox boundingPose = new BoundingBox();
+
+  float boundingPortraitBorders = 70.0;
 
   // --------------------------------------------
   int[] faceOutline = { 
@@ -75,6 +81,12 @@ class Face
     initMesh2();
     oscP5.plug(this, "loadMesh", "/raw");
     oscP5.plug(this, "loadMeshImg", "/raw_img");
+  }
+
+  // --------------------------------------------
+  void setBoundingPortraitBorders(float b)
+  {
+    boundingPortraitBorders = b;
   }
 
   // --------------------------------------------
@@ -136,17 +148,34 @@ class Face
   // --------------------------------------------
   void updateBounding()
   {
+    // Bounding if syphon screen
     bounding.compute(meshPoints);
 
+    // Bounding in window space
     boundingPortrait = bounding.copy();
+    boundingPortraitTight = bounding.copy();
 
-    
     float wBounding = bounding.dimension.x;
     float hBoundingPortrait = wBounding * 4/3;
     float hDelta = hBoundingPortrait - bounding.dimension.y;
-    boundingPortrait.dimension.y = hBoundingPortrait;
-    boundingPortrait.position.y -= hDelta;
+
+    boundingPortraitTight.dimension.y = hBoundingPortrait;
+
+    boundingPortraitTight.position.y -= hDelta;
+    boundingPortraitTight.center.set(boundingPortrait.position.x+0.5*boundingPortrait.dimension.x, boundingPortrait.position.y+0.5*boundingPortrait.dimension.y);
+        
+    float borders = boundingPortraitBorders;
+    
+    boundingPortrait.dimension.x += borders;
+    boundingPortrait.dimension.y = hBoundingPortrait + borders;
+
+    boundingPortrait.position.x -= 0.5*borders;
+    boundingPortrait.position.y += -hDelta - 0.5*borders;
     boundingPortrait.center.set(boundingPortrait.position.x+0.5*boundingPortrait.dimension.x, boundingPortrait.position.y+0.5*boundingPortrait.dimension.y);
+
+    boundingPose.dimension.set( boundingPortrait.dimension );
+    boundingPose.position.set( posePosition.x - 0.5*boundingPortrait.dimension.x,  posePosition.y - 0.5*boundingPortrait.dimension.y);
+
   }
 
   // --------------------------------------------

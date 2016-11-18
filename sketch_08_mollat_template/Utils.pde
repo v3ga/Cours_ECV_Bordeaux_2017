@@ -1,3 +1,18 @@
+void drawGrid(float cellw, float cellh)
+{
+  pushStyle();
+  stroke(200,0,0,50);
+  for (float y=0; y < height; y = y+cellh)
+  {
+    line(0, y, width, y);
+  }
+  for (float x=0; x < width; x = x+cellw)
+  {
+    line(x, 0, x, height);
+  }   
+  popStyle();
+}
+
 // --------------------------------------------
 class Triangle 
 {
@@ -5,7 +20,7 @@ class Triangle
   PVector b;
   PVector c;
 }
-  
+
 // --------------------------------------------
 class BoundingBox
 {
@@ -19,7 +34,7 @@ class BoundingBox
     bounding.position.set(this.position);
     bounding.dimension.set(this.dimension);
     bounding.center.set(this.center);
-    
+
     return bounding;
   }
 
@@ -29,18 +44,18 @@ class BoundingBox
     float xmax = -10000;
     float ymin = 10000;
     float ymax = -10000;
-  
+
     PVector p;
-    for (int i=0;i<points.length;i++){
+    for (int i=0; i<points.length; i++) {
       p = points[i];
       if (p.x < xmin) xmin = p.x;
       if (p.x > xmax) xmax = p.x;
       if (p.y < ymin) ymin = p.y;
       if (p.y > ymax) ymax = p.y;
     }
-    
-    position.set(xmin,ymin);
-    dimension.set(xmax-xmin,ymax-ymin);
+
+    position.set(xmin, ymin);
+    dimension.set(xmax-xmin, ymax-ymin);
     center.set(position.x+0.5*dimension.x, position.y+0.5*dimension.y);
   }
 
@@ -48,9 +63,9 @@ class BoundingBox
   {
     pushStyle();
     noFill();
-    stroke(0,200,0);
-    rect(position.x,position.y,dimension.x,dimension.y);
-    ellipse(center.x,center.y,5,5);
+    stroke(0, 200, 0);
+    rect(position.x, position.y, dimension.x, dimension.y);
+    ellipse(center.x, center.y, 5, 5);
     popStyle();
   }
 }
