@@ -102,3 +102,10 @@ Un temps de résidence sera organisé **au mois de janvier** avant l'accrochage 
 * maquette graphique pour la scénographie en vitrine
 * trois images / rendus pour pour le traitement d'un visage + moodboard recherches graphiques
 
+## Atelier #03 - Jeudi 17 novembre
+* travail sur la scénographie en vitrine, propositions
+* développement de l'application et intégration des effets.
+
+## Atelier #04 - Vendredi 2 décembre
+
+
