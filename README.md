@@ -22,6 +22,8 @@ Ce type de machines a été utilisée par les artistes utilisant la programmatio
 ![SAM](https://c8.staticflickr.com/6/5612/29774928991_cabf60127a_m.jpg)
 ![SAM](https://c2.staticflickr.com/9/8306/29124170841_6a88f20956_m.jpg)
 ![SAM](https://c2.staticflickr.com/6/5080/29984061465_d340c89cb2_m.jpg)
+![SAM](https://c2.staticflickr.com/9/8271/29650895553_a435137225_c.jpg)
+![SAM](https://c2.staticflickr.com/9/8603/29650896033_03c99104d0_c.jpg)
 
 * Site web du projet : http://www.samdraws.fabprojects.codes/
 * Photos : https://www.flickr.com/photos/tisane_01/sets/72157645344025569/with/28856205243/
