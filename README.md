@@ -12,7 +12,8 @@ sera transformée ou augmentée en temps réel. La scénographie de cette vitrin
 D'autre part la [station Ausone](http://www.station-ausone.com/) sera aussi investie comme lieu de résidence pour préparer l'exposition en vitrine et présenter aussi au public
 le processus de fabrication des affiches au public. Le lieu fera l'objet d'une scénographie particulière en lien direct avec la vitrine. 
 
-![Interface](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/Mollat_vitrine_beaux_arts.jpg)
+![Vitrine](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/Mollat_vitrine_beaux_arts.jpg)
+![Station](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/station_ausone.jpg)
 
 ### SAM
 SAM est une machine à dessiner qui a été développée et produite à l’[ESAD Amiens](http://www.esad-amiens.fr/) par **Mark Webster** et **Victor Jean Meunier**. 
