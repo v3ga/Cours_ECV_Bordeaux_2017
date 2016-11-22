@@ -108,6 +108,11 @@ Un temps de résidence sera organisé **au mois de janvier** avant l'accrochage 
 * travail sur la scénographie en vitrine, propositions
 * développement de l'application et intégration des effets.
 
+![Interface](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_interactive_mollat_benedicte_alice - copie.jpg)
+![Interface](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_interactive_mollat_lea_lea.jpg)
+![Interface](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_interactive_mollat_thibaut_max.jpg)
+
+
 ## Atelier #04 - Vendredi 2 décembre
 
 
