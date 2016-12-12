@@ -48,6 +48,7 @@ Ce type de machines a été utilisée par les artistes utilisant la programmatio
 * Golan Levin — [Flocular portraits](http://www.flong.com/projects/floccugraph/)
 * Golan Levin — [Segmentation and symptom](http://www.flong.com/projects/zoo/)
 * Sergio Albiac — http://www.sergioalbiac.com/index.html
+* Fernand Dutilleux - [Broken line portraits](http://fernand-dutilleux.tumblr.com/post/139787471029/broken-line-portraits-made-with-processing)
 
 #### Ateliers / Conférences
 * Kyle MacDonald — [Appropriating new technologies week 2](https://github.com/kylemcdonald/AppropriatingNewTechnologies/wiki/Week-2)
