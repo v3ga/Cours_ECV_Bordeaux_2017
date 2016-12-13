@@ -116,7 +116,8 @@ Un temps de résidence sera organisé **au mois de janvier** avant l'accrochage 
 
 
 ## Atelier #04 - Mardi 13 décembre
-* prototypage, ajustements de paramètres depuis l'interface.
+* choix d'une shortlist de noms, travail sur le logotype.
+* prototypage, ajustements de paramètres depuis l'interface sur les différents sketchs.
 
 ![Proto](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_proto_alice.jpg)
 ![Proto](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_proto_matthieu.jpg)
