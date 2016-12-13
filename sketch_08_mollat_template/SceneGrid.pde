@@ -101,6 +101,10 @@ class SceneGrid extends Scene
 
         pushStyle();
         fill(0);
+        
+        m_cellw = float(width) / float(imageVisageCompute.width);
+        m_cellh = float(height) / float(imageVisageCompute.height);
+        
         for (int j = 0; j < imageVisageCompute.height; j++) 
         {
           for (int i = 0; i < imageVisageCompute.width; i++) 
@@ -164,7 +168,7 @@ class SceneGrid extends Scene
     
     if (m_iOver > - 1 && m_jOver > -1)
     {
-      m_grid[m_iOver][m_jOver] = m_grid[m_iOver][m_jOver] == 0 ? 1 : 0;
+//      m_grid[m_iOver][m_jOver] = m_grid[m_iOver][m_jOver] == 0 ? 1 : 0;
     }
   }
 }
