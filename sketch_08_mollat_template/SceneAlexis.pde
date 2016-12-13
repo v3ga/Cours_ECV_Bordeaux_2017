@@ -1,23 +1,21 @@
 // ==================================================
 // ==================================================
-class SceneEmily extends SceneGridSVG
+class SceneAlexis extends Scene
 {
-
   // --------------------------------------------
-  SceneEmily(String name)
+  SceneAlexis()
   {
-    super(name);
+    super("Alexis_Max");
   }
 
   // --------------------------------------------
 }
 
-
 // ==================================================
 // ==================================================
-class ToolEmily extends Tool
+class ToolAlexis extends Tool
 {  
-  ToolEmily(PApplet p)
+  ToolAlexis(PApplet p)
   {
     super(p);
   }
@@ -26,15 +24,13 @@ class ToolEmily extends Tool
   // --------------------------------------------------------------------
   public String getId()
   {
-    return "__ToolEmily__";
+    return "__ToolAlexis__";
   }
 
   // --------------------------------------------------------------------
   // --------------------------------------------------------------------
   void initControls()
   {
-    initTab("emily", "Emily & Anna");
-
-    // Slider sliderFrame = cp5.addSlider("frame").moveTo(tabName).addListener(this).setValue(1.0).setPosition(100, 23);
+    initTab("alexis", "Alexis & Max");
   }
 }

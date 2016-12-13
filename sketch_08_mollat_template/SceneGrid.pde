@@ -1,10 +1,10 @@
+// ==================================================
+// ==================================================
 class SceneGrid extends Scene
 {
   int[][] m_grid;
   float m_cellw, m_cellh;
   int m_iOver, m_jOver;
-  float m_alphaBackground = 0.0;
-  float m_alphaBackgroundTarget = 0.0;
 
   // --------------------------------------------
   SceneGrid(String name)
@@ -35,14 +35,8 @@ class SceneGrid extends Scene
           }
       }
     }
-
-    // Alpha background
-    if (faceOSC.state == FaceOSC.STATE_REST || faceOSC.state == FaceOSC.STATE_ZOOMING)
-      m_alphaBackgroundTarget = 0.0f;
-    else if (faceOSC.state == FaceOSC.STATE_ZOOMED)
-      m_alphaBackgroundTarget = 255.0f;
-
-    m_alphaBackground += (m_alphaBackgroundTarget - m_alphaBackground)*0.2;
+    
+    updateAlphaBackground();
   }
 
   // --------------------------------------------
@@ -166,6 +160,8 @@ class SceneGrid extends Scene
   // --------------------------------------------
   void mousePressed()
   {
+    if (m_grid == null) return;
+    
     if (m_iOver > - 1 && m_jOver > -1)
     {
       m_grid[m_iOver][m_jOver] = m_grid[m_iOver][m_jOver] == 0 ? 1 : 0;

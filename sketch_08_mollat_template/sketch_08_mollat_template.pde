@@ -3,11 +3,22 @@ import codeanticode.syphon.*;
 import controlP5.*;
 import oscP5.*;
 import netP5.*;
-
+import punktiert.math.*;
+import punktiert.physics.*;
+import de.looksgood.ani.*;
+import de.looksgood.ani.easing.*;
+import org.processing.wiki.triangulate.*;
 
 // --------------------------------------------
-// Variables
+// Variables globales
 PApplet applet;
+int screenWidth = 900;
+int screenHeight = 1600;
+/*
+int screenWidth = 600;
+int screenHeight = 800;
+*/
+float screenRatio = float(screenWidth) / float(screenHeight);
 
 // --------------------------------------------
 // link with FaceOSC software
@@ -22,14 +33,27 @@ OscP5 oscP5;
 SceneManager sceneManager = new SceneManager();
 
 // --------------------------------------------
-// Debug
-boolean __DEBUG__ = false;
+// Tools
+ToolManager toolManager;
+ControlP5 cp5;
 
+// --------------------------------------------
+// Debug
+boolean __DEBUG__ = true;
+boolean __DEBUG_IMAGES__ = true;
+boolean __DEBUG_BOUNDINGS__ = true;
+boolean __DEBUG_FEATURES__ = true;
+boolean __DEBUG_INFOS__ = true;
+
+String strDebugInfos = "";
 
 // --------------------------------------------
 void settings () 
 {
-  size(900, 1200, P3D);
+  println("-- settings()");
+  println("- screenRatio = "+screenRatio);
+
+  size(screenWidth, screenHeight, P3D);
   PJOGL.profile = 1;
 }
 
@@ -39,6 +63,9 @@ void setup()
   // applet
   applet = this;
   
+  // Libs
+  Ani.init(this);
+
   // osc
   oscP5 = new OscP5(this, 8338);
 
@@ -46,44 +73,65 @@ void setup()
   faceOSC = new FaceOSC(this, oscP5);
 
   // Scenes
-  sceneManager.add( new SceneEmily() );
-  sceneManager.add( new SceneGrid("Grid") );
-  sceneManager.add( new SceneMycelium() );
-  sceneManager.add( new SceneTypo() );
+  sceneManager.add( new SceneThibaut("Thibaut_Maxime") );
+  sceneManager.add( new SceneLea("Lea_Lea") );
+  sceneManager.add( new SceneBenedicte("Benedicte_Alice") );
+  sceneManager.add( new SceneEmily("Emily_Anna") );
 
   sceneManager.setup();
-  sceneManager.select("Typo");
+  sceneManager.select("Thibaut_Maxime");
+
+  // Init controls
+  initControls();
 }
 
 // --------------------------------------------
 public void draw() 
 {    
-  // Face update
-  faceOSC.updateFrameSyphon();
+  // Update stuff
+  boolean hasNewFrame = faceOSC.updateFrameSyphon();
   faceOSC.update();
+  toolManager.update();
 
-  if (__DEBUG__)
+  // Draw
+  background(0,0,0);
+
+  // Scene
+  Scene sceneCurrent = sceneManager.getCurrent();
+  if (sceneCurrent != null)
   {
-    background(0);
-
-    faceOSC.drawFrameSyphonZoom();    
-    faceOSC.drawImageGrid();    
-
-    //      faceOSC.drawFaceBounding();
-    faceOSC.drawFaceImages();
-  } else
-  {
-    // Scene
-    Scene sceneCurrent = sceneManager.getCurrent();
-    if (sceneCurrent != null)
-    {
-      sceneCurrent.update();
-      sceneCurrent.draw();
-    }
+    if (hasNewFrame)
+      sceneCurrent.onNewFrame();
+    sceneCurrent.update();
+    sceneCurrent.draw();
   }
 
-  fill(255);
-  text(faceOSC.getStateAsString() + ", zoom="+faceOSC.zoom, 10, 20);
+  // Debug
+  if (__DEBUG__)
+  {
+    if (__DEBUG_IMAGES__)    faceOSC.drawFaceImages();
+    if (__DEBUG_BOUNDINGS__) faceOSC.drawFaceBounding();
+    if (__DEBUG_FEATURES__)  faceOSC.drawFaceFeatures();
+    if (__DEBUG_INFOS__)     drawDebugInfos();
+  }
+  
+  hint(DISABLE_DEPTH_TEST);
+
+  // Tools
+  toolManager.draw();
+}
+
+// --------------------------------------------
+void drawDebugInfos()
+{
+   pushStyle();
+   pushMatrix();
+   translate(4,height-20);
+   fill(255,200);
+   strDebugInfos = "faceOSC.state="+faceOSC.getStateAsString()+ " / " + "faceOsc.foundFactor = " + nf(faceOSC.face.getFoundFactor(),1,5);
+   text(strDebugInfos,0,0);
+   popMatrix();
+   popStyle();
 }
 
 // --------------------------------------------
@@ -112,4 +160,14 @@ void mousePressed()
 // --------------------------------------------
 void keyPressed()
 {
+  if (key == '1')   sceneManager.select("Thibaut_Maxime");
+  else if (key == '2')   sceneManager.select("Lea_Lea");
+  else if (key == '3')   sceneManager.select("Benedicte_Alice");
+  else if (key == '4')   sceneManager.select("Emily_Anna");
+  else
+  {
+    Scene sceneCurrent = sceneManager.getCurrent();
+    if (sceneCurrent !=null)
+      sceneCurrent.keyPressed();
+  }
 }

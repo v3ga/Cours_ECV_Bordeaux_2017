@@ -4,6 +4,7 @@ class Face
   // --------------------------------------------
   // num faces found
   int found;
+  float foundFactor, foundFactorTarget;
 
   // --------------------------------------------
   // pose
@@ -26,7 +27,9 @@ class Face
   Triangle[] triangles;
   PVector[] meshPoints2;
   Triangle[] triangles2;
-//  NetAddress remote;
+  //  NetAddress remote;
+
+  PVector[] meshPointsBPTight; // points in bounding portrait tight
 
   // --------------------------------------------
   // Bounding 
@@ -36,7 +39,7 @@ class Face
   // bounding with extra borders
   BoundingBox boundingPortrait = new BoundingBox(); 
   BoundingBox boundingPortraitTight = new BoundingBox();  // with no borders
-  
+
   BoundingBox boundingPose = new BoundingBox();
 
   float boundingPortraitBorders = 70.0;
@@ -84,6 +87,18 @@ class Face
   }
 
   // --------------------------------------------
+  float getFoundFactor()
+  {
+    return foundFactor;
+  }
+
+  // --------------------------------------------
+  boolean isFound()
+  {
+    return (foundFactor>=0.2f);
+  }
+
+  // --------------------------------------------
   void setBoundingPortraitBorders(float b)
   {
     boundingPortraitBorders = b;
@@ -94,9 +109,13 @@ class Face
   {
     // initialize meshPoints array with PVectors
     meshPoints = new PVector[66];
+    meshPointsBPTight = new PVector[66];
     for (int i = 0; i < meshPoints.length; i++)
+    {
       meshPoints[i] = new PVector();
-
+      meshPointsBPTight[i] = new PVector();
+    }
+    
     triangles = new Triangle[108];
     for (int i = 0; i < triangles.length; i++) {
       triangles[i] = new Triangle();
@@ -115,6 +134,8 @@ class Face
       if (s.equals("b")) t.b = p;
       if (s.equals("c")) t.c = p;
     }
+    
+    
   }
 
   // --------------------------------------------
@@ -137,13 +158,39 @@ class Face
       String s = row.getString("abc");
 
       Triangle t = triangles2[ti];
-      PVector p = meshPoints2[pi];
+      PVector p = meshPointsBPTight[pi];
 
       if (s.equals("a")) t.a = p;
       if (s.equals("b")) t.b = p;
       if (s.equals("c")) t.c = p;
     }
   } 
+  
+  // --------------------------------------------
+  Triangle[] createMesh(PVector[] points)
+  {
+    Triangle[] triangles = new Triangle[108]; 
+    for (int i = 0; i < triangles.length; i++)
+      triangles[i] = new Triangle();
+
+    Table table = loadTable("matches.csv", "header");
+    for (TableRow row : table.rows()) 
+    {
+      int pi = row.getInt("p");
+      int ti = row.getInt("t");
+      String s = row.getString("abc");
+
+      Triangle t = triangles[ti];
+      PVector p = points[pi];
+
+      if (s.equals("a")) t.a = p;
+      if (s.equals("b")) t.b = p;
+      if (s.equals("c")) t.c = p;
+    }
+
+    
+    return triangles;
+  }
 
   // --------------------------------------------
   void updateBounding()
@@ -156,16 +203,16 @@ class Face
     boundingPortraitTight = bounding.copy();
 
     float wBounding = bounding.dimension.x;
-    float hBoundingPortrait = wBounding * 4/3;
+    float hBoundingPortrait = wBounding * (1.0/screenRatio);
     float hDelta = hBoundingPortrait - bounding.dimension.y;
 
     boundingPortraitTight.dimension.y = hBoundingPortrait;
 
     boundingPortraitTight.position.y -= hDelta;
     boundingPortraitTight.center.set(boundingPortrait.position.x+0.5*boundingPortrait.dimension.x, boundingPortrait.position.y+0.5*boundingPortrait.dimension.y);
-        
+
     float borders = boundingPortraitBorders;
-    
+
     boundingPortrait.dimension.x += borders;
     boundingPortrait.dimension.y = hBoundingPortrait + borders;
 
@@ -174,9 +221,29 @@ class Face
     boundingPortrait.center.set(boundingPortrait.position.x+0.5*boundingPortrait.dimension.x, boundingPortrait.position.y+0.5*boundingPortrait.dimension.y);
 
     boundingPose.dimension.set( boundingPortrait.dimension );
-    boundingPose.position.set( posePosition.x - 0.5*boundingPortrait.dimension.x,  posePosition.y - 0.5*boundingPortrait.dimension.y);
+    boundingPose.position.set( posePosition.x - 0.5*boundingPortrait.dimension.x, posePosition.y - 0.5*boundingPortrait.dimension.y);
 
+//    PVector 
+    for (int i=0; i<meshPointsBPTight.length; i++)
+    {
+      meshPointsBPTight[i].x = meshPoints[i].x - boundingPortrait.position.x;
+      meshPointsBPTight[i].y = meshPoints[i].y - boundingPortrait.position.y;
+    }
   }
+  
+  // --------------------------------------------
+  void update()
+  {
+    if (found>0)
+    {
+      foundFactor = 1.0f;
+    }
+    else{
+      foundFactorTarget = 0.0f;
+      foundFactor += (foundFactorTarget-foundFactor)*0.1f;
+    }
+  }
+
 
   // --------------------------------------------
   void drawFeature(int[] featurePointList) 

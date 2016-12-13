@@ -7,7 +7,7 @@ class FaceOSC
   Face face;
 
   // Face data retrieved from OSC
-  int state;
+  int state, statePrevious;
 
   static final int STATE_REST = 0;
   static final int STATE_ZOOMING = 1;
@@ -18,12 +18,24 @@ class FaceOSC
   PVector posFaceScreen = new PVector();
   PVector dimFaceScreen = new PVector();
 
-  // Position of bounding box portrait on screen
+  // when zoomed
+  PVector posFaceScreenZoom = new PVector();
+  PVector dimFaceScreenZoom = new PVector();
+
+
+  // Position of bounding box portrait on screen (no zoom)
   PVector posBoundingPortraitScreen = new PVector();
   PVector dimBoundingPortraitScreen = new PVector();
 
   PVector posBoundingPortraitTightScreen = new PVector();
   PVector dimBoundingPortraitTightScreen = new PVector();
+
+  PVector posBoundingPortraitScreenZoom = new PVector();
+  PVector dimBoundingPortraitScreenZoom = new PVector();
+
+  // Mesh points relative to posBoundingPortraitScreenZoom coordinates 
+  PVector[] meshPointsPortraitZoom;
+  Triangle[] trianglesPortraitZoom;
 
   // Syphon
   SyphonClient client;
@@ -40,11 +52,23 @@ class FaceOSC
   // Image of face relative to the bounding box
   PImage imageVisage;
   PImage imageVisageCompute; // resized image
+  boolean bImageVisageComputeFilter = true;
+
+  int imageVisageWidth = 320;
+  int imageVisageHeight = int(320.0 * screenRatio);
+  int imageVisageComputeWidth = 320/6;
+  int imageVisageComputeHeight = 320/6;
+  boolean bNewImageVisage = true;
+
+  // Mask
+  FaceImageMask imageVisageMask;
 
   // Zoom
   float zoom = 1.0f;
   float zoomTarget = 1.0f;
   float zoomMax = 1.0f;
+  float zoomSpeed = 0.1f;
+  boolean bZoom = false;
 
   // --------------------------------------------
   FaceOSC(PApplet applet, OscP5 osc)
@@ -59,13 +83,56 @@ class FaceOSC
     posFaceScreen.x = 0.5*(width-dimFaceScreen.x);
     posFaceScreen.y = 0.5*(height-dimFaceScreen.y);
 
+    meshPointsPortraitZoom = new PVector[this.face.meshPoints.length];
+    for (int i=0; i<meshPointsPortraitZoom.length; i++)
+      meshPointsPortraitZoom[i] = new PVector();
+    trianglesPortraitZoom = face.createMesh(meshPointsPortraitZoom);
+
+    setImageVisageWidth(240);
+    setImageVisageComputeWidth(240/4);
+
     state = STATE_REST;
   }
+
+  // --------------------------------------------
+  void setImageVisageComputeFilter(boolean is)
+  {
+    this.bImageVisageComputeFilter = is;
+  }
+
+  // --------------------------------------------
+  void setImageVisageWidth(int w)
+  {
+    if ( (imageVisage == null) || (imageVisage.width != w))
+    {
+      this.imageVisageWidth = w;
+      this.imageVisageHeight = int((float)imageVisageWidth / screenRatio);
+      this.bNewImageVisage = true;
+    }
+  }
+
+  // --------------------------------------------
+  void setImageVisageComputeWidth(int w)
+  {
+    if ( (imageVisageCompute == null) || (imageVisageCompute.width != w))
+    {
+      this.imageVisageComputeWidth = w;
+      this.imageVisageComputeHeight = int((float)imageVisageComputeWidth / screenRatio);
+      this.bNewImageVisage = true;
+    }
+  }
+
 
   // --------------------------------------------
   Face getFace()
   {
     return face;
+  }
+
+  // --------------------------------------------
+  boolean isFound()
+  {
+    return face.isFound();
   }
 
   // --------------------------------------------
@@ -87,17 +154,23 @@ class FaceOSC
   }
 
   // --------------------------------------------
-  void updateFrameSyphon()
+  boolean updateFrameSyphon()
   {
-    if (client.newFrame()) 
+    boolean hasNewFrame = client.newFrame();
+    if (hasNewFrame) 
     {
       frameSyphon = client.getImage(frameSyphon, true);
-      if (imageVisage == null)
+      if (bNewImageVisage)
       {
-        imageVisage = new PImage(240, 320, frameSyphon.format);
-        imageVisageCompute = new PImage(240/6, 320/6, frameSyphon.format);
+        imageVisage = new PImage(imageVisageWidth, imageVisageHeight, frameSyphon.format);
+        imageVisageCompute = new PImage(imageVisageComputeWidth, imageVisageComputeHeight, frameSyphon.format);
+        imageVisageMask = new FaceImageMask(imageVisageWidth, imageVisageHeight);
+
+
+        bNewImageVisage = false;
       }
     }
+    return hasNewFrame;
   }
 
   // --------------------------------------------------------------
@@ -137,8 +210,17 @@ class FaceOSC
   }
 
   // --------------------------------------------------------------
+  boolean hasStateChanged()
+  {
+    return (state != statePrevious);
+  }
+
+  // --------------------------------------------------------------
   void update()
   {
+    // Update boundings in syphon frame space
+    face.update();
+
     // Update boundings in syphon frame space
     face.updateBounding();
 
@@ -152,19 +234,48 @@ class FaceOSC
     posBoundingPortraitTightScreen = transformPointFromSyphonFrameToScreen(face.boundingPortraitTight.position);
 
     // Zoom
-    zoomTarget = 1.0f;
-    if (face.found > 0)
+    float f = 0;
+    if (bZoom)
     {
-      float wScreen = scaleScreen * face.boundingPortrait.dimension.x;
-      zoomTarget = float(width) / wScreen;
-      zoomMax = zoomTarget;
+      zoomTarget = 1.0f;
+      if (face.isFound())
+      {
+        float wScreen = scaleScreen * face.boundingPortrait.dimension.x;
+        zoomTarget = float(width) / wScreen;
+        zoomMax = zoomTarget;
+      }
+      zoom += (zoomTarget-zoom)*zoomSpeed;
+      f = map(zoom, 1, zoomMax, 0, 1);
+    } else
+    {
+      zoom = 1.0;
+      zoomMax = 1.0;
     }
 
-    zoom += (zoomTarget-zoom)*0.1;
+    posFaceScreenZoom.x = zoom*posFaceScreen.x - f*zoom*posBoundingPortraitScreen.x;
+    posFaceScreenZoom.y = zoom*posFaceScreen.y - f*zoom*posBoundingPortraitScreen.y;
+    dimFaceScreenZoom.x = zoom * dimFaceScreen.x; 
+    dimFaceScreenZoom.y = zoom * dimFaceScreen.y; 
+
+    posBoundingPortraitScreenZoom.x = posFaceScreenZoom.x+zoom*(posBoundingPortraitScreen.x-posFaceScreen.x);
+    posBoundingPortraitScreenZoom.y = posFaceScreenZoom.y+zoom*(posBoundingPortraitScreen.y-posFaceScreen.y);
+
+    dimBoundingPortraitScreenZoom.x = zoom * dimBoundingPortraitScreen.x;
+    dimBoundingPortraitScreenZoom.y = zoom * dimBoundingPortraitScreen.y;
+
+    for (int i=0; i<meshPointsPortraitZoom.length; i++)
+    {
+      meshPointsPortraitZoom[i].x = getScaleScreen()*zoom*face.meshPointsBPTight[i].x;
+      meshPointsPortraitZoom[i].y = getScaleScreen()*zoom*face.meshPointsBPTight[i].y;
+    }
+
+
+    statePrevious = state;
     if (zoom <= 1.05)
     {
       state = STATE_REST;
-    } else if (zoom > zoomTarget-0.05)
+    } 
+    else if (zoom > zoomTarget-0.05)
     {
       state = STATE_ZOOMED;
     } else
@@ -186,6 +297,12 @@ class FaceOSC
     imageVisageCompute.copy(frameSyphon, 
       xSrc, ySrc, wSrc, hSrc, 
       0, 0, imageVisageCompute.width, imageVisageCompute.height);
+      
+      if (imageVisageMask != null)
+        imageVisageMask.update();
+//imageVisage.mask( imageVisageMask.get() );
+    if (bImageVisageComputeFilter)
+      imageVisageCompute.filter(GRAY);
   }
 
   // --------------------------------------------------------------
@@ -203,11 +320,7 @@ class FaceOSC
   {
     if (frameSyphon !=null)
     {
-      float f = map(zoom, 1, zoomMax, 0, 1);
-      float x = zoom*posFaceScreen.x - f*zoom*posBoundingPortraitScreen.x;
-      float y = zoom*posFaceScreen.y - f*zoom*posBoundingPortraitScreen.y;
-
-      image(frameSyphon, x, y, zoom*dimFaceScreen.x, zoom*dimFaceScreen.y);
+      image(frameSyphon, posFaceScreenZoom.x, posFaceScreenZoom.y, dimFaceScreenZoom.x, dimFaceScreenZoom.y);
     }
   }  
 
@@ -224,24 +337,25 @@ class FaceOSC
   void drawFaceBounding()
   {
     //if (state == STATE_REST)
+    if (face.found>0)
     {
       pushStyle();
 
       pushMatrix();
-      translate(posBoundingPortraitScreen.x, posBoundingPortraitScreen.y);
+      translate(posBoundingPortraitScreenZoom.x, posBoundingPortraitScreenZoom.y);
       noFill();
       stroke(0, 200, 0);
-      rect(0, 0, dimBoundingPortraitScreen.x, dimBoundingPortraitScreen.y);
+      rect(0, 0, dimBoundingPortraitScreenZoom.x, dimBoundingPortraitScreenZoom.y);
       popMatrix();
 
       pushMatrix();
-      translate(posBoundingPortraitTightScreen.x, posBoundingPortraitTightScreen.y);
+      translate(posFaceScreenZoom.x+zoom*(posBoundingPortraitTightScreen.x-posFaceScreen.x), posFaceScreenZoom.y+zoom*(posBoundingPortraitTightScreen.y-posFaceScreen.y));
       noStroke();
       fill(200, 0, 0);
       ellipse(0, 0, 5, 5);
       noFill();
       stroke(200, 0, 0);
-      rect(0, 0, dimBoundingPortraitTightScreen.x, dimBoundingPortraitTightScreen.y);
+      rect(0, 0, zoom*dimBoundingPortraitTightScreen.x, zoom*dimBoundingPortraitTightScreen.y);
       popMatrix();
 
       popStyle();
@@ -255,28 +369,47 @@ class FaceOSC
     {
       image(imageVisage, 0, 0);    
       image(imageVisageCompute, imageVisage.width, 0);
+      image(imageVisageMask.get(), imageVisage.width+imageVisageCompute.width,0);
     }
+
+    //image(imageVisageCompute, 0, 0,width,height);
   }
+
+  // --------------------------------------------
+  void drawFaceFeature(int[] featurePointList) 
+  {
+    stroke(255);
+    fill(255);  
+    for (int i = 0; i < featurePointList.length; i++) {
+      PVector meshVertex = meshPointsPortraitZoom[featurePointList[i]];
+      if (i > 0) {
+        PVector prevMeshVertex = meshPointsPortraitZoom[featurePointList[i-1]];
+        line(meshVertex.x, meshVertex.y, prevMeshVertex.x, prevMeshVertex.y);
+      }
+      ellipse(meshVertex.x, meshVertex.y, 3, 3);
+    }
+  }  
 
   // --------------------------------------------------------------
   void drawFaceFeatures()
   {
     if (face.found>0)
     {
+      pushStyle();
       pushMatrix();
-      translate(posFaceScreen.x, posFaceScreen.y);
-      scale(dimFaceScreen.x/dimFrameSyphon.x, dimFaceScreen.y/dimFrameSyphon.y);
-      face.drawFeature(face.faceOutline);
-      face.drawFeature(face.leftEyebrow);
-      face.drawFeature(face.rightEyebrow);
-      face.drawFeature(face.nosePart1);   
-      face.drawFeature(face.nosePart2);           
-      face.drawFeature(face.leftEye);     
-      face.drawFeature(face.rightEye);    
-      face.drawFeature(face.mouthPart1);  
-      face.drawFeature(face.mouthPart2);  
-      face.drawFeature(face.mouthPart3);
+      translate(posBoundingPortraitScreenZoom.x, posBoundingPortraitScreenZoom.y);
+      drawFaceFeature(face.faceOutline);
+      drawFaceFeature(face.leftEyebrow);
+      drawFaceFeature(face.rightEyebrow);
+      drawFaceFeature(face.nosePart1);   
+      drawFaceFeature(face.nosePart2);           
+      drawFaceFeature(face.leftEye);     
+      drawFaceFeature(face.rightEye);    
+      drawFaceFeature(face.mouthPart1);  
+      drawFaceFeature(face.mouthPart2);  
+      drawFaceFeature(face.mouthPart3);
       popMatrix();
+      popStyle();
     }
   }
 
@@ -303,6 +436,26 @@ class FaceOSC
      
      }
      */
+  }
+
+  // --------------------------------------------
+  void drawMeshTrianglesOffscreen(PGraphics g)
+  {
+    float sw = float(g.width) / dimBoundingPortraitScreenZoom.x;
+    float sh = float(g.height) / dimBoundingPortraitScreenZoom.y;
+    
+    g.pushMatrix();
+    g.scale(sw,sh);
+    for (Triangle t : trianglesPortraitZoom) 
+    {
+      g.beginShape(TRIANGLES);
+      g.vertex(t.a.x, t.a.y);
+      g.vertex(t.b.x, t.b.y);
+      g.vertex(t.c.x, t.c.y);
+      g.endShape();
+    }      
+
+    g.popMatrix();
   }
 
   // --------------------------------------------
