@@ -115,6 +115,11 @@ Un temps de résidence sera organisé **au mois de janvier** avant l'accrochage 
 ![Interface](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_interactive_mollat_thibaut_max.jpg)
 
 
-## Atelier #04 - Vendredi 2 décembre
+## Atelier #04 - Mardi 13 décembre
+* prototypage, ajustements de paramètres depuis l'interface.
+
+![Proto](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_proto_alice.jpg)
+![Proto](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_proto_matthieu.jpg)
+
 
 
