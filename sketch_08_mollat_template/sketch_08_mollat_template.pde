@@ -12,8 +12,8 @@ import org.processing.wiki.triangulate.*;
 // --------------------------------------------
 // Variables globales
 PApplet applet;
-int screenWidth = 900;
-int screenHeight = 1600;
+int screenWidth = 900 / 2;
+int screenHeight = 1600 / 2;
 /*
 int screenWidth = 600;
 int screenHeight = 800;
@@ -79,7 +79,7 @@ void setup()
   sceneManager.add( new SceneEmily("Emily_Anna") );
 
   sceneManager.setup();
-  sceneManager.select("Thibaut_Maxime");
+  sceneManager.select("Benedicte_Alice");
 
   // Init controls
   initControls();

@@ -9,6 +9,7 @@ class SceneBenedicte extends SceneGridSVG
   {
     super(name);
   }
+
   // --------------------------------------------
   void setup()
   {
@@ -52,15 +53,11 @@ class ToolBenedicte extends Tool
   {
     initTab("benedicte", "Benedicte & Alice");
 
-    cp5.addSlider("imageSize").addListener(this).plugTo(sceneManager.get("Benedicte_Alice"))
-      .moveTo("benedicte")
-      .setPosition(4, 30)
-      .setWidth(200)
-      .setRange(2, 8) // values can range from big to small as well
-      .setValue(128)
+    cp5.addSlider("imageSize").addListener(this).plugTo(sceneManager.get("Benedicte_Alice")).moveTo("benedicte")
+      .setPosition(4, 30).setWidth(200).setHeight(20)
+      .setRange(2, 8).setValue(128)
       .setNumberOfTickMarks(7)
-      .setSliderMode(Slider.FLEXIBLE)
-      ;
+      .setSliderMode(Slider.FLEXIBLE);
   }
 
   // --------------------------------------------------------------------
