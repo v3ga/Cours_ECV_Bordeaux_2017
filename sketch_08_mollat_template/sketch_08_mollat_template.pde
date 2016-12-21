@@ -12,12 +12,12 @@ import org.processing.wiki.triangulate.*;
 // --------------------------------------------
 // Variables globales
 PApplet applet;
-int screenWidth = 900 / 2;
-int screenHeight = 1600 / 2;
-/*
+/*int screenWidth = 900;
+int screenHeight = 1600;
+*/
 int screenWidth = 600;
 int screenHeight = 800;
-*/
+
 float screenRatio = float(screenWidth) / float(screenHeight);
 
 // --------------------------------------------
@@ -38,8 +38,14 @@ ToolManager toolManager;
 ControlP5 cp5;
 
 // --------------------------------------------
+// Timing
+Timer timer;
+float dt = 0.0;
+
+
+// --------------------------------------------
 // Debug
-boolean __DEBUG__ = true;
+boolean __DEBUG__ = false;
 boolean __DEBUG_IMAGES__ = true;
 boolean __DEBUG_BOUNDINGS__ = true;
 boolean __DEBUG_FEATURES__ = true;
@@ -77,17 +83,23 @@ void setup()
   sceneManager.add( new SceneLea("Lea_Lea") );
   sceneManager.add( new SceneBenedicte("Benedicte_Alice") );
   sceneManager.add( new SceneEmily("Emily_Anna") );
+  sceneManager.add( new SceneAlexis("Alexis_Max") );
 
   sceneManager.setup();
-  sceneManager.select("Benedicte_Alice");
+  sceneManager.select("Alexis_Max");
 
   // Init controls
   initControls();
+  
+  // Timing
+  timer = new Timer();
 }
 
 // --------------------------------------------
 public void draw() 
 {    
+  dt = timer.dt();
+  
   // Update stuff
   boolean hasNewFrame = faceOSC.updateFrameSyphon();
   faceOSC.update();
@@ -114,11 +126,13 @@ public void draw()
     if (__DEBUG_FEATURES__)  faceOSC.drawFaceFeatures();
     if (__DEBUG_INFOS__)     drawDebugInfos();
   }
-  
-  hint(DISABLE_DEPTH_TEST);
+
+//  hint(DISABLE_DEPTH_TEST);
 
   // Tools
-  toolManager.draw();
+//  toolManager.draw();
+
+//  faceOSC.drawFrameSyphon();
 }
 
 // --------------------------------------------

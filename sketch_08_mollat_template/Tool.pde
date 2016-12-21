@@ -74,6 +74,7 @@ class ToolManager extends ArrayList<Tool>
   void initControls()
   {
     cp5 = new ControlP5(applet);
+//    cp5.setAutoDraw(false);
     //cp5.setFont(createFont("helvetica",10));
 
     for (Tool t : this)

@@ -32,7 +32,7 @@ class SceneLea extends Scene
       physics.setfriction(.3f);
       force = new BConstantForce(new Vec());
       physics.addBehavior(force);
-      
+
       for (int i = 0; i < amount; i++) 
       {
         //val for arbitrary radius
@@ -56,15 +56,15 @@ class SceneLea extends Scene
     if (physics != null) 
     {
       physics.update();
-     // force.setForce(new Vec(width*.5f-mouseX, height*.5f-mouseY).normalizeTo(.03f));
+      // force.setForce(new Vec(width*.5f-mouseX, height*.5f-mouseY).normalizeTo(.03f));
     }
     updateAlphaBackground();
-//    distMinCurrent = map(m_alphaBackground, 0, 255, 1, distMin);
+    //    distMinCurrent = map(m_alphaBackground, 0, 255, 1, distMin);
     if (faceOSC.hasStateChanged() && faceOSC.state == FaceOSC.STATE_ZOOMED)
     {
-//      Ani.to(this,4.5,"distMinCurrent",distMin);
+      //      Ani.to(this,4.5,"distMinCurrent",distMin);
     }
-distMinCurrent=distMin;
+    distMinCurrent=distMin;
   }
 
   // --------------------------------------------
@@ -77,7 +77,7 @@ distMinCurrent=distMin;
     pushMatrix();
 
     translate(pos.x, pos.y);
-    scale(scale,scale);
+    scale(scale, scale);
   }
 
   // --------------------------------------------
@@ -86,26 +86,26 @@ distMinCurrent=distMin;
     popMatrix();
     popStyle();
   }
-  
+
   // --------------------------------------------
   void draw()
   {
     img =  faceOSC.getImageVisage();
     if (img == null) return;
 
-    tint( 255, map(m_alphaBackground, 0,255, 255, alphaImageFace) );
+    tint( 255, map(m_alphaBackground, 0, 255, 255, alphaImageFace) );
     faceOSC.drawFrameSyphonZoom();
 
     if (drawMode == DRAW_MODE_BUBBLES)     drawPoints();
     else if (drawMode == DRAW_MODE_CONNEXIONS)     drawConnections();
-}
+  }
 
   // --------------------------------------------
   void drawPoints()
   {
     beginDraw();
     img.loadPixels();
-    
+
     int xImg=0;
     int yImg=0; 
     float b=0;
@@ -114,22 +114,21 @@ distMinCurrent=distMin;
     color c;
     noStroke();
     float alpha = m_alphaBackground;
-    
-    
+
+
     for (VParticle p : physics.particles) 
     {
       xImg = (int) p.x;
       yImg = (int) p.y;
-      c = img.get(xImg,yImg);
+      c = img.get(xImg, yImg);
       d = p.getRadius()*2;
       b = brightness( c ) / 255.0;
-      s = map(b,0,1,0.6*d,d);
-      fill(c,alpha);
+      s = map(b, 0, 1, 0.6*d, d);
+      fill(c, alpha);
       ellipse(p.x, p.y, s, s);
     }
 
     endDraw();
-  
   }
 
   // --------------------------------------------
@@ -145,17 +144,19 @@ distMinCurrent=distMin;
     beginShape(LINES);
     for (int i=0; i<nbParticles; i++)
     {
-       VParticle pi = physics.particles.get(i);
-       for (int j=i; j<nbParticles; j++)
-       {
-         VParticle pj = physics.particles.get(j);
-         d = dist(pi.x,pi.y,pj.x,pj.y);
-         if (d < distMinCurrent)
-         {
-           stroke( img.get( (int)pi.x, (int)pi.y), alpha);vertex(pi.x,pi.y);
-           stroke( img.get( (int)pi.x, (int)pi.y), alpha );vertex(pj.x,pj.y);
-         }
-       }
+      VParticle pi = physics.particles.get(i);
+      for (int j=i; j<nbParticles; j++)
+      {
+        VParticle pj = physics.particles.get(j);
+        d = dist(pi.x, pi.y, pj.x, pj.y);
+        if (d < distMinCurrent)
+        {
+          stroke( img.get( (int)pi.x, (int)pi.y), alpha);
+          vertex(pi.x, pi.y);
+          stroke( img.get( (int)pi.x, (int)pi.y), alpha );
+          vertex(pj.x, pj.y);
+        }
+      }
     }
     endShape();
     endDraw();
@@ -167,7 +168,6 @@ distMinCurrent=distMin;
     if (key == 'a') drawMode = DRAW_MODE_BUBBLES;
     else if (key == 'z') drawMode = DRAW_MODE_CONNEXIONS;
   }
-  
 }
 
 
@@ -190,15 +190,14 @@ class ToolLea extends Tool
   void initControls()
   {
     SceneLea scene = (SceneLea) sceneManager.get("Lea_Lea");
-   
+
     initTab("lea", "Lea & Lea");
     cp5.addSlider("distMin")
-    .plugTo(scene).setRange(3,30).setValue(20)
-    .setLabel("distance").moveTo("lea").setWidth(200).setHeight(20).setPosition(4,30).linebreak();
+      .plugTo(scene).setRange(3, 30).setValue(20)
+      .setLabel("distance").moveTo("lea").setWidth(200).setHeight(20).setPosition(4, 30).linebreak();
 
     cp5.addSlider("alphaImageFace")
-    .plugTo(scene).setRange(0,255).setValue(200)
-    .setLabel("alpha background image").moveTo("lea").setWidth(200).setHeight(20).setPosition(4,60).linebreak();
-
+      .plugTo(scene).setRange(0, 255).setValue(200)
+      .setLabel("alpha background image").moveTo("lea").setWidth(200).setHeight(20).setPosition(4, 60).linebreak();
   }
 }

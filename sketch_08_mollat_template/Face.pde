@@ -5,6 +5,12 @@ class Face
   // num faces found
   int found;
   float foundFactor, foundFactorTarget;
+  float foundFactorRelax = 0.9;
+
+  // --------------------------------------------
+  // image from syphon
+  int imageWidth = 0; 
+  int imageHeight = 0; 
 
   // --------------------------------------------
   // pose
@@ -115,7 +121,7 @@ class Face
       meshPoints[i] = new PVector();
       meshPointsBPTight[i] = new PVector();
     }
-    
+
     triangles = new Triangle[108];
     for (int i = 0; i < triangles.length; i++) {
       triangles[i] = new Triangle();
@@ -134,8 +140,6 @@ class Face
       if (s.equals("b")) t.b = p;
       if (s.equals("c")) t.c = p;
     }
-    
-    
   }
 
   // --------------------------------------------
@@ -165,7 +169,7 @@ class Face
       if (s.equals("c")) t.c = p;
     }
   } 
-  
+
   // --------------------------------------------
   Triangle[] createMesh(PVector[] points)
   {
@@ -188,7 +192,7 @@ class Face
       if (s.equals("c")) t.c = p;
     }
 
-    
+
     return triangles;
   }
 
@@ -223,24 +227,24 @@ class Face
     boundingPose.dimension.set( boundingPortrait.dimension );
     boundingPose.position.set( posePosition.x - 0.5*boundingPortrait.dimension.x, posePosition.y - 0.5*boundingPortrait.dimension.y);
 
-//    PVector 
+    //    PVector 
     for (int i=0; i<meshPointsBPTight.length; i++)
     {
       meshPointsBPTight[i].x = meshPoints[i].x - boundingPortrait.position.x;
       meshPointsBPTight[i].y = meshPoints[i].y - boundingPortrait.position.y;
     }
   }
-  
+
   // --------------------------------------------
   void update()
   {
     if (found>0)
     {
       foundFactor = 1.0f;
-    }
-    else{
+    } else {
       foundFactorTarget = 0.0f;
-      foundFactor += (foundFactorTarget-foundFactor)*0.1f;
+      // foundFactor += (foundFactorTarget-foundFactor)*0.025f;
+      foundFactor = float_relax(foundFactor, 0.0f, dt, foundFactorRelax);
     }
   }
 
@@ -266,13 +270,19 @@ class Face
   boolean parseOSC(OscMessage m) 
   {
 
+    // image
+    if (m.checkAddrPattern("/image/width")) {
+      imageWidth = m.get(0).intValue();
+      return true;
+    } else if (m.checkAddrPattern("/image/height")) {
+      imageHeight = m.get(0).intValue();
+      return true;
+    }
+
     if (m.checkAddrPattern("/found")) {
       found = m.get(0).intValue();
       return true;
-    }      
-
-    // pose
-    else if (m.checkAddrPattern("/pose/scale")) {
+    } else if (m.checkAddrPattern("/pose/scale")) {
       poseScale = m.get(0).floatValue();
       return true;
     } else if (m.checkAddrPattern("/pose/position")) {

@@ -46,7 +46,7 @@ class FaceOSC
 
   // Preview
   float scalePreview = 1.0f;
-  PVector dimPreview;
+  PVector dimPreview = new PVector();
 
   // --------------------------------------------
   // Image of face relative to the bounding box
@@ -77,12 +77,13 @@ class FaceOSC
     this.face = new Face();
     this.client = new SyphonClient(applet, "FaceOSC");
 
+/*
     this.dimPreview = new PVector(scalePreview*dimFrameSyphon.x, scalePreview*dimFrameSyphon.y);
     dimFaceScreen.y = height;
     dimFaceScreen.x = dimFaceScreen.y / dimFrameSyphon.y * dimFrameSyphon.x;
     posFaceScreen.x = 0.5*(width-dimFaceScreen.x);
     posFaceScreen.y = 0.5*(height-dimFaceScreen.y);
-
+*/
     meshPointsPortraitZoom = new PVector[this.face.meshPoints.length];
     for (int i=0; i<meshPointsPortraitZoom.length; i++)
       meshPointsPortraitZoom[i] = new PVector();
@@ -218,6 +219,17 @@ class FaceOSC
   // --------------------------------------------------------------
   void update()
   {
+//    println(face.imageWidth+","+face.imageHeight);
+    if (face.imageWidth == 0 || face.imageHeight == 0) return;
+    
+    // update dimensions
+    dimFrameSyphon.set(face.imageWidth, face.imageHeight);
+    dimPreview.set(scalePreview*face.imageWidth, scalePreview*face.imageHeight);
+    dimFaceScreen.y = height;
+    dimFaceScreen.x = dimFaceScreen.y / dimFrameSyphon.y * dimFrameSyphon.x;
+    posFaceScreen.x = 0.5*(width-dimFaceScreen.x);
+    posFaceScreen.y = 0.5*(height-dimFaceScreen.y);
+    
     // Update boundings in syphon frame space
     face.update();
 

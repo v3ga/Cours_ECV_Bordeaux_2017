@@ -1,3 +1,12 @@
+// --------------------------------------------
+float float_relax(float value,float target,float dt, float T)
+{
+  value += (target-value)*min(1.0f, dt/T);
+  return value;
+}
+
+
+// --------------------------------------------
 void drawGrid(float cellw, float cellh)
 {
   pushStyle();
@@ -12,6 +21,29 @@ void drawGrid(float cellw, float cellh)
   }   
   popStyle();
 }
+
+// --------------------------------------------
+class Timer
+{
+  float now = 0;
+  float before = 0;
+  float dt = 0;
+
+  Timer()
+  {
+    now = before = millis()/1000.0f;
+  }
+
+  float dt()
+  {
+    now = millis()/1000.0f;
+    dt = now - before;
+    before = now;
+    return dt;
+  }
+
+}
+
 
 // --------------------------------------------
 class Triangle 
