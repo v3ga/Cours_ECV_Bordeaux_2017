@@ -5,13 +5,17 @@ class Tool implements ControlListener
   String tabName = "";
   
   // --------------------------------------------------------------------
-  // --------------------------------------------------------------------
   Tool(PApplet p)
   {
     this.applet = p;
   }
-  
+
   // --------------------------------------------------------------------
+  String _id(String name)
+  {
+    return tabName+"_"+name;
+  }
+  
   // --------------------------------------------------------------------
   void initTab(String name, String label)
   {
@@ -21,9 +25,9 @@ class Tool implements ControlListener
     cp5.getTab(tabName).getCaptionLabel().getStyle().marginTop = 2;
     cp5.getTab(tabName).setId(id);
     cp5.getTab(tabName).setLabel(label);
-  }
+    // cp5.getTab(tabName).setColorBackground(color(0, 0, 117));
+}
 
-  // --------------------------------------------------------------------
   // --------------------------------------------------------------------
   void setup(){}
   void update(){}
@@ -79,6 +83,18 @@ class ToolManager extends ArrayList<Tool>
 
     for (Tool t : this)
       t.initControls();
+  }
+
+  // --------------------------------------------------------------------
+  void saveProperties()
+  {
+    cp5.saveProperties("data/tools");
+  }
+
+  // --------------------------------------------------------------------
+  void loadProperties()
+  {
+    cp5.loadProperties("data/tools");
   }
 
   // --------------------------------------------------------------------

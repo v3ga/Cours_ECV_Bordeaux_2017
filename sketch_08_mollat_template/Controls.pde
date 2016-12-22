@@ -16,7 +16,7 @@ void initControls()
   
   toolManager.initControls();
   toolManager.setup();
-  
+  toolManager.loadProperties();
   
 /*  cp5.addTab("extra")
     .setColorBackground(color(0, 160, 100))

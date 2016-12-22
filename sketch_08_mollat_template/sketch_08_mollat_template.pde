@@ -77,6 +77,7 @@ void setup()
 
   // Face osc
   faceOSC = new FaceOSC(this, oscP5);
+  faceOSC.setup();
 
   // Scenes
   sceneManager.add( new SceneThibaut("Thibaut_Maxime") );
@@ -140,9 +141,9 @@ void drawDebugInfos()
 {
    pushStyle();
    pushMatrix();
-   translate(4,height-20);
+   translate(4,height-40);
    fill(255,200);
-   strDebugInfos = "faceOSC.state="+faceOSC.getStateAsString()+ " / " + "faceOsc.foundFactor = " + nf(faceOSC.face.getFoundFactor(),1,5);
+   strDebugInfos = "faceOSC.state="+faceOSC.getStateAsString()+ " / " + "faceOsc.foundFactor = " + nf(faceOSC.face.getFoundFactor(),1,5) + "faceOsc.stateTime="+faceOSC.getStateTime();
    text(strDebugInfos,0,0);
    popMatrix();
    popStyle();

@@ -37,11 +37,19 @@ class ToolFaceOSC extends Tool
     cp5.addToggle("bZoom").plugTo(faceOSC).setValue(faceOSC.bZoom).setLabel("face zoom").moveTo("default").setWidth(20).linebreak();
     cp5.addSlider("zoomSpeed").plugTo(faceOSC).setValue(faceOSC.zoomSpeed).setRange(0.1,1.0)
     .setLabel("face zoom speed").moveTo("default").setWidth(200).setHeight(20).linebreak();
+
+    cp5.addButton("saveTools").setLabel("save").plugTo(this).moveTo("default").setHeight(20).setPosition(0,height-20);
   }
 
   // --------------------------------------------------------------------
   void update()
   {
     chartFaceFoundFactor.push("incoming", faceOSC.getFace().getFoundFactor());
+  }
+
+  // --------------------------------------------------------------------
+  void saveTools(int value)
+  {
+    toolManager.saveProperties();
   }
 }

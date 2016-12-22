@@ -1,0 +1,43 @@
+{
+  "/distMin": {
+    "min": 3,
+    "max": 30,
+    "value": 20
+  },
+  "/__DEBUG_BOUNDINGS__": {"value": 0},
+  "/foundFactorRelax": {
+    "min": 0.10000000149011612,
+    "max": 1,
+    "value": 0.6175000071525574
+  },
+  "/__DEBUG__": {"value": 1},
+  "/bZoom": {"value": 1},
+  "/alphaImageFace": {
+    "min": 0,
+    "max": 255,
+    "value": 200
+  },
+  "/imageSize": {
+    "min": 2,
+    "max": 8,
+    "value": 8
+  },
+  "/__DEBUG_FEATURES__": {"value": 0},
+  "/zoomSpeed": {
+    "min": 0.10000000149011612,
+    "max": 1,
+    "value": 0.10000000149011612
+  },
+  "/__DEBUG_IMAGES__": {"value": 0},
+  "/imageSizeBene": {
+    "min": 2,
+    "max": 8,
+    "value": 8
+  },
+  "/displacement": {
+    "min": 0,
+    "max": 1000,
+    "value": 0
+  },
+  "/__DEBUG_INFOS__": {"value": 1}
+}

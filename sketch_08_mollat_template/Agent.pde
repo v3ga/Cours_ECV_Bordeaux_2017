@@ -1,41 +1,13 @@
-class Agent
+class AgentInterface
 {
-  //  BlobDetection theBlobDetection;
-  PVector[] positions = new PVector[4000];
+  // --------------------------------------------
+  PVector[] positions;
   int nbPositions = 0;
-  boolean[] visited;
-  PImage img, imgVisited;
-
   AgentTraveller[] travellers;
-
-
-  // --------------------------------------------
-  Agent(PImage img_)
-  {
-    this.img = img_;
-    this.imgVisited = this.img.copy();
-    this.visited = new boolean[img.width * img.height];
-    for (int i=0; i<this.visited.length; i++) this.visited[i] = false;
-  }
+  PImage img;
 
   // --------------------------------------------
-  void compute()
-  {
-    /*    theBlobDetection = new BlobDetection(img.width, img.height);
-     theBlobDetection.setPosDiscrimination(false);
-     theBlobDetection.setThreshold(0.7f);
-     theBlobDetection.computeBlobs(img.pixels);
-     */
-    nbPositions = 0;
-    for (int i=0; i<positions.length; i++)
-    {
-      //      println("—— positions "+i);
-      if (i == 0 || positions[i-1] !=null)
-      {
-        positions[i] = findDestinationPixelFrom(i==0 ? new PVector(img.width/2, img.height/2) : positions[i-1], 4);
-        nbPositions++;
-      }
-    }
+  void compute() {
   }
 
   // --------------------------------------------
@@ -69,12 +41,12 @@ class Agent
       travellers[i] = new AgentTraveller(this, posIndexBegin, posIndexEnd);
       posIndex+=nbPosPerTraveller;
     }
-    
+
     for (int i=0; i<travellers.length; i++) travellers[i].begin();
   }
-
+  
   // --------------------------------------------
-  void update(float dt)
+  void update(float dt) 
   {
     for (int i=0; i<travellers.length; i++)
     {
@@ -83,11 +55,53 @@ class Agent
   }
 
   // --------------------------------------------
-  void draw()
+  void draw() 
   {
     for (int i=0; i<travellers.length; i++)
     {
       travellers[i].draw();
+    }
+  }
+
+  // --------------------------------------------
+  void drawDirect() {
+  }
+}
+
+class Agent extends AgentInterface
+{
+  //  BlobDetection theBlobDetection;
+  boolean[] visited;
+  PImage imgVisited;
+
+  // --------------------------------------------
+  Agent(PImage img_)
+  {
+    this.positions = new PVector[4000];
+
+    this.img = img_;
+    this.imgVisited = this.img.copy();
+    this.visited = new boolean[img.width * img.height];
+    for (int i=0; i<this.visited.length; i++) this.visited[i] = false;
+  }
+
+  // --------------------------------------------
+  void compute()
+  {
+    /*    theBlobDetection = new BlobDetection(img.width, img.height);
+     theBlobDetection.setPosDiscrimination(false);
+     theBlobDetection.setThreshold(0.7f);
+     theBlobDetection.computeBlobs(img.pixels);
+     */
+    nbPositions = 0;
+    for (int i=0; i<positions.length; i++)
+    {
+      //      println("—— positions "+i);
+      if (i == 0 || positions[i-1] !=null)
+      {
+        positions[i] = findDestinationPixelFrom(i==0 ? new PVector(img.width/2, img.height/2) : positions[i-1], 4);
+        nbPositions++;
+      }
     }
   }
 

@@ -4,7 +4,7 @@ class SceneAlexis extends Scene
 {
   PImage visage;
   PImage visageBig;
-  Agent agent;
+  AgentInterface agent;
   
   float tAlphaFrameSyphon = 1.0f, tAlphaFrameSyphonTarget=1.0f;
   float tAlphaVisage = 0.0f, tAlphaVisageTarget=0.0f;
@@ -18,6 +18,8 @@ class SceneAlexis extends Scene
   // --------------------------------------------
   void update()
   {
+    updateSaveFace();
+    
 //    if (faceOSC.state != FaceOSC.STATE_ZOOMED)
     tAlphaFrameSyphon = float_relax(tAlphaFrameSyphon, tAlphaFrameSyphonTarget, dt, 0.5f);
     tAlphaVisage = float_relax(tAlphaVisage, tAlphaVisageTarget, dt, 0.5f);
@@ -39,11 +41,11 @@ class SceneAlexis extends Scene
       visageBig = faceOSC.getImageVisage().copy();
 
       visage = faceOSC.getImageVisageCompute().copy();
-      visage.filter(GRAY);
-      visage.filter(INVERT);
-      visage.filter(THRESHOLD, 0.8);
+//      visage.filter(GRAY);
+//      visage.filter(INVERT);
+//      visage.filter(THRESHOLD, 0.8);
 
-      agent = new Agent(visage);
+      agent = new AgentTSP(visage);
       agent.compute();
       agent.begin(10);
     }
@@ -52,6 +54,7 @@ class SceneAlexis extends Scene
     {
       agent.update(dt);
     }
+    
   }
 
   // --------------------------------------------

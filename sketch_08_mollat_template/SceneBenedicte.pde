@@ -2,7 +2,7 @@
 // ==================================================
 class SceneBenedicte extends SceneGridSVG
 {
-  float imageSize = 4;
+  float imageSizeBene = 4;
 
   // --------------------------------------------
   SceneBenedicte(String name)
@@ -53,7 +53,7 @@ class ToolBenedicte extends Tool
   {
     initTab("benedicte", "Benedicte & Alice");
 
-    cp5.addSlider("imageSize").addListener(this).plugTo(sceneManager.get("Benedicte_Alice")).moveTo("benedicte")
+    cp5.addSlider("imageSizeBene").addListener(this).plugTo(sceneManager.get("Benedicte_Alice")).moveTo("benedicte")
       .setPosition(4, 30).setWidth(200).setHeight(20)
       .setRange(2, 8).setValue(128)
       .setNumberOfTickMarks(7)
@@ -64,6 +64,6 @@ class ToolBenedicte extends Tool
   void controlEvent(ControlEvent e)
   {
     SceneBenedicte scene = (SceneBenedicte) sceneManager.get("Benedicte_Alice");
-    faceOSC.setImageVisageComputeWidth( (int)(faceOSC.imageVisageWidth / scene.imageSize  ));
+    faceOSC.setImageVisageComputeWidth( (int)(faceOSC.imageVisageWidth / scene.imageSizeBene  ));
   }
 }

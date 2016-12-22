@@ -1,5 +1,8 @@
 class FaceOSC
 {
+  // Id of the face (unique id incremented from a file)
+  int id;  
+
   // OSC
   OscP5 oscP5;
 
@@ -8,11 +11,11 @@ class FaceOSC
 
   // Face data retrieved from OSC
   int state, statePrevious;
+  float stateTime = 0.0f;
 
   static final int STATE_REST = 0;
   static final int STATE_ZOOMING = 1;
   static final int STATE_ZOOMED = 2;
-
 
   // Position + Dimension of syphon image on window / screen space
   PVector posFaceScreen = new PVector();
@@ -77,13 +80,6 @@ class FaceOSC
     this.face = new Face();
     this.client = new SyphonClient(applet, "FaceOSC");
 
-/*
-    this.dimPreview = new PVector(scalePreview*dimFrameSyphon.x, scalePreview*dimFrameSyphon.y);
-    dimFaceScreen.y = height;
-    dimFaceScreen.x = dimFaceScreen.y / dimFrameSyphon.y * dimFrameSyphon.x;
-    posFaceScreen.x = 0.5*(width-dimFaceScreen.x);
-    posFaceScreen.y = 0.5*(height-dimFaceScreen.y);
-*/
     meshPointsPortraitZoom = new PVector[this.face.meshPoints.length];
     for (int i=0; i<meshPointsPortraitZoom.length; i++)
       meshPointsPortraitZoom[i] = new PVector();
@@ -93,6 +89,45 @@ class FaceOSC
     setImageVisageComputeWidth(240/4);
 
     state = STATE_REST;
+  }
+
+  // --------------------------------------------
+  void setup()
+  {
+    this.id = 0;
+    loadId();
+  }
+
+  // --------------------------------------------
+  int getId() {
+    return id;
+  }
+  // --------------------------------------------
+  void loadId()
+  {
+    try
+    {
+      JSONObject json = loadJSONObject("data/faceId.json");
+      if (json != null)
+      {
+        this.id = json.getInt("id");
+      }
+    } catch (Exception e){}
+  }
+
+  // --------------------------------------------
+  void saveId()
+  {
+    JSONObject json = new JSONObject();
+    json.setInt("id", this.id);
+    saveJSONObject(json, "data/faceId.json");
+  }
+
+  // --------------------------------------------
+  void incrementId()
+  {
+    this.id ++;
+    saveId();
   }
 
   // --------------------------------------------
@@ -219,9 +254,9 @@ class FaceOSC
   // --------------------------------------------------------------
   void update()
   {
-//    println(face.imageWidth+","+face.imageHeight);
+    //    println(face.imageWidth+","+face.imageHeight);
     if (face.imageWidth == 0 || face.imageHeight == 0) return;
-    
+
     // update dimensions
     dimFrameSyphon.set(face.imageWidth, face.imageHeight);
     dimPreview.set(scalePreview*face.imageWidth, scalePreview*face.imageHeight);
@@ -229,7 +264,7 @@ class FaceOSC
     dimFaceScreen.x = dimFaceScreen.y / dimFrameSyphon.y * dimFrameSyphon.x;
     posFaceScreen.x = 0.5*(width-dimFaceScreen.x);
     posFaceScreen.y = 0.5*(height-dimFaceScreen.y);
-    
+
     // Update boundings in syphon frame space
     face.update();
 
@@ -286,8 +321,7 @@ class FaceOSC
     if (zoom <= 1.05)
     {
       state = STATE_REST;
-    } 
-    else if (zoom > zoomTarget-0.05)
+    } else if (zoom > zoomTarget-0.05)
     {
       state = STATE_ZOOMED;
     } else
@@ -295,6 +329,9 @@ class FaceOSC
       state = STATE_ZOOMING;
     }
 
+    if (hasStateChanged()) stateTime = 0;
+
+    stateTime += dt;
 
     if (imageVisage == null) return;
     int xSrc = (int) face.boundingPortrait.position.x;
@@ -309,10 +346,10 @@ class FaceOSC
     imageVisageCompute.copy(frameSyphon, 
       xSrc, ySrc, wSrc, hSrc, 
       0, 0, imageVisageCompute.width, imageVisageCompute.height);
-      
-      if (imageVisageMask != null)
-        imageVisageMask.update();
-//imageVisage.mask( imageVisageMask.get() );
+
+    if (imageVisageMask != null)
+      imageVisageMask.update();
+    //imageVisage.mask( imageVisageMask.get() );
     if (bImageVisageComputeFilter)
       imageVisageCompute.filter(GRAY);
   }
@@ -381,7 +418,7 @@ class FaceOSC
     {
       image(imageVisage, 0, 0);    
       image(imageVisageCompute, imageVisage.width, 0);
-      image(imageVisageMask.get(), imageVisage.width+imageVisageCompute.width,0);
+      image(imageVisageMask.get(), imageVisage.width+imageVisageCompute.width, 0);
     }
 
     //image(imageVisageCompute, 0, 0,width,height);
@@ -455,9 +492,9 @@ class FaceOSC
   {
     float sw = float(g.width) / dimBoundingPortraitScreenZoom.x;
     float sh = float(g.height) / dimBoundingPortraitScreenZoom.y;
-    
+
     g.pushMatrix();
-    g.scale(sw,sh);
+    g.scale(sw, sh);
     for (Triangle t : trianglesPortraitZoom) 
     {
       g.beginShape(TRIANGLES);
@@ -468,6 +505,12 @@ class FaceOSC
     }      
 
     g.popMatrix();
+  }
+
+  // --------------------------------------------
+  float getStateTime()
+  {
+    return stateTime;
   }
 
   // --------------------------------------------

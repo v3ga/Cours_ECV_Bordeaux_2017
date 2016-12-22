@@ -18,8 +18,8 @@ void setup()
 //  size(900, 1260,P3D);
   Ani.init(this);
 
-//  visage = loadImage("pic.png");
-    visage = loadImage("test2.jpg");
+  visage = loadImage("pic.png");
+//    visage = loadImage("test2.jpg");
   visage.filter(GRAY);
   visage.filter(INVERT);
   visage.filter(THRESHOLD, 0.5);

@@ -1,6 +1,6 @@
 class AgentTraveller
 {
-  Agent parent;
+  AgentInterface parent;
   int posIndexBegin, posIndexEnd, posIndex;
   Ani anim;
   float t;
@@ -15,13 +15,13 @@ class AgentTraveller
   }
   
   // --------------------------------------------
-  AgentTraveller(Agent parent_, int posIndexBegin_, int posIndexEnd_)
+  AgentTraveller(AgentInterface parent_, int posIndexBegin_, int posIndexEnd_)
   {
     init(parent_,posIndexBegin_,posIndexEnd_);
   }
 
   // --------------------------------------------
-  void init(Agent parent_, int posIndexBegin_, int posIndexEnd_)
+  void init(AgentInterface parent_, int posIndexBegin_, int posIndexEnd_)
   {
     this.parent = parent_;
     this.posIndexBegin = posIndexBegin_;
