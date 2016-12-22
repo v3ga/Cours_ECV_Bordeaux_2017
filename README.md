@@ -138,6 +138,10 @@ Un temps de résidence sera organisé **au mois de janvier** avant l'accrochage 
  * Station Ausone (10h - 16h)
   * 10h-16h : productions SAM.
 
+* **Samedi 14 janvier**
+ * Station Ausone (15h - 19h) : journée portes ouvertes pour le public.
+
+
 ## Codex (3 janvier au 31 janvier 2017) 
 Codex est une installation interactive imaginée par Julien Gachadoat (2Roqs) et les dix étudiants  du Master Design interactif de l’ECV Bordeaux pour la grande vitrine littérature de la libraire Mollat. 
 Cette installation offrira au public un miroir dynamique dans lequel leur visage sera interprété en temps réel grâce aux créations graphiques proposées par les étudiants.  
