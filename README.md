@@ -121,15 +121,15 @@ Un temps de résidence sera organisé **au mois de janvier** avant l'accrochage 
 ![Proto](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_proto_matthieu.jpg)
 
 ## Planning (22/12/2016)
-* Mardi 3 janvier 2017 
+* **Mardi 3 janvier 2017** 
  * Vitrine (8h - 11h) : installation écran / affiches / livres à partir de 8h.
  * Station Ausone (9h - 16h) : installation de SAM, début de la résidence de Mark Webster et des étudiants à la station Ausone.
 
-* Mercredi 4 janvier 2017
+* **Mercredi 4 janvier 2017**
  * Vitrine (9h - 11h) : réglages et ajustements de la vitrine interactive en fonction des expériences de la veille.
  * Station Ausone (10h - 16h) : premières productions avec SAM et accrochage en vitrine.
 
-* Jeudi 5 janvier
+* **Jeudi 5 janvier**
  * Station Ausone (10h - 19h)
   * 10h-16h : productions SAM
   * 17h-19h : conférence de Mark Webster « Le code, le dessin et SAM » + présentation du projet par les étudiants.
