@@ -131,14 +131,18 @@ Un temps de résidence sera organisé **au mois de janvier** avant l'accrochage 
 
 * **Jeudi 5 janvier**
  * Station Ausone (10h - 19h)
-  * 10h-16h : productions SAM
-  * 17h-19h : conférence de Mark Webster « Le code, le dessin et SAM » + présentation du projet par les étudiants.
-  
-## Codex
+  * 10h-16h : productions SAM.
+  * 18h : conférence publique par Mark Webster *« Le code, le dessin et SAM »* dans la salle de conférence suivie d'une démonstration de SAM.
+
+* **Vendredi 6 janvier**
+ * Station Ausone (10h - 16h)
+  * 10h-16h : productions SAM.
+
+## Codex (3 janvier au 31 janvier 2017) 
 Codex est une installation interactive imaginée par Julien Gachadoat (2Roqs) et les dix étudiants  du Master Design interactif de l’ECV Bordeaux pour la grande vitrine littérature de la libraire Mollat. 
 Cette installation offrira au public un miroir dynamique dans lequel leur visage sera interprété en temps réel grâce aux créations graphiques proposées par les étudiants.  
 En parallèle, la station Ausone, reliée à la vitrine, présentera SAM, une machine à dessiner unique, qui imprimera des portraits captés depuis la rue. 
 
-Dans le cadre de « Codex », Mark Webster* animera une conférence exceptionnelle sur la thématique du code, du graphisme et de SAM
+Dans le cadre de « Codex », Mark Webster animera une conférence exceptionnelle sur la thématique du code, du graphisme et de SAM
 
 *Mark Webster vit et travaille à Amiens depuis 2012 où il enseigne et encadre la création numérique pour le design graphique à l’ école supérieure d’art et de design d’Amiens (ésad). Autodidacte d'une pratique artistique en plein émergence, le «computational design», il s'intéresse plus particulièrement à la conception et la fabrication d'outils personnels (custom-made tools) dans la création.*
