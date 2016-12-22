@@ -1,16 +1,14 @@
 Design interactif — ECV Bordeaux — 2016 / 2017
 ===============================================
 
-## Projet Mollat
-Le projet est de présenter une installation interactive pour la vitrine « Beaux Arts » de la librairie Mollat (rue Porte Dijeaux)
-Cette exposition sera centrée autour du thème du **portrait** en proposant aux spectateurs un miroir dynamique dans lequel leur apparence
-sera transformée ou augmentée en temps réel. La scénographie de cette vitrine sera composée à priori de trois éléments principaux : 
+## Projet Mollat (« Codex »)
+Le projet est de présenter une installation interactive pour la grande vitrine littérature de la librairie Mollat (91, rue Porte Dijeaux)
+Cette exposition sera centrée autour du thème du **portrait** en proposant au public un miroir dynamique dans lequel leur apparence sera transformée ou augmentée en temps réel. La scénographie de cette vitrine sera composée à priori de trois éléments principaux : 
 * **un écran** diffusant les créations en boucle en invitant le spectateur à approcher.
 * **des affiches** présentant des portraits de passants, imprimées avec le traceur [SAM](http://www.samdraws.fabprojects.codes/).
 * **une sélection d’ouvrages** relatifs à la «code culture».
 
-D'autre part la [station Ausone](http://www.station-ausone.com/) sera aussi investie comme lieu de résidence pour préparer l'exposition en vitrine et présenter aussi au public
-le processus de fabrication des affiches au public. Le lieu fera l'objet d'une scénographie particulière en lien direct avec la vitrine. 
+D'autre part la [station Ausone](http://www.station-ausone.com/) sera aussi investie comme lieu de résidence pour préparer l'exposition en vitrine et présenter aussi au public le processus de fabrication des affiches au public. Le lieu fera l'objet d'une scénographie particulière en lien direct avec la vitrine. 
 
 ![Vitrine](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/Mollat_vitrine_beaux_arts.jpg)
 ![Station](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/station_ausone.jpg)
@@ -122,5 +120,25 @@ Un temps de résidence sera organisé **au mois de janvier** avant l'accrochage 
 ![Proto](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_proto_alice.jpg)
 ![Proto](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_proto_matthieu.jpg)
 
+## Planning (22/12/2016)
+* Mardi 3 janvier 2017 
+ * Vitrine (8h - 11h) : installation écran / affiches / livres à partir de 8h.
+ * Station Ausone (9h - 16h) : installation de SAM, début de la résidence de Mark Webster et des étudiants à la station Ausone.
 
+* Mercredi 4 janvier 2017
+ * Vitrine (9h - 11h) : réglages et ajustements de la vitrine interactive en fonction des expériences de la veille.
+ * Station Ausone (10h - 16h) : premières productions avec SAM et accrochage en vitrine.
 
+* Jeudi 5 janvier
+ * Station Ausone (10h - 19h)
+  * 10h-16h : productions SAM
+  * 17h-19h : conférence de Mark Webster « Le code, le dessin et SAM » + présentation du projet par les étudiants.
+  
+## Codex
+Codex est une installation interactive imaginée par Julien Gachadoat (2Roqs) et les dix étudiants  du Master Design interactif de l’ECV Bordeaux pour la grande vitrine littérature de la libraire Mollat. 
+Cette installation offrira au public un miroir dynamique dans lequel leur visage sera interprété en temps réel grâce aux créations graphiques proposées par les étudiants.  
+En parallèle, la station Ausone, reliée à la vitrine, présentera SAM, une machine à dessiner unique, qui imprimera des portraits captés depuis la rue. 
+
+Dans le cadre de « Codex », Mark Webster* animera une conférence exceptionnelle sur la thématique du code, du graphisme et de SAM
+
+*Mark Webster vit et travaille à Amiens depuis 2012 où il enseigne et encadre la création numérique pour le design graphique à l’ école supérieure d’art et de design d’Amiens (ésad). Autodidacte d'une pratique artistique en plein émergence, le «computational design», il s'intéresse plus particulièrement à la conception et la fabrication d'outils personnels (custom-made tools) dans la création.
