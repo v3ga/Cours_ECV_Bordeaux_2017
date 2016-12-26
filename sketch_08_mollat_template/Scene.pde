@@ -49,8 +49,7 @@ class Scene
       m_alphaBackgroundTarget = 0.0f;
     else if (faceOSC.state == FaceOSC.STATE_ZOOMED)
       m_alphaBackgroundTarget = 255.0f;
-
-    m_alphaBackground += (m_alphaBackgroundTarget - m_alphaBackground)*0.2;
+    m_alphaBackground = float_relax(m_alphaBackground, m_alphaBackgroundTarget,dt,0.5f);
   }
 
   // --------------------------------------------

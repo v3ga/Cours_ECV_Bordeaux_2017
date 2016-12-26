@@ -12,12 +12,12 @@ import org.processing.wiki.triangulate.*;
 // --------------------------------------------
 // Variables globales
 PApplet applet;
-/*int screenWidth = 900;
+int screenWidth = 900;
 int screenHeight = 1600;
-*/
+/*
 int screenWidth = 600;
 int screenHeight = 800;
-
+*/
 float screenRatio = float(screenWidth) / float(screenHeight);
 
 // --------------------------------------------
@@ -87,7 +87,7 @@ void setup()
   sceneManager.add( new SceneAlexis("Alexis_Max") );
 
   sceneManager.setup();
-  sceneManager.select("Alexis_Max");
+  sceneManager.select("Lea_Lea");
 
   // Init controls
   initControls();
@@ -175,10 +175,11 @@ void mousePressed()
 // --------------------------------------------
 void keyPressed()
 {
-  if (key == '1')   sceneManager.select("Thibaut_Maxime");
+  if (key == '1')        sceneManager.select("Thibaut_Maxime");
   else if (key == '2')   sceneManager.select("Lea_Lea");
   else if (key == '3')   sceneManager.select("Benedicte_Alice");
   else if (key == '4')   sceneManager.select("Emily_Anna");
+  else if (key == '5')   sceneManager.select("Alexis_Max");
   else
   {
     Scene sceneCurrent = sceneManager.getCurrent();

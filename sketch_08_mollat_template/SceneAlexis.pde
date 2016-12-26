@@ -45,7 +45,8 @@ class SceneAlexis extends Scene
 //      visage.filter(INVERT);
 //      visage.filter(THRESHOLD, 0.8);
 
-      agent = new AgentTSP(visage);
+//      agent = new AgentTSP(visage);
+      agent = new Agent(visage);
       agent.compute();
       agent.begin(10);
     }

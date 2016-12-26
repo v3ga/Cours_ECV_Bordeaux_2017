@@ -32,7 +32,7 @@
   "/imageSizeBene": {
     "min": 2,
     "max": 8,
-    "value": 8
+    "value": 6
   },
   "/displacement": {
     "min": 0,
