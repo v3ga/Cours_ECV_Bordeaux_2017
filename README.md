@@ -150,3 +150,18 @@ En parallèle, la station Ausone, reliée à la vitrine, présentera SAM, une ma
 Dans le cadre de « Codex », Mark Webster animera une conférence exceptionnelle sur la thématique du code, du graphisme et de SAM
 
 *Mark Webster vit et travaille à Amiens depuis 2012 où il enseigne et encadre la création numérique pour le design graphique à l’ école supérieure d’art et de design d’Amiens (ésad). Autodidacte d'une pratique artistique en plein émergence, le «computational design», il s'intéresse plus particulièrement à la conception et la fabrication d'outils personnels (custom-made tools) dans la création.*
+
+
+
+## Fabrication du cadre (16 décembre au 23 décembre 2016)
+![Cadre](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_cadre_01.JPG)
+![Cadre](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_cadre_02.JPG)
+![Cadre](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_cadre_03.JPG)
+![Cadre](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_cadre_04.JPG)
+![Cadre](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_cadre_05.JPG)
+![Cadre](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_cadre_06.JPG)
+![Cadre](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_cadre_07.JPG)
+![Cadre](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_cadre_08.JPG)
+![Cadre](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_cadre_09.JPG)
+![Cadre](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_cadre_10.JPG)
+
