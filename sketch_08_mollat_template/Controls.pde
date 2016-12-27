@@ -7,6 +7,7 @@ void initControls()
   toolManager = new ToolManager(this);
 
   toolManager.addTool( new ToolFaceOSC(this) );
+  toolManager.addTool( new ToolScenes(this) );
 
   toolManager.addTool( new ToolEmily(this) );
   toolManager.addTool( new ToolLea(this) );

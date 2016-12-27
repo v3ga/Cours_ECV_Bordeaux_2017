@@ -52,6 +52,8 @@ class SceneLea extends Scene
   // --------------------------------------------
   void update()
   {
+    super.update();
+    
     createPhysics();
     if (physics != null) 
     {

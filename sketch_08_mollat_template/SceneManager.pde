@@ -2,6 +2,8 @@ class SceneManager
 {
   HashMap<String, Scene> scenes;
   Scene sceneCurrent;
+  
+  float timeOnBeginAnimCall = 2.0f;
 
   // --------------------------------------------
   SceneManager()
@@ -18,6 +20,7 @@ class SceneManager
   void add(Scene scene)
   {
     scenes.put( scene.name, scene );
+    scene.setSceneManager(this);
   }
 
   // --------------------------------------------
@@ -31,6 +34,8 @@ class SceneManager
   void select(String name)
   {
     sceneCurrent = scenes.get(name);
+    if (sceneCurrent != null)
+      sceneCurrent.reset();
   }
 
   // --------------------------------------------

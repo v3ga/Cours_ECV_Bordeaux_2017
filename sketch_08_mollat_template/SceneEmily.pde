@@ -17,7 +17,7 @@ class SceneEmily extends SceneGridSVG
   }
 
   // --------------------------------------------
-  void drawGridCell(PImage imgFaceCompute, int i, int j)
+/*  void drawGridCell(PImage imgFaceCompute, int i, int j)
   {
     // get current color
     color c = imgFaceCompute.pixels[j*imgFaceCompute.width+i];
@@ -28,7 +28,7 @@ class SceneEmily extends SceneGridSVG
     int gradientToIndex = round(map(greyscale, 0, 255, shapeCount-1, 0));
     image(imageShapes[gradientToIndex], float(i)*m_cellw, float(j)*m_cellh, m_cellw, m_cellh);
   }
-
+*/
 }
 
 

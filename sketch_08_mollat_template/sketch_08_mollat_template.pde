@@ -12,12 +12,13 @@ import org.processing.wiki.triangulate.*;
 // --------------------------------------------
 // Variables globales
 PApplet applet;
+/*
 int screenWidth = 900;
 int screenHeight = 1600;
-/*
+*/
 int screenWidth = 600;
 int screenHeight = 800;
-*/
+
 float screenRatio = float(screenWidth) / float(screenHeight);
 
 // --------------------------------------------
@@ -87,7 +88,7 @@ void setup()
   sceneManager.add( new SceneAlexis("Alexis_Max") );
 
   sceneManager.setup();
-  sceneManager.select("Lea_Lea");
+  sceneManager.select("Benedicte_Alice");
 
   // Init controls
   initControls();
@@ -127,13 +128,6 @@ public void draw()
     if (__DEBUG_FEATURES__)  faceOSC.drawFaceFeatures();
     if (__DEBUG_INFOS__)     drawDebugInfos();
   }
-
-//  hint(DISABLE_DEPTH_TEST);
-
-  // Tools
-//  toolManager.draw();
-
-//  faceOSC.drawFrameSyphon();
 }
 
 // --------------------------------------------

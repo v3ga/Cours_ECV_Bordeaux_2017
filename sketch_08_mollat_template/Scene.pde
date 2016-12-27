@@ -1,17 +1,28 @@
 class Scene
 {
+  // Scene Manager
+  SceneManager sceneManager;
+
+  // Name + path for data
   String name="";
   String pathData = "";
 
+  // Background
   float m_alphaBackground = 0.0;
   float m_alphaBackgroundTarget = 0.0;
 
+  // Export
   boolean canExportPDF = false;
   boolean bExportPDF = false;
   boolean bFaceSaved = false;
-  
+
+  // Save face id
   int idFaceSave=0;
-  
+
+  // trigger animation variables (onBeginAnimation call)
+  boolean bOnBeginAnimCalled = false;
+  float timeOnBeginAnimCall = 0.0f;
+
 
   // --------------------------------------------
   Scene(String name_)
@@ -21,25 +32,96 @@ class Scene
   }
 
   // --------------------------------------------
+  void setSceneManager(SceneManager sceneManager_)
+  {
+    this.sceneManager = sceneManager_;
+  }
+  
+  // --------------------------------------------
   String getPathData(String filename) {
     return this.pathData+filename;
   }
 
-
   // --------------------------------------------
+  // called once at creation 
   void setup()
   {
   }
 
   // --------------------------------------------
-  // 
+  // called when the scene changes in application
+  void reset()
+  {
+    bFaceSaved = false;
+    bExportPDF = false;
+
+    bOnBeginAnimCalled = false;
+    timeOnBeginAnimCall = 0.0f;
+  }
+
+  // --------------------------------------------
+  // called when a new syphon frame is available
+  // can perform here computations on faceOSC images
   void onNewFrame()
   {
   }
 
   // --------------------------------------------
+  // called when faceOSC.state == FaceOSC.STATE_ZOOMED
+  // after a certain amount of time
+  void onBeginAnimation()
+  {
+    println("onBeginAnimation()");
+  }
+
+  // --------------------------------------------
+  // called when faceOSC.state == FaceOSC.STATE_ZOOMED terminates
+  void onTerminateAnimation()
+  {
+    println("onTerminateAnimation()");
+  }
+
+  // --------------------------------------------
+  // called just before draw
+  // dt must be available as global variable
   void update()
   {
+    // save here spetactor face in a daily directory with file depending on idFaceSave 
+    updateSaveFace();
+
+    // Update state 
+    updateOnBeginAnimCall();
+    updateOnTerminateAnimCall();
+  }
+
+  // --------------------------------------------
+  void updateOnBeginAnimCall()
+  {
+    // 
+    if (faceOSC.state == FaceOSC.STATE_ZOOMED)
+    {
+      timeOnBeginAnimCall += dt;
+      if (timeOnBeginAnimCall > sceneManager.timeOnBeginAnimCall && !bOnBeginAnimCalled)
+      {
+        onBeginAnimation();
+        bOnBeginAnimCalled = true;
+      }
+    } 
+    else
+    {
+      timeOnBeginAnimCall = 0;
+      bOnBeginAnimCalled = false;
+    }
+    
+  }
+
+  // --------------------------------------------
+  void updateOnTerminateAnimCall()
+  {
+    if (faceOSC.hasStateChanged() && faceOSC.statePrevious == FaceOSC.STATE_ZOOMED)
+    {
+     onTerminateAnimation();
+    }
   }
 
   // --------------------------------------------
@@ -49,7 +131,7 @@ class Scene
       m_alphaBackgroundTarget = 0.0f;
     else if (faceOSC.state == FaceOSC.STATE_ZOOMED)
       m_alphaBackgroundTarget = 255.0f;
-    m_alphaBackground = float_relax(m_alphaBackground, m_alphaBackgroundTarget,dt,0.5f);
+    m_alphaBackground = float_relax(m_alphaBackground, m_alphaBackgroundTarget, dt, 0.5f);
   }
 
   // --------------------------------------------
@@ -83,7 +165,6 @@ class Scene
   {
     if (canExportPDF && bExportPDF)
     {
-      
     }
   }
 
@@ -96,7 +177,7 @@ class Scene
       bExportPDF = false;
     }
   }
-  
+
   // --------------------------------------------
   void updateSaveFace()
   {
@@ -109,8 +190,7 @@ class Scene
         bFaceSaved = true;
         bExportPDF = true;
       }
-    }
-    else
+    } else
     {
       if (faceOSC.state == FaceOSC.STATE_REST)
       {
@@ -132,8 +212,7 @@ class Scene
       {
         println("saveFace(), saved "+faceFilePath);
         faceOSC.incrementId();
-      }
-      else
+      } else
       {
         println("saveFace(), erro saving "+faceFilePath);
       }
@@ -157,7 +236,7 @@ class Scene
   {
     return dataPath("_exports/"+getTodayDirName());
   }
-  
+
   // --------------------------------------------
   void createDirForToday()
   {

@@ -20,13 +20,16 @@ class SceneBenedicte extends SceneGridSVG
   // --------------------------------------------
   void drawGridCell(PImage imgFaceCompute, int i, int j)
   {
+    noStroke();
+    fill(255,m_grid[i][j].alpha);
+    rect(float(i)*m_cellw, float(j)*m_cellh, m_cellw, m_cellh);
+    
     // get current color
     color c = imgFaceCompute.pixels[j*imgFaceCompute.width+i];
-
     // greyscale conversion
     int greyscale = round(red(c)*0.222+green(c)*0.707+blue(c)*0.071);
-
     int gradientToIndex = round(map(greyscale, 0, 255, 0, shapeCount-1));
+    tint(255,m_grid[i][j].alpha);
     image(imageShapes[gradientToIndex], float(i)*m_cellw, float(j)*m_cellh, m_cellw, m_cellh);
   }
 }
