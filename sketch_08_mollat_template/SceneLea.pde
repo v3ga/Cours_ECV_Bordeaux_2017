@@ -1,4 +1,19 @@
 // ==================================================
+class ParticleLea
+{
+  // --------------------------------------------
+  ParticleLea(VParticle vpart_, PShape shape_)
+  {
+    this.vpart = vpart_;
+    this.shape = shape_;
+    
+    this.shape.resetMatrix();
+  }
+  
+  VParticle vpart;
+  PShape    shape;
+}
+
 // ==================================================
 class SceneLea extends Scene
 {
@@ -15,6 +30,11 @@ class SceneLea extends Scene
   int DRAW_MODE_BUBBLES = 1;
   int DRAW_MODE_CONNEXIONS = 2;
   int drawMode = DRAW_MODE_CONNEXIONS;
+  
+  PShape particleShapeGroup;
+  PImage particleImage;  
+
+  ArrayList<ParticleLea> particles;
 
   // --------------------------------------------
   SceneLea(String name)
@@ -22,6 +42,12 @@ class SceneLea extends Scene
     super(name);
   }
 
+  // --------------------------------------------
+  void setup()
+  {
+    particleImage = loadImage( getPathData("sprite.png") );
+  }
+  
   // --------------------------------------------
   void createPhysics()
   {
@@ -32,6 +58,13 @@ class SceneLea extends Scene
       physics.setfriction(.3f);
       force = new BConstantForce(new Vec());
       physics.addBehavior(force);
+      
+
+      particles = new ArrayList<ParticleLea>();
+      particleShapeGroup = createShape(GROUP);
+      
+      PShape particleShape;
+      
 
       for (int i = 0; i < amount; i++) 
       {
@@ -46,9 +79,55 @@ class SceneLea extends Scene
         particle.addBehavior(new BCollision().setLimit(.14));
         //add particle to world
         physics.addParticle(particle);
+        
+        // For drawing
+        particleShape = createParticleShape( particle );
+        particleShapeGroup.addChild( particleShape );
+
+        // Association physics <-> draw
+        particles.add( new ParticleLea(particle,particleShape) );
+    
       }
     }
   }
+
+  // --------------------------------------------
+  PShape createParticleShape(VParticle particle)
+  {
+    float partSize = particle.getRadius();
+    
+    PShape part = createShape();
+    part.beginShape(QUAD);
+    part.noStroke();
+    part.texture(particleImage);
+    part.normal(0, 0, 1);
+    part.vertex(-partSize/2, -partSize/2, 0, 0);
+    part.vertex(+partSize/2, -partSize/2, particleImage.width, 0);
+    part.vertex(+partSize/2, +partSize/2, particleImage.width, particleImage.height);
+    part.vertex(-partSize/2, +partSize/2, 0, particleImage.height);
+    part.endShape();
+    
+    return part;
+  }
+
+  // --------------------------------------------
+  void onBeginAnimation()
+  {
+    super.onBeginAnimation();
+  }
+
+  // --------------------------------------------
+  void onTerminateAnimation()
+  {
+    super.onTerminateAnimation();
+  }
+
+  // --------------------------------------------
+  void onNewFrame()
+  {
+    
+  }
+
   // --------------------------------------------
   void update()
   {
@@ -105,7 +184,7 @@ class SceneLea extends Scene
   // --------------------------------------------
   void drawPoints()
   {
-    beginDraw();
+//    beginDraw();
     img.loadPixels();
 
     int xImg=0;
@@ -118,19 +197,34 @@ class SceneLea extends Scene
     float alpha = m_alphaBackground;
 
 
-    for (VParticle p : physics.particles) 
+    VParticle p;
+    PShape shape;
+//    for (VParticle p : physics.particles) 
+    for (ParticleLea part : particles)
     {
+      p = part.vpart;
+      shape = part.shape;
+      
       xImg = (int) p.x;
       yImg = (int) p.y;
       c = img.get(xImg, yImg);
       d = p.getRadius()*2;
       b = brightness( c ) / 255.0;
-      s = map(b, 0, 1, 0.6*d, d);
-      fill(c, alpha);
-      ellipse(p.x, p.y, s, s);
+//      s = map(b, 0, 1, 0.6*d, d);
+      s = map(b, 0, 1, 0.6, 1.0);
+      shape.setTint(color(255));
+      shape.resetMatrix();
+      shape.translate(scale*p.x,scale*p.y);
+//      shape.scale(2);
+//      shape.scale(6);
+//      fill(c, alpha);
+//      ellipse(p.x, p.y, s, s);
+      shape(shape);
     }
+    
+    //shape(particleShapeGroup);
 
-    endDraw();
+//    endDraw();
   }
 
   // --------------------------------------------

@@ -88,7 +88,7 @@ void setup()
   sceneManager.add( new SceneAlexis("Alexis_Max") );
 
   sceneManager.setup();
-  sceneManager.select("Benedicte_Alice");
+  sceneManager.select("Lea_Lea");
 
   // Init controls
   initControls();
