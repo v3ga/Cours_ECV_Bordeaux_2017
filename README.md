@@ -80,7 +80,7 @@ Ce type de machines a été utilisée par les artistes utilisant la programmatio
 * [Programming Interactivity (O'Reilly)](https://www.amazon.com/gp/product/144931144X/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=144931144X&linkCode=as2&tag=processing09-20)
 * [Generative Art (Manning publications)](https://www.amazon.com/gp/product/1935182625?ie=UTF8&tag=processing09-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=1935182625)
 * [Making Things See: 3D vision with Kinect, Processing, Arduino, and MakerBot (O'Reilly)](https://www.amazon.com/gp/product/1449307078/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449307078&linkCode=as2&tag=processing09-20)
-* 
+* [Learning OpenCV: Computer Vision with the OpenCV Library (O'Reilly)](https://www.amazon.com/Learning-OpenCV-Computer-Vision-Library/dp/0596516134)
 
 ### Déroulé
 Par rapport à l'année dernière, les séances auront lieu sur des temps d'ateliers d'une journée plutôt que des cours pour se focaliser sur 
