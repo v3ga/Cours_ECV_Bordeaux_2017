@@ -74,6 +74,14 @@ Ce type de machines a été utilisée par les artistes utilisant la programmatio
 * A Little-Known Story about a Movement, a Magazine, and the Computer’s Arrival in Art — https://mitpress.mit.edu/books/little-known-story-about-movement-magazine-and-computer%E2%80%99s-arrival-art
 * A touch of code — http://shop.gestalten.com/a-touch-of-code.html
 
+*Mise à jour 29/12/2016*
+* [Processing : Le code informatique comme outil de création (Pearson Education)](https://www.amazon.fr/Processing-informatique-comme-outil-cr%C3%A9ation/dp/2744024538)
+* [Make: Getting Started with Processing, Second Edition (O'Reilly)](http://shop.oreilly.com/product/0636920031406.do)
+* [Programming Interactivity (O'Reilly)](https://www.amazon.com/gp/product/144931144X/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=144931144X&linkCode=as2&tag=processing09-20)
+* [Generative Art (Manning publications)](https://www.amazon.com/gp/product/1935182625?ie=UTF8&tag=processing09-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=1935182625)
+* [Making Things See: 3D vision with Kinect, Processing, Arduino, and MakerBot (O'Reilly)](https://www.amazon.com/gp/product/1449307078/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449307078&linkCode=as2&tag=processing09-20)
+* 
+
 ### Déroulé
 Par rapport à l'année dernière, les séances auront lieu sur des temps d'ateliers d'une journée plutôt que des cours pour se focaliser sur 
 le processus d'expérimentations. Ces séances auront lieu **de début octobre jusqu'à fin novembre**.
