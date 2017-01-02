@@ -5,8 +5,8 @@ class GridCell
   int wGrid, hGrid;  
   int value;
   float alpha, alphaTarget;
-  float timeReveal;
-  float time;
+  float timeReveal=0.0, timeRevealFactor=0.9;
+  float time=0.0;
 
   // --------------------------------------------
   GridCell(int i_, int j_, int wGrid_, int hGrid_)
@@ -32,7 +32,7 @@ class GridCell
   {
     //return noise(float(i)*0.01, float(j)*0.01);
     //return random(0.0f, 0.7f);
-    return dist(i,j,wGrid/2,hGrid/2)/max(wGrid,hGrid)*2;
+    return dist(i, j, wGrid/2, hGrid/2)/max(wGrid, hGrid)*2;
   }
 
   // --------------------------------------------
@@ -42,7 +42,7 @@ class GridCell
     if (this.time >= this.timeReveal) {
       this.alphaTarget = 255.0;
     }
-    this.alpha = float_relax(this.alpha, this.alphaTarget, dt, 0.9);
+    this.alpha = float_relax(this.alpha, this.alphaTarget, dt, timeRevealFactor);
   }
 }
 
@@ -53,6 +53,7 @@ class SceneGrid extends Scene
   float m_cellw, m_cellh;
   int m_gridw, m_gridh;
   int m_iOver, m_jOver;
+  float cellTimeRevealFactor;
 
   // --------------------------------------------
   SceneGrid(String name)
@@ -90,6 +91,17 @@ class SceneGrid extends Scene
   }
 
   // --------------------------------------------
+  void setCellTimeRevealFactor(float factor)
+  {
+    int i, j;
+    for (i=0; i<m_gridw; i++)
+      for (j=0; j<m_gridh; j++)
+      {
+        m_grid[i][j].timeRevealFactor = factor;
+      }
+  }
+
+  // --------------------------------------------
   void onBeginAnimation()
   {
     super.onBeginAnimation();
@@ -111,7 +123,7 @@ class SceneGrid extends Scene
     if (imageVisageCompute != null)
     {
       boolean gridSizeChanged = (imageVisageCompute.width * imageVisageCompute.height != m_gridw*m_gridh);
-      
+
       m_gridw = imageVisageCompute.width;
       m_gridh = imageVisageCompute.height;
 
@@ -140,7 +152,7 @@ class SceneGrid extends Scene
   void update()
   {
     super.update();
-    
+
     // Grid is set
     if (m_grid !=null)
     {

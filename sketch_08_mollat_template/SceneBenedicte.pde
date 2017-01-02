@@ -62,13 +62,24 @@ class ToolBenedicte extends Tool
       .setPosition(toolManager.tabX, toolManager.tabY+30).setWidth(200).setHeight(20)
       .setRange(2, 8).setValue(128)
       .setNumberOfTickMarks(7)
-      .setSliderMode(Slider.FLEXIBLE);
+
+    cp5.addSlider("timeRevealBene").addListener(this).moveTo("benedicte")
+      .setPosition(toolManager.tabX, toolManager.tabY+60).setWidth(200).setHeight(20)
+      .setRange(0.1, 1.0).setValue(0.9);
+
   }
 
   // --------------------------------------------------------------------
   void controlEvent(ControlEvent e)
   {
     SceneBenedicte scene = (SceneBenedicte) sceneManager.get("Benedicte_Alice");
-    faceOSC.setImageVisageComputeWidth( (int)(faceOSC.imageVisageWidth / scene.imageSizeBene  ));
+    if (e.getName().equals("imageSizeBene"))
+    {
+      faceOSC.setImageVisageComputeWidth( (int)(faceOSC.imageVisageWidth / scene.imageSizeBene  ));
+    }
+    else if (e.getName().equals("timeRevealBene"))
+    {
+      scene.setCellTimeRevealFactor( e.getValue() );
+    }
   }
 }
