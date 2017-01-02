@@ -12,13 +12,14 @@ class SceneThibaut extends Scene
 
   String texte = "";
   String texteName = "texte.txt"; 
-  
+
   String fonteName = "BodoniLT-Book-48";
   PFont fonte;
   float textSize = 30;
   float textLeading = 30;
 
   boolean bSetup = false;  
+  boolean bCreateText = true;
 
   float tTransition = 0.0f;
 
@@ -55,7 +56,7 @@ class SceneThibaut extends Scene
 
     displacementMap = img.copy();
     displacementMap.filter(GRAY);
-    displacementMap.filter(BLUR, 2);
+    displacementMap.filter(BLUR, 4);
   }
 
   // --------------------------------------------
@@ -64,7 +65,7 @@ class SceneThibaut extends Scene
     super.onBeginAnimation();
     Ani.to(this, 3.0, "tTransition", 1.0);
   }
-  
+
   // --------------------------------------------
   void onTerminateAnimation()
   {
@@ -81,21 +82,25 @@ class SceneThibaut extends Scene
   // --------------------------------------------
   void createTextImage()
   {
-    if (tex == null)
-      tex = createGraphics(width, height, P2D);
-      
-    tex.beginDraw();
-    tex.background(0);
-    tex.noStroke();
-    tex.fill(255);
-    tex.textFont(fonte);
-    tex.textAlign(CENTER);
-    tex.textSize(textSize);
-    tex.textLeading(textLeading);
-    tex.text(texte, 0, 0, width, height);
-    tex.endDraw();
+//    if (bCreateText)
+    {
+      bCreateText = false;
+      if (tex == null)
+        tex = createGraphics(width, height, P2D);
+
+      tex.beginDraw();
+      tex.background(0);
+      tex.noStroke();
+      tex.fill(255);
+      tex.textFont(fonte);
+      tex.textAlign(CENTER);
+      tex.textSize(textSize);
+      tex.textLeading(textLeading);
+      tex.text(texte, 0, 0, width, height);
+      tex.endDraw();
+    }
   }
-  
+
   // --------------------------------------------
   void createGrid()
   {
@@ -152,6 +157,7 @@ class SceneThibaut extends Scene
       PVector pos = faceOSC.posBoundingPortraitScreenZoom;
       PVector dim = faceOSC.dimBoundingPortraitScreenZoom;
 
+      createTextImage();
       createGrid();
 
 
@@ -160,7 +166,8 @@ class SceneThibaut extends Scene
       shader.set("displacement", displacement);
       shader.set("alpha", tTransition);
       shader(shader);
-      shape(grid, pos.x, pos.y, dim.x, dim.y);
+//      shape(grid, pos.x, pos.y, dim.x, dim.y);
+      shape(grid, 0, 0, width, height);
       resetShader();
     }
   }
@@ -197,13 +204,14 @@ class ToolThibaut extends Tool
       .plugTo(sceneManager.get("Thibaut_Maxime")).setValue(30).setRange(10, 100).setLabel("font leading").moveTo("thibaut")
       .setWidth(400).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+90).linebreak();
   }
-  
+
   // --------------------------------------------------------------------
   void controlEvent(ControlEvent theEvent) 
   {
     SceneThibaut scene = (SceneThibaut) sceneManager.get("Thibaut_Maxime");
-    if (scene.bSetup) {
-//      scene.createTextImage();
-    }
+//    if (scene.bSetup) {
+      scene.bCreateText = true;
+            scene.createTextImage();
+//    }
   }
 }
