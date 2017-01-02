@@ -162,6 +162,10 @@ Dans le cadre de « Codex », Mark Webster animera une conférence exceptionnell
 * https://www.facebook.com/codexmollat
 * https://www.instagram.com/codex_mollat/
 
+*Annonce sur le site Mollat*
+* https://www.mollat.com/evenements/rencontre-avec-mark-webster
+
+
 
 ## Fabrication du cadre (16 décembre au 23 décembre 2016)
 Le cadre a été conçu et réalisé par Michaël Zancan / 2Roqs.
