@@ -115,7 +115,7 @@ void setup()
   sceneManager.add( new SceneAlexis("Alexis_Max") );
 
   sceneManager.setup();
-  sceneManager.select("Lea_Lea");
+  sceneManager.select("Debug");
 
   // Init controls
   initControls(config.controlTabX, config.controlTabY);

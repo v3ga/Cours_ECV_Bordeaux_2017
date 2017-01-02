@@ -3,6 +3,7 @@ class ParticleShape extends VParticle
   PShape shape;
   BCollision bCollision;
   BAttractionLocal bAttractionLocal;
+  float attractionLocalRadiusFactor = 1.0;
   float age;
   float scale;
   color col = color(255);
@@ -18,6 +19,7 @@ class ParticleShape extends VParticle
 
     this.bCollision = new BCollision();
     this.bAttractionLocal = new BAttractionLocal(r*10, -6);
+    setAttractionLocalRadiusFactor(10.0);
 
     this.addBehavior(bCollision);
     this.addBehavior(bAttractionLocal);
@@ -30,9 +32,18 @@ class ParticleShape extends VParticle
   }
 
   // --------------------------------------------
+  void setRadius(float radius)
+  {
+    super.setRadius(radius);
+    setAttractionLocalRadiusFactor( attractionLocalRadiusFactor );
+  }
+
+  // --------------------------------------------
   void setAttractionLocalRadiusFactor(float v)
   {
-    this.bAttractionLocal.setRadius( getRadius()*v );
+    attractionLocalRadiusFactor = v;
+    if (this.bAttractionLocal !=null)
+      this.bAttractionLocal.setRadius( getRadius()*v );
   }
 
   // --------------------------------------------

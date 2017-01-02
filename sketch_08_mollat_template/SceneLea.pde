@@ -74,6 +74,7 @@ class SceneLea extends Scene
     physics = null;
     particles = null;
   }
+
   // --------------------------------------------
   void createParticle(PImage face, float x, float y)
   {
@@ -90,7 +91,25 @@ class SceneLea extends Scene
     // add particle to world
     physics.addParticle(particle);
   }
+  
+  // --------------------------------------------
+  void setParticleAmount(int amount)
+  {
+    deletePhysics();
+    this.amountMax = amount;  
+    this.timeSpawn = 0;
+    createPhysics();
+  }
 
+  // --------------------------------------------
+  void setParticleRadius(float radius)
+  {
+    deletePhysics();
+    this.radiusMin = radius;
+    this.radiusMax = radiusMin + 0.1*random(radius);
+    this.timeSpawn = 0;
+    createPhysics();
+  }
 
   // --------------------------------------------
   void onBeginAnimation()
@@ -275,8 +294,8 @@ class ToolLea extends Tool
 
     initTab("lea", "Lea & Lea");
     cp5.addSlider("distMin")
-      .plugTo(scene).setRange(3, 30).setValue(20)
-      .setLabel("distance").moveTo("lea").setWidth(200).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+30).linebreak();
+      .plugTo(scene).setRange(3, 100).setValue(20)
+      .setLabel("distance").moveTo("lea").setWidth(400).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+30).linebreak();
 
     cp5.addSlider("alphaImageFace")
       .plugTo(scene).setRange(0, 255).setValue(200)
@@ -289,5 +308,32 @@ class ToolLea extends Tool
     cp5.addSlider("particleAttractionRadiusFactor")
       .plugTo(scene).setRange(1, 15).setValue(2)
       .setLabel("attraction local radius factor").moveTo("lea").setWidth(200).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+120).linebreak();
-}
+  
+    cp5.addSlider("particleRadius")
+      .setRange(5, 30).setValue(10)
+      .setLabel("particle radius").moveTo("lea").setWidth(200).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+150)
+      .addListener(this);
+
+    cp5.addSlider("particleAmount")
+      .setRange(100, 2500).setValue(2000)
+      .setLabel("particle amount").moveTo("lea").setWidth(400).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+180)
+      .addListener(this);
+
+  }
+
+  // --------------------------------------------------------------------
+  void controlEvent(ControlEvent theEvent) 
+  {
+    SceneLea scene = (SceneLea) sceneManager.get("Lea_Lea");
+    
+    if (theEvent.getName().equals("particleRadius"))
+    {
+      scene.setParticleRadius( theEvent.getValue() );
+    }
+    else if (theEvent.getName().equals("particleAmount"))
+    {
+      scene.setParticleAmount( (int)theEvent.getValue() );
+    }
+  }
+
 }
