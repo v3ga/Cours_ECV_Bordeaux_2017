@@ -1,0 +1,21 @@
+{
+	"config":			"dev",
+	"controlsDraw": 	true, 
+	"enableSequence":	false,
+	"scene":			"Lea_Lea"
+}
+
+/*
+
+  configs.add( new AppConfig("dev", 600, 800, false, 0, 0) );
+  configs.add( new AppConfig("mollat", 900, 1600, true, 30, 30) );
+  configs.add( new AppConfig("mollat2", 720, 1280, true, 30, 30) );
+
+
+  sceneManager.add( new SceneDebug("Debug") );
+  sceneManager.add( new SceneThibaut("Thibaut_Maxime") );
+  sceneManager.add( new SceneLea("Lea_Lea") );
+  sceneManager.add( new SceneBenedicte("Benedicte_Alice") );
+  sceneManager.add( new SceneEmily("Emily_Anna") );
+  sceneManager.add( new SceneAlexis("Alexis_Max") );
+*/

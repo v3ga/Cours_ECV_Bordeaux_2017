@@ -2,7 +2,7 @@
   "/distMin": {
     "min": 3,
     "max": 100,
-    "value": 20
+    "value": 32.099998474121094
   },
   "/textSize": {
     "min": 10,
@@ -25,8 +25,13 @@
     "max": 1,
     "value": 0.8999999761581421
   },
-  "/__DEBUG__": {"value": 1},
+  "/__DEBUG__": {"value": 0},
   "/bZoom": {"value": 1},
+  "/timeChangeScene": {
+    "min": 5,
+    "max": 90,
+    "value": 10.949999809265137
+  },
   "/textLeading": {
     "min": 10,
     "max": 100,
@@ -35,7 +40,7 @@
   "/alphaImageFace": {
     "min": 0,
     "max": 255,
-    "value": 71.4000015258789
+    "value": 101.99999237060547
   },
   "/imageSize": {
     "min": 2,
@@ -62,7 +67,7 @@
   "/faceBoundingBorders": {
     "min": 0,
     "max": 100,
-    "value": 7
+    "value": 72.5
   },
   "/particleRadius": {
     "min": 5,

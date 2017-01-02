@@ -106,17 +106,6 @@ class SceneThibaut extends Scene
   {
     if (grid == null)
     {
-      tex = createGraphics(width, height, P2D);
-      tex.beginDraw();
-      tex.background(0);
-      tex.noStroke();
-      tex.fill(255);
-      tex.textAlign(CENTER);
-      tex.textSize(30);
-      tex.textLeading(26);
-      tex.text(texte, 0, 0, width, height);
-      tex.endDraw();
-
       float stepx = float(width) / 120;
       float stepy = float(height) / 90;
       float x = 0.0;

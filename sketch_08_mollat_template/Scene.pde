@@ -28,7 +28,7 @@ class Scene
   Scene(String name_)
   {
     this.name = name_;
-    this.pathData = "data/"+this.name+"/";
+    this.pathData = "data/scenes/"+this.name+"/";
   }
 
   // --------------------------------------------
@@ -249,6 +249,6 @@ class Scene
   // --------------------------------------------
   String getDebugInfos()
   {
-    return "Scene : "+this.name+"/ frameRate = " + int(frameRate);
+    return "Scene : "+this.name+" / frameRate = " + int(frameRate);
   }
 }

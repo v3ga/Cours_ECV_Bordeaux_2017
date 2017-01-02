@@ -27,7 +27,7 @@ void main()
 
   vec4 dv = texture2D( displacementMap, v); // rgba color of displacement map
   float df = 0.30*dv.r + 0.59*dv.g + 0.11*dv.b; // brightness calculation to create displacement float from rgb values
-  vec4 newVertexPos = vertex + vec4(0.0,0.0, displacement*df,0.0); // regular vertex position + direction * displacementMap * displaceStrength
+  vec4 newVertexPos = vertex + vec4(0.0,0.0, displacement*(1.0-df),0.0); // regular vertex position + direction * displacementMap * displaceStrength
 
   gl_Position = transform * newVertexPos;
 }

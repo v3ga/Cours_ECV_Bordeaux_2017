@@ -9,6 +9,10 @@ import de.looksgood.ani.*;
 import de.looksgood.ani.easing.*;
 import org.processing.wiki.triangulate.*;
 
+
+// --------------------------------------------
+JSONObject jsonSettings;
+
 // --------------------------------------------
 // Variables globales
 PApplet applet;
@@ -40,6 +44,7 @@ SceneManager sceneManager = new SceneManager();
 // Tools
 ToolManager toolManager;
 ControlP5 cp5;
+boolean bControlsDraw = true;
 
 // --------------------------------------------
 // Timing
@@ -55,16 +60,30 @@ boolean __DEBUG_BOUNDINGS__ = true;
 boolean __DEBUG_FEATURES__ = true;
 boolean __DEBUG_INFOS__ = true;
 
+PFont fontDebug;
 String strDebugInfos = "";
 
 // --------------------------------------------
 void createConfigs()
 {
   configs = new AppConfigs();
-  configs.add( new AppConfig("dev", 600, 800, false, 30, 30) );
-  configs.add( new AppConfig("mollat", 900, 1600, true, 0, 0) );
+  configs.add( new AppConfig("dev", 600, 800, false, 0, 0) );
+  configs.add( new AppConfig("mollat", 900, 1600, true, 30, 30) );
+  configs.add( new AppConfig("mollat2", 720, 1280, true, 30, 30) );
 }
 
+
+// --------------------------------------------
+void loadSettings()
+{
+  println("-- loadSettings()");
+  jsonSettings = loadJSONObject("settings.json");
+
+  bControlsDraw = jsonSettings.getBoolean("controlsDraw", true);
+
+  println("    controlsDraw="+bControlsDraw);
+  println("    config="+jsonSettings.getString("config", "dev"));
+}
 
 // --------------------------------------------
 void settings () 
@@ -74,25 +93,28 @@ void settings ()
 
   // Configs
   createConfigs();
-  config = configs.select("dev");
-  screenRatio = float(config.windowWidth) / float(config.windowHeight);
-  
+
+  // Settings
+  loadSettings();
+  config = configs.select( jsonSettings.getString("config", "dev") );
+
   if (config.bFullscreen)
   {
     fullScreen(P3D);
-  }
-  else
+  } else
   {
     size(config.windowWidth, config.windowHeight, P3D);
   }
 
-
+  screenRatio = float(config.windowWidth) / float(config.windowHeight);
   PJOGL.profile = 1;
 }
 
 // --------------------------------------------
 void setup() 
 {
+  println("-- setup()");
+
   // applet
   applet = this;
 
@@ -114,11 +136,21 @@ void setup()
   sceneManager.add( new SceneEmily("Emily_Anna") );
   sceneManager.add( new SceneAlexis("Alexis_Max") );
 
+  sceneManager.addForSequence( "Benedicte_Alice" );
+  sceneManager.addForSequence( "Lea_Lea" );
+  sceneManager.addForSequence( "Thibaut_Maxime" );
+
   sceneManager.setup();
-  sceneManager.select("Thibaut_Maxime");
+  if (jsonSettings.getBoolean("enableSequence", false))
+    sceneManager.enableSequence();
+  else 
+    sceneManager.select(jsonSettings.getString("scene", "Debug"));
+
+  // Fonts
+  fontDebug = loadFont("fonts/Monaco-15.vlw");
 
   // Init controls
-  initControls(config.controlTabX, config.controlTabY);
+  initControls(config.controlTabX, config.controlTabY, false);
 
   // Timing
   timer = new Timer();
@@ -126,12 +158,14 @@ void setup()
 
 // --------------------------------------------
 public void draw() 
-{    
+{
+  // dt is a global variable
   dt = timer.dt();
 
   // Update stuff
   boolean hasNewFrame = faceOSC.updateFrameSyphon();
   faceOSC.update();
+  sceneManager.update(dt);
   toolManager.update();
 
   // Draw
@@ -159,7 +193,8 @@ public void draw()
   }
 
   // Controls
-  cp5.draw();
+  if (bControlsDraw)
+    cp5.draw();
 }
 
 // --------------------------------------------
@@ -167,12 +202,13 @@ void drawDebugInfos()
 {
   pushStyle();
   pushMatrix();
-  translate(toolManager.tabX, height-80-toolManager.tabY);
-  fill(255, 200);
+  translate(toolManager.tabX, height-100-toolManager.tabY);
   strDebugInfos = "";
   if (sceneManager.getCurrent() != null)
     strDebugInfos += sceneManager.getCurrent().getDebugInfos()+"\n";
-  strDebugInfos += "faceOSC.state="+faceOSC.getStateAsString()+ "\nfaceOsc.foundFactor = " + nf(faceOSC.face.getFoundFactor(), 1, 5) + "\nfaceOsc.stateTime="+nf(faceOSC.getStateTime(),1,1);
+  strDebugInfos += "faceOSC.state="+faceOSC.getStateAsString()+ "\nfaceOsc.poseScale="+nf(faceOSC.face.poseScale,1,2)+"\nfaceOsc.foundFactor = " + nf(faceOSC.face.getFoundFactor(), 1, 5) + "\nfaceOsc.stateTime="+nf(faceOSC.getStateTime(), 1, 1);
+  fill(255,255);
+  textFont(fontDebug,12);
   text(strDebugInfos, 0, 0);
   popMatrix();
   popStyle();

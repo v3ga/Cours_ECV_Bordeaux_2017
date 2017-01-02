@@ -146,9 +146,9 @@ class SceneLea extends Scene
       if (timeSpawn>0.01f)
       {
         createParticle(imgFace, width/2+random(-10,10), height/2+random(-10,10));
-        createParticle(imgFace, width/4+random(-10,10), height/4+random(-10,10));
-        createParticle(imgFace, 3*width/4+random(-10,10), height/4+random(-10,10));
-        createParticle(imgFace, width/2+random(-10,10), 3*height/4+random(-10,10));
+        createParticle(imgFace, width/4+random(-10,10), 0.4*height+random(-10,10));
+        createParticle(imgFace, 3*width/4+random(-10,10), 0.4*height+random(-10,10));
+        createParticle(imgFace, width/2+random(-10,10), 0.7*height+random(-10,10));
         particles = physics.particles.toArray( new ParticleShape[physics.particles.size()] );
         timeSpawn=0;
       }

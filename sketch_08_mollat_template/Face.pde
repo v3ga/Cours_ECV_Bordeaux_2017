@@ -27,6 +27,12 @@ class Face
   float jaw;
   float nostrils;
 
+  PVector eyeLeftPosition = new PVector();
+  PVector eyeRightPosition = new PVector();
+  PVector mouthPosition = new PVector();
+  PVector nosePosition = new PVector();
+
+
   // --------------------------------------------
   // mesh
   PVector[] meshPoints;
@@ -241,6 +247,13 @@ class Face
     if (found>0)
     {
       foundFactor = 1.0f;
+
+      float s = poseScale/2.45;
+
+      eyeLeftPosition.set(posePosition.x - s*20, posePosition.y + (s*eyeLeft * -9) );
+      eyeRightPosition.set(posePosition.x + s*20, posePosition.y + (s*eyeRight * -9) );
+      mouthPosition.set(posePosition.x, posePosition.y + (s*25));
+      nosePosition.set(posePosition.x, posePosition.y);
     } else {
       foundFactorTarget = 0.0f;
       // foundFactor += (foundFactorTarget-foundFactor)*0.025f;

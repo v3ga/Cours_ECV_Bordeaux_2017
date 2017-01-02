@@ -85,8 +85,9 @@ class ToolManager extends ArrayList<Tool>
   
   // --------------------------------------------------------------------
   // --------------------------------------------------------------------
-  void initControls(int tabX_, int tabY_)
+  void initControls(int tabX_, int tabY_, boolean autoDraw_)
   {
+    println("-- initControls("+tabX_+","+tabY_+","+autoDraw_+")");
     this.tabX = tabX_;
     this.tabY = tabY_;
     

@@ -347,9 +347,9 @@ class FaceOSC
       xSrc, ySrc, wSrc, hSrc, 
       0, 0, imageVisageCompute.width, imageVisageCompute.height);
 
-    if (imageVisageMask != null)
+/*    if (imageVisageMask != null)
       imageVisageMask.update();
-    //imageVisage.mask( imageVisageMask.get() );
+*/    //imageVisage.mask( imageVisageMask.get() );
     if (bImageVisageComputeFilter)
       imageVisageCompute.filter(GRAY);
   }
@@ -424,7 +424,8 @@ class FaceOSC
     {
       image(imageVisage, 0, 0);    
       image(imageVisageCompute, imageVisage.width, 0);
-      image(imageVisageMask.get(), imageVisage.width+imageVisageCompute.width, 0);
+      if (imageVisageMask != null)
+        image(imageVisageMask.get(), imageVisage.width+imageVisageCompute.width, 0);
     }
 
     //image(imageVisageCompute, 0, 0,width,height);
@@ -443,6 +444,8 @@ class FaceOSC
       }
       ellipse(meshVertex.x, meshVertex.y, 3, 3);
     }
+    
+
   }  
 
   // --------------------------------------------------------------
@@ -450,6 +453,12 @@ class FaceOSC
   {
     if (face.found>0)
     {
+    PVector temp = transformPointFromSyphonFrameToScreen( face.eyeLeftPosition );
+fill(255,0,0);
+          ellipse(temp.x, temp.y, 10, 10);
+    temp = transformPointFromSyphonFrameToScreen( face.eyeRightPosition );
+          ellipse(temp.x, temp.y, 10, 10);
+
       pushStyle();
       pushMatrix();
       translate(posBoundingPortraitScreenZoom.x, posBoundingPortraitScreenZoom.y);
@@ -513,6 +522,12 @@ class FaceOSC
     g.popMatrix();
   }
 
+  // --------------------------------------------
+  int getState()
+  {
+    return state;
+  }
+  
   // --------------------------------------------
   float getStateTime()
   {
