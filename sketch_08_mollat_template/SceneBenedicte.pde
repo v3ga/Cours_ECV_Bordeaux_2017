@@ -20,6 +20,8 @@ class SceneBenedicte extends SceneGridSVG
   // --------------------------------------------
   void drawGridCell(PImage imgFaceCompute, int i, int j)
   {
+    if (m_grid == null) return;
+    
     noStroke();
     fill(255,m_grid[i][j].alpha);
     rect(float(i)*m_cellw, float(j)*m_cellh, m_cellw, m_cellh);

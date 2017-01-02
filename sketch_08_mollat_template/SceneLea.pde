@@ -1,40 +1,38 @@
 // ==================================================
-class ParticleLea
-{
-  // --------------------------------------------
-  ParticleLea(VParticle vpart_, PShape shape_)
-  {
-    this.vpart = vpart_;
-    this.shape = shape_;
-    
-    this.shape.resetMatrix();
-  }
-  
-  VParticle vpart;
-  PShape    shape;
-}
-
-// ==================================================
 class SceneLea extends Scene
 {
   VPhysics physics;
   BConstantForce force;
-  int amount = 1000;
-  PImage img;
+  ParticleShape[] particles;
+
+
+  int amountMax = 2000;
+  int amount = 0;
+  PImage imgFace;
   PVector pos;
   float scale;
   float distMin = 20.0f;
   float distMinCurrent = 0.0f;
   float alphaImageFace = 120;
+  float radiusMin = 5;
+  float radiusMax = 10;
 
   int DRAW_MODE_BUBBLES = 1;
   int DRAW_MODE_CONNEXIONS = 2;
   int drawMode = DRAW_MODE_CONNEXIONS;
-  
-  PShape particleShapeGroup;
-  PImage particleImage;  
 
-  ArrayList<ParticleLea> particles;
+
+  PShape particleShape, particleShapeGroup;
+  PImage particleImage;
+
+  float timeSpawn = 0;
+  float tTransition = 0.0;
+  float tTransitionConnexions = 0.0;
+  
+  float alphaBackground = 0;
+  
+  float particleAttractionStrength = 3;
+  float particleAttractionRadiusFactor = 6;
 
   // --------------------------------------------
   SceneLea(String name)
@@ -47,118 +45,129 @@ class SceneLea extends Scene
   {
     particleImage = loadImage( getPathData("sprite.png") );
   }
-  
+
   // --------------------------------------------
   void createPhysics()
   {
     if (physics == null && faceOSC.getImageVisage() != null)
     {
       PImage img = faceOSC.getImageVisage();
-      physics = new VPhysics(new Vec(0, 0), new Vec(img.width, img.height));
-      physics.setfriction(.3f);
+      physics = new VPhysics(new Vec(0, 0), new Vec(width, height));
+      physics.setfriction(.1f);
       force = new BConstantForce(new Vec());
       physics.addBehavior(force);
-      
 
-      particles = new ArrayList<ParticleLea>();
       particleShapeGroup = createShape(GROUP);
-      
-      PShape particleShape;
-      
 
-      for (int i = 0; i < amount; i++) 
-      {
-        //val for arbitrary radius
-        float rad = 5;//random(3, 8);
-        //vector for position
-        Vec pos = new Vec (random(rad, width-rad), random(rad, height-rad));
-        float weight = rad;
-        //create particle (Vec pos, mass, radius)
-        VParticle particle = new VParticle(pos, weight, rad);
-        //add Collision Behavior
-        particle.addBehavior(new BCollision().setLimit(.14));
-        //add particle to world
-        physics.addParticle(particle);
-        
-        // For drawing
-        particleShape = createParticleShape( particle );
-        particleShapeGroup.addChild( particleShape );
-
-        // Association physics <-> draw
-        particles.add( new ParticleLea(particle,particleShape) );
-    
-      }
+      /*      for (int i = 0; i < amount; i++) 
+       {
+       createParticle(img, random(width), random(height));
+       }
+       particles = physics.particles.toArray( new ParticleShape[physics.particles.size()] );
+       */
     }
   }
 
   // --------------------------------------------
-  PShape createParticleShape(VParticle particle)
+  void deletePhysics()
   {
-    float partSize = particle.getRadius();
-    
-    PShape part = createShape();
-    part.beginShape(QUAD);
-    part.noStroke();
-    part.texture(particleImage);
-    part.normal(0, 0, 1);
-    part.vertex(-partSize/2, -partSize/2, 0, 0);
-    part.vertex(+partSize/2, -partSize/2, particleImage.width, 0);
-    part.vertex(+partSize/2, +partSize/2, particleImage.width, particleImage.height);
-    part.vertex(-partSize/2, +partSize/2, 0, particleImage.height);
-    part.endShape();
-    
-    return part;
+    physics = null;
+    particles = null;
   }
+  // --------------------------------------------
+  void createParticle(PImage face, float x, float y)
+  {
+    // val for arbitrary radius
+    float rad = random(radiusMin, radiusMax);
+    // vector for position
+    //  Vec pos = new Vec(random(rad, width - rad), random(rad, height - rad));
+    // create particle (Vec pos, mass, radius)
+    ParticleShape particle = new ParticleShape(particleShapeGroup, particleImage, new Vec(x, y), 2, rad);
+    particle.setContext(face, width, height);
+    particle.setAttractionLocalStrength( particleAttractionStrength );
+    particle.setAttractionLocalRadiusFactor( particleAttractionRadiusFactor );
+
+    // add particle to world
+    physics.addParticle(particle);
+  }
+
 
   // --------------------------------------------
   void onBeginAnimation()
   {
     super.onBeginAnimation();
+    //    createPhysics();
+    Ani.to(this, 1.0, "tTransition", 1.0, Ani.EXPO_IN_OUT, "onEnd:createPhysics");
+//    Ani.to(this, 10.0, "tTransitionConnexions", 1.0);
+    timeSpawn = 0;
   }
 
   // --------------------------------------------
   void onTerminateAnimation()
   {
     super.onTerminateAnimation();
+    Ani.to(this, 1.0, "tTransition", 0.0, Ani.EXPO_IN_OUT, "onEnd:deletePhysics");
+//    Ani.to(this, 1.0, "tTransitionConnexions", 0.0);
   }
 
   // --------------------------------------------
   void onNewFrame()
   {
-    
+    imgFace = faceOSC.getImageVisage();
   }
 
   // --------------------------------------------
   void update()
   {
     super.update();
+
+
+    if (physics != null && (particles == null || particles.length < amountMax))
+    {
+      timeSpawn += dt;
+      if (timeSpawn>0.01f)
+      {
+        createParticle(imgFace, width/2+random(-10,10), height/2+random(-10,10));
+        createParticle(imgFace, width/4+random(-10,10), height/4+random(-10,10));
+        createParticle(imgFace, 3*width/4+random(-10,10), height/4+random(-10,10));
+        createParticle(imgFace, width/2+random(-10,10), 3*height/4+random(-10,10));
+        particles = physics.particles.toArray( new ParticleShape[physics.particles.size()] );
+        timeSpawn=0;
+      }
     
-    createPhysics();
-    if (physics != null) 
+      if (particles !=null)
+      {
+        for (int i=0;i<particles.length;i++)
+        {
+          particles[i].setAttractionLocalStrength( particleAttractionStrength );
+          particles[i].setAttractionLocalRadiusFactor( particleAttractionRadiusFactor );
+      
+        }
+      }
+    }
+
+    if (physics != null)
     {
+//      force.setForce(new Vec( -1 + 2*noise(0.01f*frameCount), -1+2*noise(0.03f*frameCount) ).normalizeTo(.23f));
       physics.update();
-      // force.setForce(new Vec(width*.5f-mouseX, height*.5f-mouseY).normalizeTo(.03f));
     }
-    updateAlphaBackground();
-    //    distMinCurrent = map(m_alphaBackground, 0, 255, 1, distMin);
-    if (faceOSC.hasStateChanged() && faceOSC.state == FaceOSC.STATE_ZOOMED)
-    {
-      //      Ani.to(this,4.5,"distMinCurrent",distMin);
-    }
+//    distMinCurrent = tTransitionConnexions * distMin;
     distMinCurrent=distMin;
   }
 
   // --------------------------------------------
   void beginDraw()
   {
-    pos = faceOSC.posBoundingPortraitScreenZoom;
-    scale = faceOSC.dimBoundingPortraitScreenZoom.x / float( img.width );
+
+    //    pos = faceOSC.posBoundingPortraitScreenZoom;
+    scale = faceOSC.dimBoundingPortraitScreenZoom.x / float( imgFace.width );
+
 
     pushStyle();
     pushMatrix();
 
-    translate(pos.x, pos.y);
-    scale(scale, scale);
+    //    translate(pos.x, pos.y);
+    //    scale(scale, scale);
   }
 
   // --------------------------------------------
@@ -168,88 +177,61 @@ class SceneLea extends Scene
     popStyle();
   }
 
+
   // --------------------------------------------
   void draw()
   {
-    img =  faceOSC.getImageVisage();
-    if (img == null) return;
+    if (imgFace == null) return;
+    imgFace.loadPixels();
 
-    tint( 255, map(m_alphaBackground, 0, 255, 255, alphaImageFace) );
+//    tint( 255, map(tTransition, 0, 1, 255, alphaImageFace) );
+    float alphaFace = 255;
+    if (particles != null && particles.length>0)
+      alphaFace = map(particles.length, 0, amountMax, 255, alphaImageFace); 
+    tint( 255,  alphaFace);
     faceOSC.drawFrameSyphonZoom();
 
     if (drawMode == DRAW_MODE_BUBBLES)     drawPoints();
     else if (drawMode == DRAW_MODE_CONNEXIONS)     drawConnections();
-  }
+
+    tint(255,255);
+}
 
   // --------------------------------------------
   void drawPoints()
   {
-//    beginDraw();
-    img.loadPixels();
-
-    int xImg=0;
-    int yImg=0; 
-    float b=0;
-    float s=0;
-    float d=0;
-    color c;
-    noStroke();
-    float alpha = m_alphaBackground;
-
-
-    VParticle p;
-    PShape shape;
-//    for (VParticle p : physics.particles) 
-    for (ParticleLea part : particles)
-    {
-      p = part.vpart;
-      shape = part.shape;
-      
-      xImg = (int) p.x;
-      yImg = (int) p.y;
-      c = img.get(xImg, yImg);
-      d = p.getRadius()*2;
-      b = brightness( c ) / 255.0;
-//      s = map(b, 0, 1, 0.6*d, d);
-      s = map(b, 0, 1, 0.6, 1.0);
-      shape.setTint(color(255));
-      shape.resetMatrix();
-      shape.translate(scale*p.x,scale*p.y);
-//      shape.scale(2);
-//      shape.scale(6);
-//      fill(c, alpha);
-//      ellipse(p.x, p.y, s, s);
-      shape(shape);
-    }
-    
-    //shape(particleShapeGroup);
-
-//    endDraw();
+    if (particleShapeGroup == null) return;
+    beginDraw();
+    shape(particleShapeGroup);
+    endDraw();
   }
 
   // --------------------------------------------
   void drawConnections()
   {
+    if (particles == null) return;
+    if (distMinCurrent < 2.0f) return;
+
     beginDraw();
-    img.loadPixels();
 
-    int nbParticles = physics.particles.size();
+    int nbParticles = particles.length;
     float d=0.0;
-    float alpha = m_alphaBackground;
+    float alpha = tTransition*255;
 
+    strokeWeight(2);
     beginShape(LINES);
     for (int i=0; i<nbParticles; i++)
     {
-      VParticle pi = physics.particles.get(i);
+      ParticleShape pi = particles[i];
       for (int j=i; j<nbParticles; j++)
       {
-        VParticle pj = physics.particles.get(j);
+        ParticleShape pj = particles[j];
         d = dist(pi.x, pi.y, pj.x, pj.y);
         if (d < distMinCurrent)
         {
-          stroke( img.get( (int)pi.x, (int)pi.y), alpha);
+          stroke( pi.col, alpha);
           vertex(pi.x, pi.y);
-          stroke( img.get( (int)pi.x, (int)pi.y), alpha );
+          stroke( pj.col, alpha );
           vertex(pj.x, pj.y);
         }
       }
@@ -261,8 +243,12 @@ class SceneLea extends Scene
   // --------------------------------------------------------------------
   void keyPressed()
   {
-    if (key == 'a') drawMode = DRAW_MODE_BUBBLES;
-    else if (key == 'z') drawMode = DRAW_MODE_CONNEXIONS;
+    if (key == 'a')
+    {
+      drawMode = DRAW_MODE_BUBBLES;
+      //     int nbParticles = particles.length;
+      //      for (int i=0;i<nbParticles;i++
+    } else if (key == 'z') drawMode = DRAW_MODE_CONNEXIONS;
   }
 }
 
@@ -295,5 +281,13 @@ class ToolLea extends Tool
     cp5.addSlider("alphaImageFace")
       .plugTo(scene).setRange(0, 255).setValue(200)
       .setLabel("alpha background image").moveTo("lea").setWidth(200).setHeight(20).setPosition(4, 60).linebreak();
-  }
+
+    cp5.addSlider("particleAttractionStrength")
+      .plugTo(scene).setRange(-10, 10).setValue(5)
+      .setLabel("attraction local strength").moveTo("lea").setWidth(200).setHeight(20).setPosition(4, 90).linebreak();
+
+    cp5.addSlider("particleAttractionRadiusFactor")
+      .plugTo(scene).setRange(1, 15).setValue(2)
+      .setLabel("attraction local radius factor").moveTo("lea").setWidth(200).setHeight(20).setPosition(4, 120).linebreak();
+}
 }

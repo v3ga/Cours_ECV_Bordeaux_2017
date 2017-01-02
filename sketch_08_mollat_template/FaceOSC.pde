@@ -386,7 +386,7 @@ class FaceOSC
   void drawFaceBounding()
   {
     //if (state == STATE_REST)
-    if (face.found>0)
+    if (face.isFound())
     {
       pushStyle();
 
@@ -395,6 +395,9 @@ class FaceOSC
       noFill();
       stroke(0, 200, 0);
       rect(0, 0, dimBoundingPortraitScreenZoom.x, dimBoundingPortraitScreenZoom.y);
+      fill(0,200,0);
+      float ratio1 = dimBoundingPortraitScreenZoom.x / dimBoundingPortraitScreenZoom.y;
+      text("("+nf(dimBoundingPortraitScreenZoom.x,2,1)+","+nf(dimBoundingPortraitScreenZoom.y,2,1)+") - ratio = " + nf(ratio1,1,2),0,-10);
       popMatrix();
 
       pushMatrix();
@@ -405,6 +408,9 @@ class FaceOSC
       noFill();
       stroke(200, 0, 0);
       rect(0, 0, zoom*dimBoundingPortraitTightScreen.x, zoom*dimBoundingPortraitTightScreen.y);
+      fill(200,0,0);
+      float ratio2 = dimBoundingPortraitTightScreen.x / dimBoundingPortraitTightScreen.y;
+      text("("+nf(zoom*dimBoundingPortraitTightScreen.x,2,1)+","+nf(zoom*dimBoundingPortraitTightScreen.y,2,1)+") - ratio = " + nf(ratio2,1,2),0,-10);
       popMatrix();
 
       popStyle();

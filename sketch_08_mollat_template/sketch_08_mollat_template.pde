@@ -14,8 +14,8 @@ import org.processing.wiki.triangulate.*;
 PApplet applet;
 /*
 int screenWidth = 900;
-int screenHeight = 1600;
-*/
+ int screenHeight = 1600;
+ */
 int screenWidth = 600;
 int screenHeight = 800;
 
@@ -69,7 +69,7 @@ void setup()
 {
   // applet
   applet = this;
-  
+
   // Libs
   Ani.init(this);
 
@@ -81,6 +81,7 @@ void setup()
   faceOSC.setup();
 
   // Scenes
+  sceneManager.add( new SceneDebug("Debug") );
   sceneManager.add( new SceneThibaut("Thibaut_Maxime") );
   sceneManager.add( new SceneLea("Lea_Lea") );
   sceneManager.add( new SceneBenedicte("Benedicte_Alice") );
@@ -92,7 +93,7 @@ void setup()
 
   // Init controls
   initControls();
-  
+
   // Timing
   timer = new Timer();
 }
@@ -101,14 +102,15 @@ void setup()
 public void draw() 
 {    
   dt = timer.dt();
-  
+
   // Update stuff
   boolean hasNewFrame = faceOSC.updateFrameSyphon();
   faceOSC.update();
   toolManager.update();
 
   // Draw
-  background(0,0,0);
+  background(0, 0, 0);
+  hint(ENABLE_DEPTH_TEST);
 
   // Scene
   Scene sceneCurrent = sceneManager.getCurrent();
@@ -120,6 +122,7 @@ public void draw()
     sceneCurrent.draw();
   }
 
+  hint(DISABLE_DEPTH_TEST);
   // Debug
   if (__DEBUG__)
   {
@@ -128,19 +131,22 @@ public void draw()
     if (__DEBUG_FEATURES__)  faceOSC.drawFaceFeatures();
     if (__DEBUG_INFOS__)     drawDebugInfos();
   }
+
+  // Controls
+  cp5.draw();
 }
 
 // --------------------------------------------
 void drawDebugInfos()
 {
-   pushStyle();
-   pushMatrix();
-   translate(4,height-40);
-   fill(255,200);
-   strDebugInfos = "faceOSC.state="+faceOSC.getStateAsString()+ " / " + "faceOsc.foundFactor = " + nf(faceOSC.face.getFoundFactor(),1,5) + "faceOsc.stateTime="+faceOSC.getStateTime();
-   text(strDebugInfos,0,0);
-   popMatrix();
-   popStyle();
+  pushStyle();
+  pushMatrix();
+  translate(4, height-60);
+  fill(255, 200);
+  strDebugInfos = "faceOSC.state="+faceOSC.getStateAsString()+ " / " + "faceOsc.foundFactor = " + nf(faceOSC.face.getFoundFactor(), 1, 5) + "\nfaceOsc.stateTime="+faceOSC.getStateTime();
+  text(strDebugInfos, 0, 0);
+  popMatrix();
+  popStyle();
 }
 
 // --------------------------------------------
@@ -169,7 +175,8 @@ void mousePressed()
 // --------------------------------------------
 void keyPressed()
 {
-  if (key == '1')        sceneManager.select("Thibaut_Maxime");
+  if (key == '0')        sceneManager.select("Debug");
+  else if (key == '1')   sceneManager.select("Thibaut_Maxime");
   else if (key == '2')   sceneManager.select("Lea_Lea");
   else if (key == '3')   sceneManager.select("Benedicte_Alice");
   else if (key == '4')   sceneManager.select("Emily_Anna");

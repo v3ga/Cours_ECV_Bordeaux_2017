@@ -218,10 +218,10 @@ class Face
     float borders = boundingPortraitBorders;
 
     boundingPortrait.dimension.x += borders;
-    boundingPortrait.dimension.y = hBoundingPortrait + borders;
+    boundingPortrait.dimension.y = hBoundingPortrait + borders/screenRatio;
 
     boundingPortrait.position.x -= 0.5*borders;
-    boundingPortrait.position.y += -hDelta - 0.5*borders;
+    boundingPortrait.position.y += -hDelta - 0.5*borders/screenRatio;
     boundingPortrait.center.set(boundingPortrait.position.x+0.5*boundingPortrait.dimension.x, boundingPortrait.position.y+0.5*boundingPortrait.dimension.y);
 
     boundingPose.dimension.set( boundingPortrait.dimension );
@@ -267,6 +267,8 @@ class Face
   // --------------------------------------------
   // parse an OSC message from FaceOSC
   // returns true if a message was handled
+  //
+  // https://github.com/kylemcdonald/ofxFaceTracker/wiki/Osc-message-specification
   boolean parseOSC(OscMessage m) 
   {
 
