@@ -54,7 +54,7 @@ class ToolEmily extends Tool
     initTab("emily", "Emily & Anna");
 
     cp5.addSlider("imageSize").addListener(this).plugTo(sceneManager.get("Emily_Anna")).moveTo("emily")
-      .setPosition(4, 30).setWidth(200).setHeight(20)
+      .setPosition(toolManager.tabX, toolManager.tabY+30).setWidth(200).setHeight(20)
       .setRange(2, 8).setValue(128)
       .setNumberOfTickMarks(7)
       .setSliderMode(Slider.FLEXIBLE);

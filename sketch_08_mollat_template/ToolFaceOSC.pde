@@ -26,7 +26,7 @@ class ToolFaceOSC extends Tool
     cp5.addToggle("__DEBUG_INFOS__").setLabel("face draw infos").moveTo("default").setWidth(20).linebreak();
     
     chartFaceFoundFactor = cp5.addChart("faceFoundFactor").setSize(200,100).setRange(0.0,1.25).setView(Chart.LINE).setStrokeWeight(1.5);
-    chartFaceFoundFactor.setPosition(width-200, height-100);
+    chartFaceFoundFactor.setPosition(width-200-toolManager.tabX, height-100-toolManager.tabY);
     chartFaceFoundFactor.addDataSet("incoming");
     chartFaceFoundFactor.setData("incoming", new float[100]);
 
@@ -38,7 +38,7 @@ class ToolFaceOSC extends Tool
     cp5.addSlider("zoomSpeed").plugTo(faceOSC).setValue(faceOSC.zoomSpeed).setRange(0.1,1.0)
     .setLabel("face zoom speed").moveTo("default").setWidth(200).setHeight(20).linebreak();
 
-    cp5.addButton("saveTools").setLabel("save").plugTo(this).moveTo("default").setHeight(20).setPosition(0,height-20);
+    cp5.addButton("saveTools").setLabel("save").plugTo(this).moveTo("default").setHeight(20).setPosition(toolManager.tabX,height-20-toolManager.tabY);
   }
 
   // --------------------------------------------------------------------

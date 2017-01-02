@@ -59,7 +59,7 @@ class ToolBenedicte extends Tool
     initTab("benedicte", "Benedicte & Alice");
 
     cp5.addSlider("imageSizeBene").addListener(this).plugTo(sceneManager.get("Benedicte_Alice")).moveTo("benedicte")
-      .setPosition(4, 30).setWidth(200).setHeight(20)
+      .setPosition(toolManager.tabX, toolManager.tabY+30).setWidth(200).setHeight(20)
       .setRange(2, 8).setValue(128)
       .setNumberOfTickMarks(7)
       .setSliderMode(Slider.FLEXIBLE);

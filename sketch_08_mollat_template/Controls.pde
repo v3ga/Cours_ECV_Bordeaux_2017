@@ -1,4 +1,4 @@
-void initControls()
+void initControls(int tabX, int tabY)
 {
   // cp5 = new ControlP5(this);
 
@@ -15,7 +15,7 @@ void initControls()
   toolManager.addTool( new ToolThibaut(this) );
   toolManager.addTool( new ToolBenedicte(this) );
   
-  toolManager.initControls();
+  toolManager.initControls(tabX,tabY);
   toolManager.setup();
   toolManager.loadProperties();
   

@@ -3,7 +3,8 @@ class Tool implements ControlListener
   PApplet applet=null;
   int id = 0;
   String tabName = "";
-  
+  ToolManager toolManager;  
+    
   // --------------------------------------------------------------------
   Tool(PApplet p)
   {
@@ -15,19 +16,26 @@ class Tool implements ControlListener
   {
     return tabName+"_"+name;
   }
-  
+
+    // --------------------------------------------------------------------
+
   // --------------------------------------------------------------------
   void initTab(String name, String label)
   {
     tabName = name;
-    cp5.getTab(tabName).activateEvent(true);
-    cp5.getTab(tabName).setHeight(20);
-    cp5.getTab(tabName).getCaptionLabel().getStyle().marginTop = 2;
-    cp5.getTab(tabName).setId(id);
-    cp5.getTab(tabName).setLabel(label);
+    cp5.getTab(tabName).setLabel(label).setId(id).activateEvent(true).setHeight(20)/*.setPosition(toolManager.tabX,0)*/;
+    Label tabLabel = cp5.getTab(tabName).getCaptionLabel();
+    //tabLabel.setPosition(controlPosX, tabPosY);
+    tabLabel.getStyle().marginTop = 2;
     // cp5.getTab(tabName).setColorBackground(color(0, 0, 117));
-}
+  }
 
+  // --------------------------------------------------------------------
+  void setToolManager(ToolManager tm_)
+  {
+    this.toolManager = tm_;
+  }
+  
   // --------------------------------------------------------------------
   void setup(){}
   void update(){}
@@ -48,6 +56,8 @@ class ToolManager extends ArrayList<Tool>
   PApplet applet=null;
   Tool toolSelected = null;
   int idTool = 0;
+  int tabX = 0;
+  int tabY = 0;
   
   // --------------------------------------------------------------------
   // --------------------------------------------------------------------
@@ -75,14 +85,24 @@ class ToolManager extends ArrayList<Tool>
   
   // --------------------------------------------------------------------
   // --------------------------------------------------------------------
-  void initControls()
+  void initControls(int tabX_, int tabY_)
   {
+    this.tabX = tabX_;
+    this.tabY = tabY_;
+    
     cp5 = new ControlP5(applet);
     cp5.setAutoDraw(false);
     //cp5.setFont(createFont("helvetica",10));
+    cp5.getWindow().setPositionOfTabs(tabX,tabY);
 
     for (Tool t : this)
+    {
+      t.setToolManager(this);
+
+      cp5.begin(tabX,tabY+40);
       t.initControls();
+      cp5.end();
+    }
   }
 
   // --------------------------------------------------------------------

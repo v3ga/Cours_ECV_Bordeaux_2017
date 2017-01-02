@@ -21,6 +21,9 @@ int screenHeight = 800;
 
 float screenRatio = float(screenWidth) / float(screenHeight);
 
+AppConfigs configs;
+AppConfig config;
+
 // --------------------------------------------
 // link with FaceOSC software
 FaceOSC faceOSC;
@@ -55,12 +58,35 @@ boolean __DEBUG_INFOS__ = true;
 String strDebugInfos = "";
 
 // --------------------------------------------
+void createConfigs()
+{
+  configs = new AppConfigs();
+  configs.add( new AppConfig("dev", 600, 800, false, 30, 30) );
+  configs.add( new AppConfig("mollat", 900, 1600, true, 0, 0) );
+}
+
+
+// --------------------------------------------
 void settings () 
 {
   println("-- settings()");
   println("- screenRatio = "+screenRatio);
 
-  size(screenWidth, screenHeight, P3D);
+  // Configs
+  createConfigs();
+  config = configs.select("dev");
+  screenRatio = float(config.windowWidth) / float(config.windowHeight);
+  
+  if (config.bFullscreen)
+  {
+    fullScreen(P3D);
+  }
+  else
+  {
+    size(config.windowWidth, config.windowHeight, P3D);
+  }
+
+
   PJOGL.profile = 1;
 }
 
@@ -92,7 +118,7 @@ void setup()
   sceneManager.select("Lea_Lea");
 
   // Init controls
-  initControls();
+  initControls(config.controlTabX, config.controlTabY);
 
   // Timing
   timer = new Timer();

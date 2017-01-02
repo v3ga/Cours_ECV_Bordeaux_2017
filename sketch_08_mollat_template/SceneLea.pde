@@ -276,18 +276,18 @@ class ToolLea extends Tool
     initTab("lea", "Lea & Lea");
     cp5.addSlider("distMin")
       .plugTo(scene).setRange(3, 30).setValue(20)
-      .setLabel("distance").moveTo("lea").setWidth(200).setHeight(20).setPosition(4, 30).linebreak();
+      .setLabel("distance").moveTo("lea").setWidth(200).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+30).linebreak();
 
     cp5.addSlider("alphaImageFace")
       .plugTo(scene).setRange(0, 255).setValue(200)
-      .setLabel("alpha background image").moveTo("lea").setWidth(200).setHeight(20).setPosition(4, 60).linebreak();
+      .setLabel("alpha background image").moveTo("lea").setWidth(200).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+60).linebreak();
 
     cp5.addSlider("particleAttractionStrength")
       .plugTo(scene).setRange(-10, 10).setValue(5)
-      .setLabel("attraction local strength").moveTo("lea").setWidth(200).setHeight(20).setPosition(4, 90).linebreak();
+      .setLabel("attraction local strength").moveTo("lea").setWidth(200).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+90).linebreak();
 
     cp5.addSlider("particleAttractionRadiusFactor")
       .plugTo(scene).setRange(1, 15).setValue(2)
-      .setLabel("attraction local radius factor").moveTo("lea").setWidth(200).setHeight(20).setPosition(4, 120).linebreak();
+      .setLabel("attraction local radius factor").moveTo("lea").setWidth(200).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+120).linebreak();
 }
 }

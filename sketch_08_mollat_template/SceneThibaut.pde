@@ -122,6 +122,6 @@ class ToolThibaut extends Tool
     initTab("thibaut", "Thibaut & Maxime");
     cp5.addSlider("displacement")
     .plugTo(sceneManager.get("Thibaut_Maxime")).setValue(0.0).setRange(0,1000).setLabel("displacement").moveTo("thibaut")
-    .setWidth(200).setHeight(20).setPosition(4,30).linebreak();
+    .setWidth(200).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+30).linebreak();
   }
 }
