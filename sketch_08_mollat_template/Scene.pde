@@ -249,6 +249,6 @@ class Scene
   // --------------------------------------------
   String getDebugInfos()
   {
-    return "frameRate = " + int(frameRate);
+    return "Scene : "+this.name+"/ frameRate = " + int(frameRate);
   }
 }
