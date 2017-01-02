@@ -18,6 +18,6 @@ class ToolScenes extends Tool
 
     cp5.addSlider("timeOnBeginAnimCall").plugTo(sceneManager).setValue(sceneManager.timeOnBeginAnimCall).setRange(0.0, 10.0)
       .setLabel("time OnBeginAnimation call").moveTo("scenes")
-      .setPosition(4, 30).setWidth(200).setHeight(20).linebreak();
+      .setPosition(toolManager.tabX+4, toolManager.tabY+30).setWidth(200).setHeight(20).linebreak();
   }
 }

@@ -4,6 +4,16 @@
     "max": 100,
     "value": 20
   },
+  "/textSize": {
+    "min": 10,
+    "max": 100,
+    "value": 16.975000381469727
+  },
+  "/timeRevealBene": {
+    "min": 0.10000000149011612,
+    "max": 1,
+    "value": 0.8999999761581421
+  },
   "/particleAttractionStrength": {
     "min": -10,
     "max": 10,
@@ -16,7 +26,12 @@
     "value": 0.8999999761581421
   },
   "/__DEBUG__": {"value": 1},
-  "/bZoom": {"value": 0},
+  "/bZoom": {"value": 1},
+  "/textLeading": {
+    "min": 10,
+    "max": 100,
+    "value": 10.675000190734863
+  },
   "/alphaImageFace": {
     "min": 0,
     "max": 255,
@@ -27,12 +42,12 @@
     "max": 8,
     "value": 8
   },
+  "/__DEBUG_FEATURES__": {"value": 1},
   "/timeOnBeginAnimCall": {
     "min": 0,
     "max": 10,
-    "value": 2
+    "value": 0.699999988079071
   },
-  "/__DEBUG_FEATURES__": {"value": 1},
   "/zoomSpeed": {
     "min": 0.10000000149011612,
     "max": 1,
@@ -67,7 +82,7 @@
   "/displacement": {
     "min": 0,
     "max": 1000,
-    "value": 0
+    "value": 199.99998474121094
   },
   "/__DEBUG_INFOS__": {"value": 1}
 }

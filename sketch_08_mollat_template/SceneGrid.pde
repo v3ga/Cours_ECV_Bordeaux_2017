@@ -87,12 +87,17 @@ class SceneGrid extends Scene
       for (j=0; j<m_gridh; j++)
       {
         m_grid[i][j].reset();
+        m_grid[i][j].timeRevealFactor = cellTimeRevealFactor;
       }
   }
 
   // --------------------------------------------
   void setCellTimeRevealFactor(float factor)
   {
+    this.cellTimeRevealFactor = factor;
+    
+    if (m_grid == null) return;
+
     int i, j;
     for (i=0; i<m_gridw; i++)
       for (j=0; j<m_gridh; j++)

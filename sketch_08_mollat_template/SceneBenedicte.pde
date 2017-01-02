@@ -61,7 +61,7 @@ class ToolBenedicte extends Tool
     cp5.addSlider("imageSizeBene").addListener(this).plugTo(sceneManager.get("Benedicte_Alice")).moveTo("benedicte")
       .setPosition(toolManager.tabX, toolManager.tabY+30).setWidth(200).setHeight(20)
       .setRange(2, 8).setValue(128)
-      .setNumberOfTickMarks(7)
+      .setNumberOfTickMarks(7);
 
     cp5.addSlider("timeRevealBene").addListener(this).moveTo("benedicte")
       .setPosition(toolManager.tabX, toolManager.tabY+60).setWidth(200).setHeight(20)

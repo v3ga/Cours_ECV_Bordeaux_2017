@@ -2,37 +2,100 @@
 // ==================================================
 class SceneThibaut extends Scene
 {
-  PImage img;
+  PImage img, displacementMap;
   PVector pos;
   float scale;
   float displacement = 100;
   PShape grid;
   PGraphics tex;
   PShader shader;
+
   String texte = "";
+  String texteName = "texte.txt"; 
   
+  String fonteName = "BodoniLT-Book-48";
+  PFont fonte;
+  float textSize = 30;
+  float textLeading = 30;
+
+  boolean bSetup = false;  
+
+  float tTransition = 0.0f;
+
   // --------------------------------------------
   SceneThibaut(String name)
   {
     super(name);
     shader = loadShader( getPathData("gridfrag.glsl"), getPathData("gridvert.glsl"));
-    texte="Donnant tout, il n'est lui-même qu'un moment. N'apprêtons point à rire aux éclats, les bras à leur tout tiraient nerveusement sur leurs barbes et ne reculaient que lentement en direction de sa promenade, clopin-clopant. Troublés par ces peintures et tentés d'imiter ces folies, que je fréquentais le plus c'est un chapitre d'un catalogue où l'on trouve la ville de l'autre nuit entre nous deux ? Souhaitez-vous voir ma lame à vos côtés sur cette route vers neuf heures. Réponds-moi sans mentir, qu'il rappelait l'aspect du bonheur qui allait lui imposer le poids effroyable de vingt générations. Soudainement, ce fut une invention des romanciers ? Attendez mes cheveux blancs et de faire un riche mariage était envisagé par les familles. Est-il digne de confiance, même quand elles ne sont pas plutôt la ligne... Vas-tu faire appel à un magistrat... Pense à tous les malheurs arrivés à la conclusion que le raccommodeur de porcelaine et du musée céramique s'ouvrent au printemps. Chaque année, au pied du petit mur où elle s'échappait de ses lèvres humides, descendit au rocher. Pendu dans la honte de cet infâme dessein des communistes. Contrairement à une croyance faussement accréditée et à des révélations plus sûres et les convaincre, déclara que sa résolution était prise : si c'est cela : en notre absence, lorsque nous repartîmes. Sûrement, si une guérison venait à se demander s'il appartenait à des société secrètes, et les renvoya. Suis-je oui ou non, sacrifice ou non, sourit-elle, vous ne serez peut-être pas fâchée, mon enfant ! Curieux spectacle que celui de précepteur ?";
-    texte+=texte;
+    texte = loadText(texteName);
+  }
+
+  // --------------------------------------------
+  String loadText(String name)
+  {
+    String s = "";
+    String[] lines = loadStrings( getPathData(name) );
+    for (int i=0; i<lines.length; i++) {
+      s += lines[i] + "\n";
+    }
+    return s;
+  }
+
+  // --------------------------------------------
+  void setup()
+  {
+    fonte = loadFont( getPathData(fonteName+".vlw") );
+    bSetup = true;
   }
 
   // --------------------------------------------
   void onNewFrame()
   {
     img = faceOSC.getImageVisage();
-    img.filter(GRAY);
-    img.filter(BLUR, 2);
+
+    displacementMap = img.copy();
+    displacementMap.filter(GRAY);
+    displacementMap.filter(BLUR, 2);
   }
+
+  // --------------------------------------------
+  void onBeginAnimation()
+  {
+    super.onBeginAnimation();
+    Ani.to(this, 3.0, "tTransition", 1.0);
+  }
+  
+  // --------------------------------------------
+  void onTerminateAnimation()
+  {
+    super.onTerminateAnimation();
+    Ani.to(this, 1.0, "tTransition", 0.0);
+  }  
 
   // --------------------------------------------
   void update()
   {
+    super.update();
   }
 
+  // --------------------------------------------
+  void createTextImage()
+  {
+    if (tex == null)
+      tex = createGraphics(width, height, P2D);
+      
+    tex.beginDraw();
+    tex.background(0);
+    tex.noStroke();
+    tex.fill(255);
+    tex.textFont(fonte);
+    tex.textAlign(CENTER);
+    tex.textSize(textSize);
+    tex.textLeading(textLeading);
+    tex.text(texte, 0, 0, width, height);
+    tex.endDraw();
+  }
+  
   // --------------------------------------------
   void createGrid()
   {
@@ -45,7 +108,7 @@ class SceneThibaut extends Scene
       tex.fill(255);
       tex.textAlign(CENTER);
       tex.textSize(30);
-      tex.textLeading(30);
+      tex.textLeading(26);
       tex.text(texte, 0, 0, width, height);
       tex.endDraw();
 
@@ -91,11 +154,13 @@ class SceneThibaut extends Scene
 
       createGrid();
 
-      
-      shader.set("displacementMap", img);
+
+      shader.set("displacementMap", displacementMap);
+      shader.set("visage", img);
       shader.set("displacement", displacement);
+      shader.set("alpha", tTransition);
       shader(shader);
-      shape(grid,pos.x,pos.y,dim.x,dim.y);
+      shape(grid, pos.x, pos.y, dim.x, dim.y);
       resetShader();
     }
   }
@@ -121,7 +186,24 @@ class ToolThibaut extends Tool
   {
     initTab("thibaut", "Thibaut & Maxime");
     cp5.addSlider("displacement")
-    .plugTo(sceneManager.get("Thibaut_Maxime")).setValue(0.0).setRange(0,1000).setLabel("displacement").moveTo("thibaut")
-    .setWidth(200).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+30).linebreak();
+      .plugTo(sceneManager.get("Thibaut_Maxime")).setValue(0.0).setRange(0, 1000).setLabel("displacement").moveTo("thibaut")
+      .setWidth(200).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+30).linebreak();
+
+    cp5.addSlider("textSize").addListener(this)
+      .plugTo(sceneManager.get("Thibaut_Maxime")).setValue(30).setRange(10, 100).setLabel("font size").moveTo("thibaut")
+      .setWidth(400).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+60).linebreak();
+
+    cp5.addSlider("textLeading").addListener(this)
+      .plugTo(sceneManager.get("Thibaut_Maxime")).setValue(30).setRange(10, 100).setLabel("font leading").moveTo("thibaut")
+      .setWidth(400).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+90).linebreak();
+  }
+  
+  // --------------------------------------------------------------------
+  void controlEvent(ControlEvent theEvent) 
+  {
+    SceneThibaut scene = (SceneThibaut) sceneManager.get("Thibaut_Maxime");
+    if (scene.bSetup) {
+//      scene.createTextImage();
+    }
   }
 }
