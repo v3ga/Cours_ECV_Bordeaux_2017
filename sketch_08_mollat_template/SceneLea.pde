@@ -141,7 +141,7 @@ class SceneLea extends Scene
     super.update();
 
 
-    if (physics != null && (particles == null || particles.length < amountMax))
+    if (physics != null && (particles == null || particles.length < amountMax) && imgFace!=null)
     {
       timeSpawn += dt;
       if (timeSpawn>0.01f)

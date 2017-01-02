@@ -36,7 +36,7 @@ class Scene
   {
     this.sceneManager = sceneManager_;
   }
-  
+
   // --------------------------------------------
   String getPathData(String filename) {
     return this.pathData+filename;
@@ -106,13 +106,11 @@ class Scene
         onBeginAnimation();
         bOnBeginAnimCalled = true;
       }
-    } 
-    else
+    } else
     {
       timeOnBeginAnimCall = 0;
       bOnBeginAnimCalled = false;
     }
-    
   }
 
   // --------------------------------------------
@@ -120,7 +118,7 @@ class Scene
   {
     if (faceOSC.hasStateChanged() && faceOSC.statePrevious == FaceOSC.STATE_ZOOMED)
     {
-     onTerminateAnimation();
+      onTerminateAnimation();
     }
   }
 
@@ -246,5 +244,11 @@ class Scene
     {
       dir.mkdir();
     }
+  }
+
+  // --------------------------------------------
+  String getDebugInfos()
+  {
+    return "frameRate = " + int(frameRate);
   }
 }

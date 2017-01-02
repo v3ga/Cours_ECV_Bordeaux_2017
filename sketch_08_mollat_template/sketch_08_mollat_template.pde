@@ -167,9 +167,12 @@ void drawDebugInfos()
 {
   pushStyle();
   pushMatrix();
-  translate(4, height-60);
+  translate(toolManager.tabX, height-80-toolManager.tabY);
   fill(255, 200);
-  strDebugInfos = "faceOSC.state="+faceOSC.getStateAsString()+ " / " + "faceOsc.foundFactor = " + nf(faceOSC.face.getFoundFactor(), 1, 5) + "\nfaceOsc.stateTime="+faceOSC.getStateTime();
+  strDebugInfos = "";
+  if (sceneManager.getCurrent() != null)
+    strDebugInfos += sceneManager.getCurrent().getDebugInfos()+"\n";
+  strDebugInfos += "faceOSC.state="+faceOSC.getStateAsString()+ "\nfaceOsc.foundFactor = " + nf(faceOSC.face.getFoundFactor(), 1, 5) + "\nfaceOsc.stateTime="+nf(faceOSC.getStateTime(),1,1);
   text(strDebugInfos, 0, 0);
   popMatrix();
   popStyle();
