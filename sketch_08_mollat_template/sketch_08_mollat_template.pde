@@ -16,14 +16,8 @@ JSONObject jsonSettings;
 // --------------------------------------------
 // Variables globales
 PApplet applet;
-/*
-int screenWidth = 900;
- int screenHeight = 1600;
- */
-int screenWidth = 600;
-int screenHeight = 800;
 
-float screenRatio = float(screenWidth) / float(screenHeight);
+float screenRatio = 1.0;
 
 AppConfigs configs;
 AppConfig config;
@@ -83,6 +77,7 @@ void loadSettings()
 
   println("    controlsDraw="+bControlsDraw);
   println("    config="+jsonSettings.getString("config", "dev"));
+  
 }
 
 // --------------------------------------------
@@ -105,6 +100,8 @@ void settings ()
   {
     size(config.windowWidth, config.windowHeight, P3D);
   }
+  
+
 
   screenRatio = float(config.windowWidth) / float(config.windowHeight);
   PJOGL.profile = 1;
@@ -152,6 +149,11 @@ void setup()
   // Init controls
   initControls(config.controlTabX, config.controlTabY, false);
 
+  // Cursor
+  if ( ! jsonSettings.getBoolean("cursor", true))
+  {
+    noCursor();
+  }
   // Timing
   timer = new Timer();
 }
