@@ -47,12 +47,12 @@ class SceneAlexis extends Scene
 
     visageBig = faceOSC.getImageVisage().copy();
     visage = faceOSC.getImageVisageCompute().copy();
-    //      visage.filter(GRAY);
-    //      visage.filter(INVERT);
-    //      visage.filter(THRESHOLD, 0.8);
+          visage.filter(GRAY);
+         // visage.filter(INVERT);
+         visage.filter(THRESHOLD, 0.6);
 
-    //      agent = new AgentTSP(visage);
-    agent = new Agent(visage);
+      agent = new AgentTSP(visage);
+//    agent = new Agent(visage);
     agent.compute();
     agent.begin(10);
   }
@@ -82,7 +82,7 @@ class SceneAlexis extends Scene
 
     if (visage != null)
     {
-      image(visage, 0, height-2*visage.height, visage.width*2, visage.height*2);
+      image(visage, width-visage.width*2, height-2*visage.height-200, visage.width*2, visage.height*2);
     }
     popStyle();
   }

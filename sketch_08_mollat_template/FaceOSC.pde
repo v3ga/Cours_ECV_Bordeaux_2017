@@ -50,6 +50,9 @@ class FaceOSC
   // Preview
   float scalePreview = 1.0f;
   PVector dimPreview = new PVector();
+  
+  // Save face
+  float timeFaceSave = 4.0f;
 
   // --------------------------------------------
   // Image of face relative to the bounding box
@@ -293,6 +296,8 @@ class FaceOSC
       }
       zoom += (zoomTarget-zoom)*zoomSpeed;
       f = map(zoom, 1, zoomMax, 0, 1);
+      if (zoom == zoomMax)
+        f  = 0;      
     } else
     {
       zoom = 1.0;

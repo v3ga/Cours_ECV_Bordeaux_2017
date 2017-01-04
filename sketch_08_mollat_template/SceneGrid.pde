@@ -55,6 +55,7 @@ class SceneGrid extends Scene
   int m_iOver, m_jOver;
   float cellTimeRevealFactor;
   boolean bGridChanged = false;
+  int imageDivider=4;
 
   // --------------------------------------------
   SceneGrid(String name)
@@ -93,9 +94,10 @@ class SceneGrid extends Scene
   }
 
   // --------------------------------------------
-  void setGridChanged()
+  void setGridChanged(int divider)
   {
     bGridChanged = true;
+    imageDivider = divider;
   }
 
   // --------------------------------------------
@@ -130,14 +132,12 @@ class SceneGrid extends Scene
   // --------------------------------------------
   void onNewFrame()
   {
-
-    PImage imageVisageCompute = faceOSC.getImageVisageCompute();
-    if (imageVisageCompute != null)
+      PImage imageVisageCompute = faceOSC.getImageVisageCompute();
+    if (bGridChanged && imageVisageCompute!=null)
     {
-      if (imageVisageCompute.width * imageVisageCompute.height != m_gridw*m_gridh)
-      {
-        bGridChanged = true;
-      }
+        
+
+      imageVisageCompute.resize( faceOSC.imageVisageWidth / imageDivider, faceOSC.imageVisageHeight / imageDivider );
 
       m_gridw = imageVisageCompute.width;
       m_gridh = imageVisageCompute.height;
@@ -145,8 +145,6 @@ class SceneGrid extends Scene
       m_cellw = width / m_gridw;
       m_cellh = height / m_gridh;
 
-      if (bGridChanged)
-      {
         println("-- creating grid ("+m_gridw+","+m_gridh+")");
         bGridChanged  = false;
         m_grid = new GridCell[m_gridw][m_gridh];
@@ -160,7 +158,6 @@ class SceneGrid extends Scene
 
             initGridCell(gc);
           }
-      }
     }
   }
 

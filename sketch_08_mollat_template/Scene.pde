@@ -15,6 +15,7 @@ class Scene
   boolean canExportPDF = false;
   boolean bExportPDF = false;
   boolean bFaceSaved = false;
+  boolean bCompositionSaved = false;
 
   // Save face id
   int idFaceSave=0;
@@ -23,12 +24,13 @@ class Scene
   boolean bOnBeginAnimCalled = false;
   float timeOnBeginAnimCall = 0.0f;
 
+  float timeFaceSave = 5.0f;
 
   // --------------------------------------------
   Scene(String name_)
   {
     this.name = name_;
-//    this.pathData = sketchPath("data/scenes/"+this.name+"/");
+    //    this.pathData = sketchPath("data/scenes/"+this.name+"/");
     this.pathData = "data/scenes/"+this.name+"/";
   }
 
@@ -55,6 +57,7 @@ class Scene
   {
     bFaceSaved = false;
     bExportPDF = false;
+    bCompositionSaved = false;
 
     bOnBeginAnimCalled = false;
     timeOnBeginAnimCall = 0.0f;
@@ -89,6 +92,7 @@ class Scene
   {
     // save here spetactor face in a daily directory with file depending on idFaceSave 
     updateSaveFace();
+    // updateSaveComposition();
 
     // Update state 
     updateOnBeginAnimCall();
@@ -178,12 +182,39 @@ class Scene
   }
 
   // --------------------------------------------
+  void updateSaveComposition()
+  {
+    if (bCompositionSaved == false)
+    {
+      if (faceOSC.getStateTime() >= faceOSC.timeFaceSave*2.0 && faceOSC.state == FaceOSC.STATE_ZOOMED)
+      {
+        saveComposition();
+        bCompositionSaved = true;
+      }
+    } else
+    {
+      if (faceOSC.state == FaceOSC.STATE_REST)
+      {
+        bCompositionSaved = false;
+      }
+    }
+  }
+
+  // --------------------------------------------
+  void saveComposition()
+  {
+    createDirForToday();
+    idFaceSave= faceOSC.getId();
+    saveFrame(getFaceFilePath()+"_"+this.name+".png");
+  }
+
+  // --------------------------------------------
   void updateSaveFace()
   {
     // Not saved yet ? 
     if (bFaceSaved == false)
     {
-      if (faceOSC.getStateTime() >= 5.0f && faceOSC.state == FaceOSC.STATE_ZOOMED)
+      if (faceOSC.getStateTime() >= faceOSC.timeFaceSave && faceOSC.state == FaceOSC.STATE_ZOOMED)
       {
         saveFace();
         bFaceSaved = true;
@@ -198,6 +229,7 @@ class Scene
     }
   }
 
+
   // --------------------------------------------
   void saveFace()
   {
@@ -206,6 +238,8 @@ class Scene
     {
       createDirForToday();
       idFaceSave= faceOSC.getId(); // is useful is canExportPDF is et to true
+
+      // visage
       String faceFilePath = getFaceFilePath()+".png";
       if (imgVisage.save( faceFilePath ))
       {

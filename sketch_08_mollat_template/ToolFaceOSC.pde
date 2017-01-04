@@ -46,6 +46,11 @@ class ToolFaceOSC extends Tool
     .setLabel("face ratio threshold").moveTo("default").setWidth(200).setHeight(20)
     .addListener(this).linebreak();
 
+     cp5.addSlider("timeFaceSave").plugTo(faceOSC).setRange(0.5,5.0)
+    .setLabel("face time save").moveTo("default").setWidth(200).setHeight(20);
+
+
+
     cp5.addButton("saveTools").setLabel("save").plugTo(this).moveTo("default").setHeight(20).setPosition(toolManager.tabX,height-20-toolManager.tabY);
   }
 

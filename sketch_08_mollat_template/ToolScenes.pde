@@ -22,6 +22,6 @@ class ToolScenes extends Tool
 
     cp5.addSlider("timeChangeScene").plugTo(sceneManager).setValue(sceneManager.timeChangeScene).setRange(5.0, 90.0)
       .setLabel("time change scene").moveTo("scenes")
-      .setPosition(toolManager.tabX+4, toolManager.tabY+60).setWidth(200).setHeight(20).linebreak();
+      .setPosition(toolManager.tabX+4, toolManager.tabY+90).setWidth(200).setHeight(20).linebreak();
   }
 }

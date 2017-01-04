@@ -132,10 +132,15 @@ void setup()
   sceneManager.add( new SceneBenedicte("Benedicte_Alice") );
   sceneManager.add( new SceneEmily("Emily_Anna") );
   sceneManager.add( new SceneAlexis("Alexis_Max") );
+/*  SceneLea sceneLeaLea2 = new SceneLea("Lea_Lea2");
+  sceneLeaLea2.drawMode = sceneLeaLea2.DRAW_MODE_BUBBLES;
+  sceneManager.add(sceneLeaLea2);
+*/
 
   sceneManager.addForSequence( "Benedicte_Alice" );
   sceneManager.addForSequence( "Lea_Lea" );
   sceneManager.addForSequence( "Thibaut_Maxime" );
+
 
   sceneManager.setup();
   if (jsonSettings.getBoolean("enableSequence", false))
@@ -194,6 +199,10 @@ public void draw()
     if (__DEBUG_INFOS__)     drawDebugInfos();
   }
 
+  // Save composition
+  if (sceneCurrent != null)
+    sceneCurrent.updateSaveComposition();
+
   // Controls
   if (bControlsDraw)
     cp5.draw();
@@ -248,6 +257,7 @@ void keyPressed()
   else if (key == '3')   sceneManager.select("Benedicte_Alice");
   else if (key == '4')   sceneManager.select("Emily_Anna");
   else if (key == '5')   sceneManager.select("Alexis_Max");
+  else if (key == '6')   sceneManager.select("Lea_Lea2");
   else
   {
     Scene sceneCurrent = sceneManager.getCurrent();

@@ -61,8 +61,7 @@ class ToolBenedicte extends Tool
 
     cp5.addSlider("imageSizeBene").setBroadcast(false).addListener(this).plugTo(sceneManager.get("Benedicte_Alice")).moveTo("benedicte")
       .setPosition(toolManager.tabX, toolManager.tabY+30).setWidth(200).setHeight(20)
-      .setRange(2, 8).setValue(128)
-      .setNumberOfTickMarks(7)
+      .setRange(2, 10).setValue(128)
       .setBroadcast(true);
 
     cp5.addSlider("timeRevealBene").setBroadcast(false).addListener(this).moveTo("benedicte")
@@ -79,9 +78,8 @@ class ToolBenedicte extends Tool
     SceneBenedicte scene = (SceneBenedicte) sceneManager.get("Benedicte_Alice");
     if (e.getName().equals("imageSizeBene"))
     {
-      faceOSC.setImageVisageComputeWidth( (int)(faceOSC.imageVisageWidth / scene.imageSizeBene  ));
-      scene.setGridChanged();
-      println("-- SceneBenedicte.controlEvent(), scene.imageSizeBene="+scene.imageSizeBene);
+      scene.setGridChanged( int(e.getValue()) );
+//      println("-- SceneBenedicte.controlEvent(), faceOSC.imageVisageWidth = "+faceOSC.imageVisageWidth+", scene.imageSizeBene="+scene.imageSizeBene);
     }
     else if (e.getName().equals("timeRevealBene"))
     {

@@ -9,18 +9,23 @@
     "max": 100,
     "value": 16.975000381469727
   },
+  "/timeFaceSave": {
+    "min": 0.5,
+    "max": 5,
+    "value": 2.3450000286102295
+  },
   "/particleAttractionStrength": {
     "min": -10,
     "max": 10,
     "value": 5
   },
-  "/__DEBUG_BOUNDINGS__": {"value": 1},
+  "/__DEBUG_BOUNDINGS__": {"value": 0},
   "/blurLevel": {
     "min": 1,
     "max": 4,
     "value": 2.0799999237060547
   },
-  "/__DEBUG__": {"value": 0},
+  "/__DEBUG__": {"value": 1},
   "/bZoom": {"value": 1},
   "/timeChangeScene": {
     "min": 5,
@@ -46,7 +51,7 @@
   "/faceBoundingBorders": {
     "min": 0,
     "max": 100,
-    "value": 49.499996185302734
+    "value": 85
   },
   "/particleAttractionRadiusFactor": {
     "min": 1,
@@ -55,13 +60,13 @@
   },
   "/imageSizeBene": {
     "min": 2,
-    "max": 8,
-    "value": 3
+    "max": 10,
+    "value": 10
   },
   "/displacement": {
     "min": 0,
     "max": 1000,
-    "value": 0
+    "value": 250
   },
   "/__DEBUG_INFOS__": {"value": 1},
   "/timeRevealBene": {
@@ -72,7 +77,7 @@
   "/foundFactorRelax": {
     "min": 0.10000000149011612,
     "max": 1,
-    "value": 0.8999999761581421
+    "value": 1
   },
   "/alphaImageFace": {
     "min": 0,
@@ -84,7 +89,7 @@
     "max": 1,
     "value": 0.5859999656677246
   },
-  "/__DEBUG_FEATURES__": {"value": 1},
+  "/__DEBUG_FEATURES__": {"value": 0},
   "/timeOnBeginAnimCall": {
     "min": 0,
     "max": 10,
