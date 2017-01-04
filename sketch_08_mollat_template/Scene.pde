@@ -28,6 +28,7 @@ class Scene
   Scene(String name_)
   {
     this.name = name_;
+//    this.pathData = sketchPath("data/scenes/"+this.name+"/");
     this.pathData = "data/scenes/"+this.name+"/";
   }
 

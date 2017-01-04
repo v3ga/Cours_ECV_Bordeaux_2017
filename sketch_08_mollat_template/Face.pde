@@ -53,8 +53,12 @@ class Face
   BoundingBox boundingPortraitTight = new BoundingBox();  // with no borders
 
   BoundingBox boundingPose = new BoundingBox();
-
   float boundingPortraitBorders = 70.0;
+
+  // width of bounding box to frame
+  // can be helpful for filtering
+  float ratioToFrameSyphon = 0; 
+  float ratioToFrameSyphonThreshold = 0.4f;
 
   // --------------------------------------------
   int[] faceOutline = { 
@@ -110,6 +114,11 @@ class Face
     return (foundFactor>=0.2f);
   }
 
+  // --------------------------------------------
+  void setRatioToFrameSyphonThreshold(float value)
+  {
+    this.ratioToFrameSyphonThreshold = value;
+  }
   // --------------------------------------------
   void setBoundingPortraitBorders(float b)
   {
@@ -207,6 +216,9 @@ class Face
   {
     // Bounding if syphon screen
     bounding.compute(meshPoints);
+    
+    if (imageWidth > 0)
+      ratioToFrameSyphon = bounding.dimension.x / float(imageWidth);
 
     // Bounding in window space
     boundingPortrait = bounding.copy();
@@ -244,17 +256,18 @@ class Face
   // --------------------------------------------
   void update()
   {
-    if (found>0)
+    if (found>0 && ratioToFrameSyphon >= ratioToFrameSyphonThreshold)
     {
       foundFactor = 1.0f;
 
-      float s = poseScale/2.45;
+/*      float s = poseScale/2.45;
 
       eyeLeftPosition.set(posePosition.x - s*20, posePosition.y + (s*eyeLeft * -9) );
       eyeRightPosition.set(posePosition.x + s*20, posePosition.y + (s*eyeRight * -9) );
       mouthPosition.set(posePosition.x, posePosition.y + (s*25));
       nosePosition.set(posePosition.x, posePosition.y);
-    } else {
+*/
+  } else {
       foundFactorTarget = 0.0f;
       // foundFactor += (foundFactorTarget-foundFactor)*0.025f;
       foundFactor = float_relax(foundFactor, 0.0f, dt, foundFactorRelax);

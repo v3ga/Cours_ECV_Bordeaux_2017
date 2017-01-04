@@ -1,7 +1,6 @@
 void initControls(int tabX, int tabY, boolean autoDraw)
 {
-  // cp5 = new ControlP5(this);
-
+  
   // By default all controllers are stored inside Tab 'default' 
   // add a second tab with name 'extra'
   toolManager = new ToolManager(this);
@@ -13,10 +12,14 @@ void initControls(int tabX, int tabY, boolean autoDraw)
   toolManager.addTool( new ToolLea(this) );
   toolManager.addTool( new ToolAlexis(this) );
   toolManager.addTool( new ToolThibaut(this) );
+  println("--creating ToolBenedicte instance");
   toolManager.addTool( new ToolBenedicte(this) );
   
+  println("-- toolManager.initControls()");
   toolManager.initControls(tabX,tabY,autoDraw);
+  println("-- toolManager.setup()");
   toolManager.setup();
+  println("-- toolManager.loadProperties()");
   toolManager.loadProperties();
   
 /*  cp5.addTab("extra")

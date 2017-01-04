@@ -20,8 +20,13 @@ class SceneThibaut extends Scene
 
   boolean bSetup = false;  
   boolean bCreateText = true;
+  boolean bDoBlur = true;
+  float blurLevel = 2;
 
   float tTransition = 0.0f;
+
+  float resx = 40*2;
+  float resy = 30*Z;
 
   // --------------------------------------------
   SceneThibaut(String name)
@@ -55,8 +60,11 @@ class SceneThibaut extends Scene
     img = faceOSC.getImageVisage();
 
     displacementMap = img.copy();
-    displacementMap.filter(GRAY);
-    displacementMap.filter(BLUR, 4);
+    if (bDoBlur)
+    {
+      displacementMap.resize(img.width/4,img.height/4);
+      displacementMap.filter(BLUR, (int)blurLevel);
+    }
   }
 
   // --------------------------------------------
@@ -82,9 +90,10 @@ class SceneThibaut extends Scene
   // --------------------------------------------
   void createTextImage()
   {
-//    if (bCreateText)
+    if (bCreateText)
     {
       bCreateText = false;
+      
       if (tex == null)
         tex = createGraphics(width, height, P2D);
 
@@ -106,8 +115,8 @@ class SceneThibaut extends Scene
   {
     if (grid == null)
     {
-      float stepx = float(width) / 120;
-      float stepy = float(height) / 90;
+      float stepx = float(width) / resx;
+      float stepy = float(height) /resy;
       float x = 0.0;
       float y = 0.0;
       float u = 0.0;
@@ -117,10 +126,10 @@ class SceneThibaut extends Scene
       grid.beginShape(QUAD);
       grid.noStroke();
       grid.texture(tex);
-      for (int j=0; j<=90; j++)
+      for (int j=0; j<=resy; j++)
       {
         x = 0;
-        for (int i=0; i<=120; i++)
+        for (int i=0; i<=resx; i++)
         {
           u = x;
           v = y;
@@ -140,22 +149,20 @@ class SceneThibaut extends Scene
   // --------------------------------------------
   void draw()
   {
-    faceOSC.drawFrameSyphonZoom();
+    if (tTransition <= 1.0)
+      faceOSC.drawFrameSyphonZoom();
+    
     if (img !=null)
     {
-      PVector pos = faceOSC.posBoundingPortraitScreenZoom;
-      PVector dim = faceOSC.dimBoundingPortraitScreenZoom;
-
       createTextImage();
       createGrid();
-
 
       shader.set("displacementMap", displacementMap);
       shader.set("visage", img);
       shader.set("displacement", displacement);
       shader.set("alpha", tTransition);
       shader(shader);
-//      shape(grid, pos.x, pos.y, dim.x, dim.y);
+      //      shape(grid, pos.x, pos.y, dim.x, dim.y);
       shape(grid, 0, 0, width, height);
       resetShader();
     }
@@ -180,27 +187,37 @@ class ToolThibaut extends Tool
   // --------------------------------------------------------------------
   void initControls()
   {
+    SceneThibaut scene = (SceneThibaut) sceneManager.get("Thibaut_Maxime");
+    
     initTab("thibaut", "Thibaut & Maxime");
     cp5.addSlider("displacement")
-      .plugTo(sceneManager.get("Thibaut_Maxime")).setValue(0.0).setRange(0, 1000).setLabel("displacement").moveTo("thibaut")
+      .plugTo(scene).setValue(0.0).setRange(0, 1000).setLabel("displacement").moveTo("thibaut")
       .setWidth(200).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+30).linebreak();
 
     cp5.addSlider("textSize").addListener(this)
-      .plugTo(sceneManager.get("Thibaut_Maxime")).setValue(30).setRange(10, 100).setLabel("font size").moveTo("thibaut")
+      .plugTo(scene).setValue(30).setRange(10, 100).setLabel("font size").moveTo("thibaut")
       .setWidth(400).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+60).linebreak();
 
     cp5.addSlider("textLeading").addListener(this)
-      .plugTo(sceneManager.get("Thibaut_Maxime")).setValue(30).setRange(10, 100).setLabel("font leading").moveTo("thibaut")
+      .plugTo(scene).setValue(30).setRange(10, 100).setLabel("font leading").moveTo("thibaut")
       .setWidth(400).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+90).linebreak();
-  }
+
+    cp5.addToggle("bDoBlur")
+      .plugTo(scene).setValue(scene.bDoBlur).setLabel("blur").moveTo("thibaut")
+      .setWidth(20).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+120).linebreak();
+
+    cp5.addSlider("blurLevel")
+      .plugTo(scene).setValue(2).setRange(1, 4).setLabel("blur level").moveTo("thibaut")
+      .setWidth(200).setHeight(20).setPosition(toolManager.tabX, toolManager.tabY+150).linebreak();
+}
 
   // --------------------------------------------------------------------
   void controlEvent(ControlEvent theEvent) 
   {
     SceneThibaut scene = (SceneThibaut) sceneManager.get("Thibaut_Maxime");
-//    if (scene.bSetup) {
-      scene.bCreateText = true;
-            scene.createTextImage();
-//    }
+    //    if (scene.bSetup) {
+    scene.bCreateText = true;
+//    scene.createTextImage();
+    //    }
   }
 }

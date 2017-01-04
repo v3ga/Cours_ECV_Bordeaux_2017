@@ -306,6 +306,7 @@ class FaceOSC
 
     posBoundingPortraitScreenZoom.x = posFaceScreenZoom.x+zoom*(posBoundingPortraitScreen.x-posFaceScreen.x);
     posBoundingPortraitScreenZoom.y = posFaceScreenZoom.y+zoom*(posBoundingPortraitScreen.y-posFaceScreen.y);
+    
 
     dimBoundingPortraitScreenZoom.x = zoom * dimBoundingPortraitScreen.x;
     dimBoundingPortraitScreenZoom.y = zoom * dimBoundingPortraitScreen.y;

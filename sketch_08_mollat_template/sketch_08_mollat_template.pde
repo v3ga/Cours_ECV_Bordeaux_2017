@@ -204,11 +204,11 @@ void drawDebugInfos()
 {
   pushStyle();
   pushMatrix();
-  translate(toolManager.tabX, height-100-toolManager.tabY);
+  translate(toolManager.tabX, height-120-toolManager.tabY);
   strDebugInfos = "";
   if (sceneManager.getCurrent() != null)
     strDebugInfos += sceneManager.getCurrent().getDebugInfos()+"\n";
-  strDebugInfos += "faceOSC.state="+faceOSC.getStateAsString()+ "\nfaceOsc.poseScale="+nf(faceOSC.face.poseScale,1,2)+"\nfaceOsc.foundFactor = " + nf(faceOSC.face.getFoundFactor(), 1, 5) + "\nfaceOsc.stateTime="+nf(faceOSC.getStateTime(), 1, 1);
+  strDebugInfos += "faceOSC.state="+faceOSC.getStateAsString()+ "\nfaceOsc.poseScale="+nf(faceOSC.face.poseScale,1,2)+"\nfaceOsc.foundFactor = " + nf(faceOSC.face.getFoundFactor(), 1, 5) + "\nfaceOsc.stateTime="+nf(faceOSC.getStateTime(), 1, 1)+"\nfaceOsc.ratioToFrameSyphon="+nf(faceOSC.face.ratioToFrameSyphon,1,3);
   fill(255,255);
   textFont(fontDebug,12);
   text(strDebugInfos, 0, 0);

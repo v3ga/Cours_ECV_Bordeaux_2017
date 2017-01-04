@@ -54,6 +54,7 @@ class SceneGrid extends Scene
   int m_gridw, m_gridh;
   int m_iOver, m_jOver;
   float cellTimeRevealFactor;
+  boolean bGridChanged = false;
 
   // --------------------------------------------
   SceneGrid(String name)
@@ -92,10 +93,16 @@ class SceneGrid extends Scene
   }
 
   // --------------------------------------------
+  void setGridChanged()
+  {
+    bGridChanged = true;
+  }
+
+  // --------------------------------------------
   void setCellTimeRevealFactor(float factor)
   {
     this.cellTimeRevealFactor = factor;
-    
+
     if (m_grid == null) return;
 
     int i, j;
@@ -127,7 +134,10 @@ class SceneGrid extends Scene
     PImage imageVisageCompute = faceOSC.getImageVisageCompute();
     if (imageVisageCompute != null)
     {
-      boolean gridSizeChanged = (imageVisageCompute.width * imageVisageCompute.height != m_gridw*m_gridh);
+      if (imageVisageCompute.width * imageVisageCompute.height != m_gridw*m_gridh)
+      {
+        bGridChanged = true;
+      }
 
       m_gridw = imageVisageCompute.width;
       m_gridh = imageVisageCompute.height;
@@ -135,9 +145,10 @@ class SceneGrid extends Scene
       m_cellw = width / m_gridw;
       m_cellh = height / m_gridh;
 
-      if (gridSizeChanged)
+      if (bGridChanged)
       {
-
+        println("-- creating grid ("+m_gridw+","+m_gridh+")");
+        bGridChanged  = false;
         m_grid = new GridCell[m_gridw][m_gridh];
 
         int i, j;
@@ -179,13 +190,16 @@ class SceneGrid extends Scene
     if (imgFaceCompute != null && m_grid != null)
     {
 
+
+      float alpha = m_grid[i][j].alpha;
+      if (alpha < 2.0f)
+        return;
+
+
       float b = brightness( imgFaceCompute.get(i, j) ) / 255.0;
 
       float xx = i*m_cellw;
       float yy = j*m_cellh;
-
-      float alpha = m_grid[i][j].alpha;
-
       noStroke();
       fill(255, alpha);
       rect(xx, yy, m_cellw, m_cellh);
@@ -209,7 +223,7 @@ class SceneGrid extends Scene
   {
     faceOSC.drawFrameSyphonZoom();    
 
-    if (faceOSC.state == FaceOSC.STATE_ZOOMED)
+    if (faceOSC.isFound())
     {
       PImage imageVisageCompute = faceOSC.getImageVisageCompute();
       if (imageVisageCompute != null)

@@ -2,7 +2,8 @@
 	"config":			"dev",
 	"controlsDraw": 	true, 
 	"enableSequence":	false,
-	"scene":			"Lea_Lea"
+	"scene":			"Debug",
+	"cursor":			true
 }
 
 /*

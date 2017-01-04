@@ -41,7 +41,11 @@ class ToolFaceOSC extends Tool
     cp5.addSlider("faceBoundingBorders").setRange(0,100)
     .setLabel("face bounding borders").moveTo("default").setWidth(200).setHeight(20)
     .addListener(this).linebreak();
-    
+
+     cp5.addSlider("faceRatioThreshold").setRange(0.1,1.0)
+    .setLabel("face ratio threshold").moveTo("default").setWidth(200).setHeight(20)
+    .addListener(this).linebreak();
+
     cp5.addButton("saveTools").setLabel("save").plugTo(this).moveTo("default").setHeight(20).setPosition(toolManager.tabX,height-20-toolManager.tabY);
   }
 
@@ -60,10 +64,13 @@ class ToolFaceOSC extends Tool
   // --------------------------------------------------------------------
   void controlEvent(ControlEvent theEvent) 
   {
-    
     if (theEvent.getName().equals("faceBoundingBorders"))
     {
       faceOSC.getFace().setBoundingPortraitBorders( theEvent.getValue() );
+    }
+    else if (theEvent.getName().equals("faceRatioThreshold"))
+    {
+      faceOSC.getFace().setRatioToFrameSyphonThreshold( theEvent.getValue() );
     }
   }
   
