@@ -57,6 +57,7 @@ Ce type de machines a été utilisée par les artistes utilisant la programmatio
 #### Autres
 * Onformative — [Google faces](http://onformative.com/work/google-faces)
 * Nithi Prasanpanich — [Miami horror](https://nithi-p.github.io/finalproject/)
+* [Anti-surveillance clothing aims to hide wearers from facial recognition](https://www.theguardian.com/technology/2017/jan/04/anti-surveillance-clothing-facial-recognition-hyperface?CMP=share_btn_fb)
 
 ### Intervenants
 * Julien Gachadoat de [2Roqs](http://www.2roqs.fr)
