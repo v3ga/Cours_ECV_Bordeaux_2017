@@ -39,6 +39,8 @@ void setup()
   cp5.addSlider("niveauBlur").setRange(0, 4).linebreak();
   cp5.addSlider("levels").setRange(1, 20).linebreak();
   cp5.addSlider("levelMax").setRange(0.1, 1.0).setValue(0.5).linebreak();
+  cp5.addSlider("maxPixelH").setRange(1, 50).setValue(20).linebreak();
+  
   cp5.addToggle("bDrawImage").setLabel("draw image").linebreak();
   cp5.addButton("exportPDF").setLabel("export").linebreak();
   
