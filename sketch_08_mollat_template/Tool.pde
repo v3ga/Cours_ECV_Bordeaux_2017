@@ -109,13 +109,13 @@ class ToolManager extends ArrayList<Tool>
   // --------------------------------------------------------------------
   void saveProperties()
   {
-    cp5.saveProperties("data/tools");
+    cp5.saveProperties(sketchPath("data/tools"));
   }
 
   // --------------------------------------------------------------------
   void loadProperties()
   {
-    cp5.loadProperties("data/tools");
+    cp5.loadProperties(sketchPath("data/tools"));
   }
 
   // --------------------------------------------------------------------

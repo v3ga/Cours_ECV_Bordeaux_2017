@@ -142,7 +142,7 @@ class Face
       triangles[i] = new Triangle();
     }
 
-    Table table = loadTable("matches.csv", "header");
+    Table table = loadTable(sketchPath("data/matches.csv"), "header");
     for (TableRow row : table.rows()) 
     {
       int pi = row.getInt("p");
@@ -170,7 +170,7 @@ class Face
       triangles2[i] = new Triangle();
     }
 
-    Table table = loadTable("matches.csv", "header");
+    Table table = loadTable(sketchPath("data/matches.csv"), "header");
     for (TableRow row : table.rows()) {
       int pi = row.getInt("p");
       int ti = row.getInt("t");
@@ -192,7 +192,7 @@ class Face
     for (int i = 0; i < triangles.length; i++)
       triangles[i] = new Triangle();
 
-    Table table = loadTable("matches.csv", "header");
+    Table table = loadTable(sketchPath("data/matches.csv"), "header");
     for (TableRow row : table.rows()) 
     {
       int pi = row.getInt("p");

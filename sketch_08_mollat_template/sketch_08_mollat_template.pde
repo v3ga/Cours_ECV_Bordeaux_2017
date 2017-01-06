@@ -10,6 +10,7 @@ import de.looksgood.ani.easing.*;
 import org.processing.wiki.triangulate.*;
 
 
+
 // --------------------------------------------
 JSONObject jsonSettings;
 
@@ -71,7 +72,10 @@ void createConfigs()
 void loadSettings()
 {
   println("-- loadSettings()");
-  jsonSettings = loadJSONObject("settings.json");
+  println("   sketchPath="+sketchPath(""));
+  println("   dataPath="+dataPath(""));
+
+  jsonSettings = loadJSONObject(sketchPath("data/settings.json"));
 
   bControlsDraw = jsonSettings.getBoolean("controlsDraw", true);
 
@@ -149,7 +153,7 @@ void setup()
     sceneManager.select(jsonSettings.getString("scene", "Debug"));
 
   // Fonts
-  fontDebug = loadFont("fonts/Monaco-15.vlw");
+  fontDebug = loadFont(sketchPath("data/fonts/Monaco-15.vlw"));
 
   // Init controls
   initControls(config.controlTabX, config.controlTabY, false);

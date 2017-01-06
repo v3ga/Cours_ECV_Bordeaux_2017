@@ -267,7 +267,7 @@ class Scene
   // --------------------------------------------
   String getTodayDirPath()
   {
-    return dataPath("_exports/"+getTodayDirName());
+    return sketchPath("data/_exports/"+getTodayDirName());
   }
 
   // --------------------------------------------
