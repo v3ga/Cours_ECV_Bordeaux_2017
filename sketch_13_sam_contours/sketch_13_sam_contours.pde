@@ -6,9 +6,10 @@ import java.text.*;
 import java.util.*;
 
 // --------------------------------------------
-PImage visage;
+PImage visage, visageFilter;
 
-
+int niveauBlur = 1;
+int maxPixelH = 15;
 int levels = 2;                    // number of contours
 float levelMax = 1.0;
 int factor = 10;
@@ -35,11 +36,13 @@ void setup()
 
   cp5 = new ControlP5(this);
   cp5.setAutoDraw(false);
+  cp5.addSlider("niveauBlur").setRange(0, 4).linebreak();
   cp5.addSlider("levels").setRange(1, 20).linebreak();
-  cp5.addSlider("levelMax").setRange(0.1, 1.0).linebreak();
+  cp5.addSlider("levelMax").setRange(0.1, 1.0).setValue(0.5).linebreak();
   cp5.addToggle("bDrawImage").setLabel("draw image").linebreak();
   cp5.addButton("exportPDF").setLabel("export").linebreak();
-
+  
+  
   computeBlobs();
 }
 
@@ -68,14 +71,15 @@ void draw()
 }
 
 // --------------------------------------------
+// --------------------------------------------
 void computeBlobs()
 {
   theBlobDetection = new BlobDetection[levels];
 
   for (int i=0; i<levels; i++) {
-    theBlobDetection[i] = new BlobDetection(visage.width, visage.height);
+    theBlobDetection[i] = new BlobDetection(visageFilter.width, visageFilter.height);
     theBlobDetection[i].setThreshold(float(i)/float(levels) * levelMax);
-    theBlobDetection[i].computeBlobs(visage.pixels);
+    theBlobDetection[i].computeBlobs(visageFilter.pixels);
   }
 }
 
@@ -86,7 +90,7 @@ void drawContours(int i)
   EdgeVertex eA, eB;
   for (int n=0; n<theBlobDetection[i].getBlobNb(); n++) {
     b=theBlobDetection[i].getBlob(n);
-    if (b!=null) {
+    if (b!=null && (b.w*width)*(b.h*height)>=maxPixelH*maxPixelH) {
       stroke((float(i)/float(levels)*colorRange)+colorStart, 100, 100);
       for (int m=0; m<b.getEdgeNb(); m++) {
         eA = b.getEdgeVertexA(m);
@@ -105,13 +109,21 @@ void drawContours(int i)
 void controlEvent(ControlEvent e)
 {
   String name = e.getName();
-  if (name.equals("levels"))
+  if (name.equals("niveauBlur"))
   {
-    levels = (int)e.getValue();
+    niveauBlur = int(e.getValue());
+    filterVisage(niveauBlur);
     computeBlobs();
   }
-  if (name.equals("levelMax"))
+  else if (name.equals("levels"))
   {
+    levels = (int)e.getValue();
+    filterVisage(niveauBlur);
+    computeBlobs();
+  }
+  else if (name.equals("levelMax"))
+  {
+    filterVisage(niveauBlur);
     computeBlobs();
   }
 }
@@ -120,6 +132,15 @@ void controlEvent(ControlEvent e)
 void exportPDF()
 {
   bExportPDF = true;
+}
+
+// -------------------------------------------
+
+void filterVisage(int _niveauBlur){
+  visageFilter = visage.copy();
+  if(_niveauBlur>0){
+  visageFilter.filter(BLUR, _niveauBlur);
+  } 
 }
 
 // --------------------------------------------
