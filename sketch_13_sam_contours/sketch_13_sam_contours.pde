@@ -2,21 +2,24 @@
 import controlP5.*;
 import blobDetection.*;
 import processing.pdf.*;
+import java.text.*;
+import java.util.*;
 
 // --------------------------------------------
 PImage visage;
 
 
-int levels = 10;                    // number of contours
+int levels = 2;                    // number of contours
 float levelMax = 1.0;
 int factor = 10;
-float colorStart =  0;               // Starting dregee of color range in HSB Mode (0-360)
-float colorRange =  160;             // color range / can also be negative
+float colorStart =  0;
+float colorRange =  160;
 BlobDetection[] theBlobDetection = new BlobDetection[int(levels)];
 
 ControlP5 cp5;
 
 boolean bExportPDF = false;
+boolean bDrawImage = true;
 
 // --------------------------------------------
 void settings()
@@ -34,7 +37,8 @@ void setup()
   cp5.setAutoDraw(false);
   cp5.addSlider("levels").setRange(1, 20).linebreak();
   cp5.addSlider("levelMax").setRange(0.1, 1.0).linebreak();
-  cp5.addButton("exportPDF").linebreak();
+  cp5.addToggle("bDrawImage").setLabel("draw image").linebreak();
+  cp5.addButton("exportPDF").setLabel("export").linebreak();
 
   computeBlobs();
 }
@@ -43,13 +47,15 @@ void setup()
 void draw()
 {
   background(0);
+  if (bDrawImage)  
+    image(visage,0,0,width,height);
   if (bExportPDF)
   {
-    beginRecord(PDF, "export.pdf");
+    beginRecord(PDF, "export_"+getTime()+".pdf");
   }
   
   for (int i=0; i<levels; i++) {
-    drawContours(visage, i);
+    drawContours(i);
   }
   
   if (bExportPDF)
@@ -74,7 +80,7 @@ void computeBlobs()
 }
 
 // --------------------------------------------
-void drawContours(PImage img, int i) 
+void drawContours(int i) 
 {
   Blob b;
   EdgeVertex eA, eB;
@@ -87,8 +93,8 @@ void drawContours(PImage img, int i)
         eB = b.getEdgeVertexB(m);
         if (eA !=null && eB !=null)
           line(
-            eA.x*img.width*factor, eA.y*img.height*factor, 
-            eB.x*img.width*factor, eB.y*img.height*factor 
+            eA.x*width, eA.y*height, 
+            eB.x*width, eB.y*height 
             );
       }
     }
@@ -114,4 +120,14 @@ void controlEvent(ControlEvent e)
 void exportPDF()
 {
   bExportPDF = true;
+}
+
+// --------------------------------------------
+String getTime() 
+{
+  Date dNow = new Date( );
+  SimpleDateFormat time = new SimpleDateFormat ("hh"+"_"+"mm"+"_"+"ss");
+  println(time.format(dNow)); 
+  String t = time.format(dNow);
+  return t;
 }
