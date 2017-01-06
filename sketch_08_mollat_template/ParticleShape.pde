@@ -8,6 +8,7 @@ class ParticleShape extends VParticle
   float scale;
   color col = color(255);
   boolean bUpdateShape = true;
+  float colAlpha = 100;
 
   float sx, sy;
   PImage imgSource;
@@ -29,6 +30,12 @@ class ParticleShape extends VParticle
 
     age = 0;
     scale = 0;
+  }
+
+  // --------------------------------------------
+  void setAlpha(float alpha)
+  {
+    this.colAlpha = alpha;
   }
 
   // --------------------------------------------
@@ -99,10 +106,9 @@ class ParticleShape extends VParticle
 
       if (scale > 0)
       {
-        shape.setTint( col );
+        shape.setTint( color(red(col),green(col), blue(col),colAlpha) );
         shape.resetMatrix();
         shape.translate(x, y);
-        //      shape.scale( 2 );
       }
     }
   }

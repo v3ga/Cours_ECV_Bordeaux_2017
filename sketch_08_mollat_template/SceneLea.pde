@@ -19,7 +19,7 @@ class SceneLea extends Scene
 
   int DRAW_MODE_BUBBLES = 1;
   int DRAW_MODE_CONNEXIONS = 2;
-  int drawMode = DRAW_MODE_CONNEXIONS;
+  int drawMode = DRAW_MODE_BUBBLES;
 
 
   PShape particleShape, particleShapeGroup;
@@ -116,7 +116,7 @@ class SceneLea extends Scene
   {
     super.onBeginAnimation();
     //    createPhysics();
-    Ani.to(this, 1.0, "tTransition", 1.0, Ani.EXPO_IN_OUT, "onEnd:createPhysics");
+    Ani.to(this, 0.5, "tTransition", 1.0, Ani.EXPO_IN_OUT, "onEnd:createPhysics");
 //    Ani.to(this, 10.0, "tTransitionConnexions", 1.0);
     timeSpawn = 0;
   }
@@ -125,7 +125,7 @@ class SceneLea extends Scene
   void onTerminateAnimation()
   {
     super.onTerminateAnimation();
-    Ani.to(this, 1.0, "tTransition", 0.0, Ani.EXPO_IN_OUT, "onEnd:deletePhysics");
+    Ani.to(this, 0.5, "tTransition", 0.0, Ani.EXPO_IN_OUT, "onEnd:deletePhysics");
 //    Ani.to(this, 1.0, "tTransitionConnexions", 0.0);
   }
 
@@ -142,8 +142,9 @@ class SceneLea extends Scene
 
     if (physics != null && (particles == null || particles.length < amountMax) && imgFace!=null)
     {
-      timeSpawn += dt;
-      if (timeSpawn>0.01f)
+//      timeSpawn += dt;
+//      if (timeSpawn>0.01f)
+      for (int i=0;i<3;i++)
       {
         createParticle(imgFace, width/2+random(-10,10), height/2+random(-10,10));
         createParticle(imgFace, width/4+random(-10,10), 0.4*height+random(-10,10));
@@ -219,6 +220,16 @@ class SceneLea extends Scene
   void drawPoints()
   {
     if (particleShapeGroup == null) return;
+    if (particles == null) return;
+  
+    float a = 0.0f;
+    if (tTransition > 0.02f)
+    {
+      a = tTransition*255.0; 
+    }  
+      for (int i=0; i<particles.length;i++)
+        particles[i].setAlpha( a );
+    
     beginDraw();
     shape(particleShapeGroup);
     endDraw();
