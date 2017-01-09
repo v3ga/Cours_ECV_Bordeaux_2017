@@ -168,7 +168,7 @@ Dans le cadre de « Codex », Mark Webster animera une conférence exceptionnell
 
 
 
-## Fabrication du cadre (16 décembre au 23 décembre 2016)
+## Fabrication du cadre (du 16 décembre au 23 décembre 2016)
 Le cadre a été conçu et réalisé par Michaël Zancan / 2Roqs.
 
 ![Cadre](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_cadre_01.JPG)
@@ -181,4 +181,10 @@ Le cadre a été conçu et réalisé par Michaël Zancan / 2Roqs.
 ![Cadre](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_cadre_08.JPG)
 ![Cadre](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_cadre_09.JPG)
 ![Cadre](http://v3ga.github.io/Images/Cours_ECV_Bordeaux_2017/vitrine_mollat_cadre_10.JPG)
+
+## Atelier (du 3 janvier au 6 janvier 2017)
+![Atelier](https://c1.staticflickr.com/1/563/31764193080_fc5b4df380_c.jpg)
+
+
+
 
