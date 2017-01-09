@@ -184,6 +184,8 @@ Le cadre a été conçu et réalisé par Michaël Zancan / 2Roqs.
 
 ## Atelier (du 3 janvier au 6 janvier 2017)
 ![Atelier](https://c1.staticflickr.com/1/563/31764193080_fc5b4df380_c.jpg)
+![Atelier](https://c2.staticflickr.com/1/485/32088066001_ab42e08005_n.jpg)
+![Atelier](https://c2.staticflickr.com/1/287/32019963281_90bb1f96de_m.jpg)
 
 
 
