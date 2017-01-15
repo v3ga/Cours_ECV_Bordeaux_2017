@@ -40,6 +40,7 @@ Ce type de machines a été utilisée par les artistes utilisant la programmatio
 * Zachary Lieberman — https://www.instagram.com/p/BDlMXqlpNuW/
 * Kyle McDonald — [Face substitution](https://vimeo.com/29348533)
 * Mario Kinglemann — [Google experiments](https://www.fastcodesign.com/3062016/this-neural-network-makes-human-faces-from-scratch-and-theyre-terrifying) + [ici](http://prostheticknowledge.tumblr.com/post/147652093136/neural-network-portraits-examples-of-images-from)
+* Jean Hui Lao - [Self-portrait machine](http://we-make-money-not-art.com/selfportrait_machine/)
 * Julien Gachadoat — [Delaunay man](https://www.flickr.com/photos/v3ga/15820575937/in/dateposted-public/)
 
 #### Images
