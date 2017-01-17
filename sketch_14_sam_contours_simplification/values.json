@@ -1,0 +1,33 @@
+{
+  "/bDrawContoursVertex": {"value": 1},
+  "/bDrawDiagram": {"value": 1},
+  "/bDrawImage": {"value": 1},
+  "/bDrawDiagramDotNumbers": {"value": 0},
+  "/maxPixelH": {
+    "min": 1,
+    "max": 50,
+    "value": 20
+  },
+  "/niveauBlur": {
+    "min": 0,
+    "max": 4,
+    "value": 1.5353535413742065
+  },
+  "/alphaContours": {
+    "min": 0,
+    "max": 255,
+    "value": 139.09091186523438
+  },
+  "/levels": {
+    "min": 1,
+    "max": 20,
+    "value": 2
+  },
+  "/bComputeGlobalDiagram": {"value": 1},
+  "/bDrawContours": {"value": 1},
+  "/levelMax": {
+    "min": 0.10000000149011612,
+    "max": 1,
+    "value": 0.290909081697464
+  }
+}
