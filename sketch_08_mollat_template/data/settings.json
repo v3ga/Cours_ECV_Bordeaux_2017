@@ -1,5 +1,5 @@
 {
-	"config":			"dev",
+	"config":			"jpo",
 	"controlsDraw": 	true, 
 	"enableSequence":	false,
 	"scene":			"Debug",

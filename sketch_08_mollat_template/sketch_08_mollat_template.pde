@@ -61,10 +61,14 @@ String strDebugInfos = "";
 // --------------------------------------------
 void createConfigs()
 {
+  println("-- createConfigs()");
   configs = new AppConfigs();
-  configs.add( new AppConfig("dev", 600, 800, false, 0, 0) );
-  configs.add( new AppConfig("mollat", 900, 1600, true, 30, 30) );
+  configs.load("data/configs.json");
+  
+  
+/*  configs.add( new AppConfig("dev", 600, 800, false, 0, 0) );
   configs.add( new AppConfig("mollat2", 720, 1280, true, 30, 30) );
+*/
 }
 
 

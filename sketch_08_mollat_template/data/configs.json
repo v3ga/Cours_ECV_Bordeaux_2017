@@ -1,0 +1,29 @@
+[
+{
+	"name":			     "dev",
+  "windowWidth":    600,
+  "windowHeight":   800,
+  "fullscreen":     false,
+  "controlTabX":    0,
+  "controlTabY":    0
+},
+{
+  "name":          "mollat2",
+  "windowWidth":    720,
+  "windowHeight":   1280,
+  "fullscreen":     true,
+  "controlTabX":    30,
+  "controlTabY":    30
+},
+{
+  "name":          "jpo",
+  "windowWidth":    600,
+  "windowHeight":   800,
+  "fullscreen":     false,
+  "controlTabX":    0,
+  "controlTabY":    0
+}
+]
+
+
+

@@ -31,6 +31,29 @@ class AppConfigs extends ArrayList<AppConfig>
     }
     return null;
   }
-  
-  
+
+  // --------------------------------------------
+  void load(String filename)
+  {
+    String pathFile = sketchPath(filename);
+    println("   loading '"+pathFile+"'");
+    
+    JSONArray configs = loadJSONArray(pathFile);
+    for (int i = 0; i < configs.size(); i++) 
+    {
+      JSONObject jsonConfig = configs.getJSONObject(i);
+
+      String name = jsonConfig.getString("name");
+      int ww = jsonConfig.getInt("windowWidth");
+      int wh = jsonConfig.getInt("windowHeight");
+      boolean bFullscreen = jsonConfig.getBoolean("fullscreen");
+      int cTabX = jsonConfig.getInt("controlTabX");
+      int cTabY = jsonConfig.getInt("controlTabY");
+
+      println("   new config '"+name+"'");
+
+
+      add( new AppConfig(name,ww,wh,bFullscreen,cTabX,cTabY));
+    }
+  }
 }
