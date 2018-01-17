@@ -191,5 +191,22 @@ Le cadre a été conçu et réalisé par Michaël Zancan / 2Roqs.
 ## Application
 http://www.v3ga.net/projects/codex/171018_Codex.zip
 
+### Configuration 
+#### data/settings.json 
+Ce fichier permet de configurer certains paramètres de l'application, notamment l'affichage des contrôles (interface de réglage) mais aussi le mode d'affichage de l'application (plein écran ou non, taille de la fenêtre, etc...) 
+- `config` : fait référence aux entrées dans le fichier data/configs.json pour la configuration de l'application. Mettre à la valeur `mollat2` pour les JPO.
+- `controlsDraw` : `true` | `false` pour l'affichage de l'interface des paramètres.
+- `enableSequence` : `true` | `false` pour le déclenchement de la séquence d'animations.
+- `cursor` : `true` | `false` pour l'affichage du curseur.
+
+#### paramètres
+- `FaceOSC / Face Ratio Thresold` définit le rapport minimum entre la largeur du visage et la largeur du cadre FaceOSC pour déclencher une animation. Exemple : une valeur de 0.50 indique que la largeur du visage doit être plus grand que la moitié de la largeur du cadre.  
+- `Scenes / Time onBeginAnimation Call` : temps en secondes au bout duquel l'animation déclenche son animation de transition une fois que le visage est détecté.
+- `Scenes / Time Change Scene` : temps en secondes au bout duquel une animation va changer si aucun visage n'a été détecté. 
+
+
+
+
+
 
 
